@@ -9,13 +9,8 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         //TRY TO PUSH
-        /////////////
-        ///// dcsdciojsdvkdovkdovvmkl yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy
-///lol yy
 
 
-        //teshufosdhodhodfhodfahiopadhoidsfod
-
-        // Julien's my new changes
+        // Julien's Branch
     }
 }
