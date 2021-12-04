@@ -3,14 +3,83 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@id/mainActivity">
-    <activity
-        android:id="@+id/mainActivity"
-        android:name="com.epfl.esl.myapplication.MainActivity"
-        android:label="activity_main"
-        tools:layout="@layout/activity_main" />
+    app:startDestination="@id/loginFragment">
     <fragment
         android:id="@+id/addClosetFragment"
         android:name="com.epfl.esl.myapplication.AddClosetFragment"
-        android:label="AddClosetFragment" />
+        android:label="AddClosetFragment" >
+        <action
+            android:id="@+id/action_addClosetFragment_to_closetFragment"
+            app:destination="@id/closetFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/closetFragment"
+        android:name="com.epfl.esl.myapplication.ClosetFragment"
+        android:label="ClosetFragment" >
+        <action
+            android:id="@+id/action_closetFragment_to_addClosetFragment"
+            app:destination="@id/addClosetFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.epfl.esl.myapplication.HomeFragment"
+        android:label="HomeFragment" >
+        <action
+            android:id="@+id/action_homeFragment_to_showRandomOutfitFragment"
+            app:destination="@id/showRandomOutfitFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.epfl.esl.myapplication.LoginFragment"
+        android:label="LoginFragment" >
+        <action
+            android:id="@+id/action_loginFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/outfitFragment"
+        android:name="com.epfl.esl.myapplication.OutfitFragment"
+        android:label="OutfitFragment" >
+        <action
+            android:id="@+id/action_outfitFragment_to_addOutfitFragment3"
+            app:destination="@id/addOutfitFragment3" />
+    </fragment>
+    <fragment
+        android:id="@+id/showClosetFragment"
+        android:name="com.epfl.esl.myapplication.ShowClosetFragment"
+        android:label="ShowClosetFragment" >
+        <action
+            android:id="@+id/action_showClosetFragment_to_addOutfitFragment3"
+            app:destination="@id/addOutfitFragment3" />
+    </fragment>
+    <fragment
+        android:id="@+id/showOutfitFragment"
+        android:name="com.epfl.esl.myapplication.ShowOutfitFragment"
+        android:label="ShowOutfitFragment" >
+        <action
+            android:id="@+id/action_showOutfitFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/showRandomOutfitFragment"
+        android:name="com.epfl.esl.myapplication.ShowRandomOutfitFragment"
+        android:label="ShowRandomOutfitFragment" >
+        <action
+            android:id="@+id/action_showRandomOutfitFragment_to_showOutfitFragment"
+            app:destination="@id/showOutfitFragment" />
+        <action
+            android:id="@+id/action_showRandomOutfitFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addOutfitFragment3"
+        android:name="com.epfl.esl.myapplication.AddOutfitFragment"
+        android:label="AddOutfitFragment" >
+        <action
+            android:id="@+id/action_addOutfitFragment3_to_outfitFragment"
+            app:destination="@id/outfitFragment" />
+        <action
+            android:id="@+id/action_addOutfitFragment3_to_showClosetFragment"
+            app:destination="@id/showClosetFragment" />
+    </fragment>
 </navigation>

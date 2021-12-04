@@ -7,24 +7,24 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 
-class AddClosetFragment : Fragment() {
+class ShowRandomOutfitFragment : Fragment() {
 
     companion object {
-        fun newInstance() = AddClosetFragment()
+        fun newInstance() = ShowRandomOutfitFragment()
     }
 
-    private lateinit var viewModel: AddClosetViewModel
+    private lateinit var viewModel: ShowRandomOutfitViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.add_closet_fragment, container, false)
+        return inflater.inflate(R.layout.show_random_outfit_fragment, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(AddClosetViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(ShowRandomOutfitViewModel::class.java)
         // TODO: Use the ViewModel
     }
 
