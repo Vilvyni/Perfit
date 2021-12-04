@@ -11,8 +11,6 @@ class MainActivity : AppCompatActivity() {
         //TRY TO PUSH
 
 
-        // Master Changes
-
-        // This is julien's Branch
+        // Julien's Branch
     }
 }
