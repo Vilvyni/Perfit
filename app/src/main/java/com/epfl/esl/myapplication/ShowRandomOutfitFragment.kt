@@ -19,7 +19,7 @@ class ShowRandomOutfitFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.show_random_outfit_fragment, container, false)
+        return inflater.inflate(R.layout.fragment_show_random_outfit, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
