@@ -9,6 +9,7 @@ import androidx.navigation.ui.NavigationUI
 import com.epfl.esl.myapplication.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
+//    "Heeey I made the login work"
 
     private lateinit var drawerLayout: DrawerLayout
 
