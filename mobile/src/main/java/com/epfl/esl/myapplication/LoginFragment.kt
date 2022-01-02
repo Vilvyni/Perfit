@@ -6,26 +6,37 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
+import androidx.navigation.Navigation
+import com.epfl.esl.myapplication.databinding.FragmentLoginBinding
 
 class LoginFragment : Fragment() {
 
-    companion object {
-        fun newInstance() = LoginFragment()
-    }
-
+    private lateinit var binding: FragmentLoginBinding
     private lateinit var viewModel: LoginViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_login, container, false)
+        binding =
+            DataBindingUtil.inflate(inflater, R.layout.fragment_login,
+                container, false)
+
+//        LOGIN to REGISTER
+        binding.register.setOnClickListener {view : View ->
+            Navigation.findNavController(view)
+                .navigate(R.id.action_loginFragment_to_registerFragment2)
+        }
+
+//        LOGIN to HOME
+        binding.logIn.setOnClickListener {view : View ->
+            Navigation.findNavController(view)
+                .navigate(R.id.action_loginFragment_to_homeFragment)
+        }
+
+        return binding.root
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(LoginViewModel::class.java)
-        // TODO: Use the ViewModel
-    }
 
 }

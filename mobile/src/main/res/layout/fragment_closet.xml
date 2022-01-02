@@ -62,7 +62,7 @@
 
 
         <Button
-            android:id="@+id/new_item"
+            android:id="@+id/add_clothes"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="add clothes"
