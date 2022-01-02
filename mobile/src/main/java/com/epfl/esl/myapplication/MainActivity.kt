@@ -29,12 +29,6 @@ class MainActivity : AppCompatActivity() {
         bottomNavigationView.setupWithNavController(navController)
 
 
-//        NavigationUI.setupActionBarWithNavController(this, navController, drawerLayout)
-//        NavigationUI.setupWithNavController(binding.navView, navController)
-
-
-//        setBottomNavigationVisibility(View.GONE)
-
 
 
 
