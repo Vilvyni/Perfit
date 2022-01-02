@@ -57,4 +57,9 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         // TODO: Use the ViewModel
     }
 
+    override fun onResume() {
+        super.onResume()
+        (activity as MainActivity).setBottomNavigationVisibility(View.VISIBLE)
+    }
+
 }

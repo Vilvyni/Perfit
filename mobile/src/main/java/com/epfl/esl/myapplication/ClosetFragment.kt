@@ -25,6 +25,7 @@ class ClosetFragment : Fragment(R.layout.fragment_closet) {
 
 //        CLOSET to ADD_CLOSET
         binding.addClothes.setOnClickListener {view : View ->
+            (activity as MainActivity).setBottomNavigationVisibility(View.GONE)
             Navigation.findNavController(view)
                 .navigate(R.id.action_closetFragment_to_addClosetFragment)
         }
@@ -37,6 +38,11 @@ class ClosetFragment : Fragment(R.layout.fragment_closet) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(ClosetViewModel::class.java)
         // TODO: Use the ViewModel
+    }
+
+    override fun onResume() {
+        super.onResume()
+        (activity as MainActivity).setBottomNavigationVisibility(View.VISIBLE)
     }
 
 }

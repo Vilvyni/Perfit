@@ -20,6 +20,7 @@ class AddOutfitFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        (activity as MainActivity).setBottomNavigationVisibility(View.GONE)
         binding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_add_outfit,
                 container, false)

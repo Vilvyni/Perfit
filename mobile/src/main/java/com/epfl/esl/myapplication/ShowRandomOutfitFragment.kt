@@ -20,6 +20,7 @@ class ShowRandomOutfitFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        (activity as MainActivity).setBottomNavigationVisibility(View.GONE)
         binding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_show_random_outfit,
                 container, false)

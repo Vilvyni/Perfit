@@ -25,10 +25,12 @@ class MainActivity : AppCompatActivity() {
         drawerLayout = binding.drawerLayout
 
         val navController = this.findNavController(R.id.mainFragment)
-        val bottomNavigationView = binding.bottomMenuView
+//        NavigationUI.setupActionBarWithNavController(this, navController, drawerLayout)
+//        NavigationUI.setupWithNavController(binding.navView, navController)
+
+        bottomNavigationView = binding.bottomMenuView
         bottomNavigationView.setupWithNavController(navController)
-
-
+        setBottomNavigationVisibility(View.GONE)
 
 
 
