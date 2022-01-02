@@ -24,16 +24,18 @@ class MainActivity : AppCompatActivity() {
         val binding: ActivityMainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         drawerLayout = binding.drawerLayout
 
-        //val navController = this.findNavController(R.id.mainFragment)
-        //NavigationUI.setupActionBarWithNavController(this, navController, drawerLayout)
-        //NavigationUI.setupWithNavController(binding.navView, navController)
-
-        /*val navController = this.findNavController(R.id.mainFragment)
-        val bottomNavigationView = binding.bottomNavigationView
+        val navController = this.findNavController(R.id.mainFragment)
+        val bottomNavigationView = binding.bottomMenuView
         bottomNavigationView.setupWithNavController(navController)
-        setBottomNavigationVisibility(View.GONE)
 
-         */
+
+//        NavigationUI.setupActionBarWithNavController(this, navController, drawerLayout)
+//        NavigationUI.setupWithNavController(binding.navView, navController)
+
+
+//        setBottomNavigationVisibility(View.GONE)
+
+
 
 
     }
