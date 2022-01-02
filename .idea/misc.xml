@@ -41,8 +41,29 @@
         <entry key="..\:/Users/zyysu/Desktop/EPFL/MA3/lab_on_app/FINAL_REPO_PERFIT/app/src/main/res/layout/login_fragment.xml" value="0.3255208333333333" />
         <entry key="..\:/Users/zyysu/Desktop/EPFL/MA3/lab_on_app/FINAL_REPO_PERFIT/app/src/main/res/layout/outfit_fragment.xml" value="0.17760416666666667" />
         <entry key="..\:/Users/zyysu/Desktop/EPFL/MA3/lab_on_app/FINAL_REPO_PERFIT/app/src/main/res/layout/show_outfit_fragment.xml" value="0.17760416666666667" />
+        <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.3536458333333333" />
+        <entry key="app/src/main/res/drawable/bm_home_background.xml" value="0.3536458333333333" />
+        <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.3536458333333333" />
+        <entry key="app/src/main/res/drawable/ic_menu_camera.xml" value="0.3536458333333333" />
+        <entry key="app/src/main/res/drawable/ic_menu_gallery.xml" value="0.3536458333333333" />
+        <entry key="app/src/main/res/drawable/side_nav_bar.xml" value="0.3536458333333333" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/add_closet_fragment.xml" value="0.3375" />
+        <entry key="app/src/main/res/layout/fragment_add_closet.xml" value="0.3375" />
+        <entry key="app/src/main/res/layout/fragment_add_outfit.xml" value="0.3375" />
+        <entry key="app/src/main/res/layout/fragment_closet.xml" value="0.3375" />
+        <entry key="app/src/main/res/layout/fragment_home.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/fragment_login.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/fragment_outfit.xml" value="0.3375" />
+        <entry key="app/src/main/res/layout/fragment_outfit_2.xml" value="0.3380208333333333" />
+        <entry key="app/src/main/res/layout/fragment_register.xml" value="0.3375" />
+        <entry key="app/src/main/res/layout/fragment_show_closet.xml" value="0.3375" />
+        <entry key="app/src/main/res/layout/fragment_show_outfit.xml" value="0.3375" />
+        <entry key="app/src/main/res/layout/fragment_show_random_outfit.xml" value="0.3375" />
         <entry key="app/src/main/res/layout/home_fragment.xml" value="0.13425925925925927" />
         <entry key="app/src/main/res/layout/login_fragment.xml" value="0.22" />
+        <entry key="app/src/main/res/menu/bottom_nav_menu.xml" value="0.3375" />
+        <entry key="app/src/main/res/menu/navigation.xml" value="0.3380208333333333" />
       </map>
     </option>
   </component>

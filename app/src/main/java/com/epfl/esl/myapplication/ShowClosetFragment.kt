@@ -19,7 +19,7 @@ class ShowClosetFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.show_closet_fragment, container, false)
+        return inflater.inflate(R.layout.fragment_show_closet, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {

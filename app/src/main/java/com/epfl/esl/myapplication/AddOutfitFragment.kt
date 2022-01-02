@@ -19,7 +19,7 @@ class AddOutfitFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.add_outfit_fragment, container, false)
+        return inflater.inflate(R.layout.fragment_add_outfit, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {

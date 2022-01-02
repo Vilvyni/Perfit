@@ -7,7 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 
-class ClosetFragment : Fragment() {
+class ClosetFragment : Fragment(R.layout.fragment_closet) {
 
     companion object {
         fun newInstance() = ClosetFragment()
@@ -19,7 +19,7 @@ class ClosetFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.closet_fragment, container, false)
+        return inflater.inflate(R.layout.fragment_closet, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
