@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "160434500023",
+    "project_id": "loginfirebaseperfit",
+    "storage_bucket": "loginfirebaseperfit.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:160434500023:android:c8e2f466c655c50ea6f832",
+        "android_client_info": {
+          "package_name": "com.epfl.esl.myapplication"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "160434500023-v08iru5036oi52isnb1hshlh1155art1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCLD4W10EJ7tn-l-Q3nHl8HYXg17QWn8Ic"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "160434500023-v08iru5036oi52isnb1hshlh1155art1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
