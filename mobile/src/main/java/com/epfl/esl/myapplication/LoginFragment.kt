@@ -31,9 +31,7 @@ class LoginFragment : Fragment() {
 
 
         user = FirebaseAuth.getInstance()
-        binding.logIn.setOnClickListener {
-            registerUser()
-        }
+
 
 //        LOGIN to REGISTER
         binding.register.setOnClickListener {view : View ->
@@ -46,6 +44,7 @@ class LoginFragment : Fragment() {
             Navigation.findNavController(view)
                 .navigate(R.id.action_loginFragment_to_homeFragment)
             (activity as MainActivity).setBottomNavigationVisibility(View.VISIBLE)
+            registerUser()
         }
 
         return binding.root
