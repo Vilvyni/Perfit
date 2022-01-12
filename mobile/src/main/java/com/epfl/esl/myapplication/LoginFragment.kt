@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.Navigation
@@ -25,6 +26,18 @@ class LoginFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+//        @Suppress ("DEPRECATION")
+//        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.R){
+//            windowlinsetController?.hide(WindowInsets.Type.statusBars())
+//
+//        }else {
+//            window.setFlags(
+//                WindowManager.LayoutParams.FLAG_FULLSCREEN,
+//                WindowManager.LayoutParams.FLAG_FULLSCREEN,
+//            )
+//        }
+
         binding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_login,
                 container, false)
@@ -41,10 +54,8 @@ class LoginFragment : Fragment() {
 
 //        LOGIN to HOME
         binding.logIn.setOnClickListener {view : View ->
-            Navigation.findNavController(view)
-                .navigate(R.id.action_loginFragment_to_homeFragment)
-            (activity as MainActivity).setBottomNavigationVisibility(View.VISIBLE)
-            registerUser()
+            var loginFlag = loginUser(view)
+
         }
 
         return binding.root
@@ -55,40 +66,35 @@ class LoginFragment : Fragment() {
         (activity as MainActivity).setBottomNavigationVisibility(View.GONE)
     }
 
-    private fun registerUser(){
+
+    private fun loginUser(view:View){
         val email = binding.username.text.toString()
         val password = binding.password.text.toString()
 
         if (email.isNotEmpty() && password.isNotEmpty()){
-
-            user.createUserWithEmailAndPassword(email,password)
-                    .addOnCompleteListener{ task ->
-                if (task.isSuccessful){
-                    Toast.makeText(
+            user.signInWithEmailAndPassword(email,password)
+                .addOnCompleteListener { signIn ->
+                    if (signIn.isSuccessful) {
+                        Navigation.findNavController(view)
+                            .navigate(R.id.action_loginFragment_to_homeFragment)
+                        (activity as MainActivity).setBottomNavigationVisibility(View.VISIBLE)
+                        Toast.makeText(
                             context,
-                            "User added succesfully",
-                            Toast.LENGTH_SHORT
-                    ).show()
-
-//                    startActivity(Intent(this,
-//                    HomeFragment::class.Java))
-//                    finish()
-                }else{
-                    Toast.makeText(
+                            "signed in successfully",
+                            Toast.LENGTH_LONG
+                        ).show()
+                    } else {
+                        Toast.makeText(
                             context,
-                            task.exception!!.message,
-                            Toast.LENGTH_SHORT
-                    ).show()
+                            "sign in failed",
+                            Toast.LENGTH_LONG
+                        ).show()
+                    }
                 }
-            }
-
-
         }else{
             Toast.makeText(context,
                     "Email and password cannot be empty",
                     Toast.LENGTH_LONG).show()
         }
     }
-
-
 }
