@@ -10,8 +10,11 @@ import android.widget.Button
 import com.epfl.esl.myapplication.R
 import com.epfl.esl.myapplication.firestore.FirestoreClass
 import com.epfl.esl.myapplication.models.User
+import com.epfl.esl.myapplication.utils.Constants
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_login.*
+
+
 
 /**
  * Login Screen of the application.
@@ -108,13 +111,16 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
             FirebaseAuth.getInstance().signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener { task ->
 
-                    // Hide the progress dialog
-
-
                     if (task.isSuccessful) {
 
+                        // TODO Step 5: Move the hide progress dialog to else part and remove the success message and call the getUserDetails function from Firestore class once the user is logged in.
+                        // START
+                        /*showErrorSnackBar("You are logged in successfully.", false)*/
+
                         FirestoreClass().getUserDetails(this@LoginActivity)
+                        // END
                     } else {
+                        // Hide the progress dialog
                         hideProgressDialog()
                         showErrorSnackBar(task.exception!!.message.toString(), true)
                     }
@@ -122,6 +128,11 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
         }
     }
 
+    // TODO Step 7: Create a function to notify user that logged in success and details are fetched from Cloud Firestore.
+    // START
+    /**
+     * A function to notify user that logged in success and get the user details from the FireStore database after authentication.
+     */
     fun userLoggedInSuccess(user: User) {
 
         // Hide the progress dialog.
@@ -132,8 +143,19 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
         Log.i("Last Name: ", user.lastName)
         Log.i("Email: ", user.email)
 
-        // Redirect the user to Main Screen after log in.
-        startActivity(Intent(this@LoginActivity, MainActivity::class.java))
+        if (user.profileCompleted == 0) {
+            // If the user profile is incomplete then launch the UserProfileActivity.
+            val intent = Intent(this@LoginActivity, UserProfileActivity::class.java)
+            // TODO Step 4: Pass the user details to the user profile screen.
+            // START
+            intent.putExtra(Constants.EXTRA_USER_DETAILS, user)
+            // END
+            startActivity(intent)
+        } else {
+            // Redirect the user to Main Screen after log in.
+            startActivity(Intent(this@LoginActivity, MainActivity::class.java))
+        }
         finish()
     }
 }
+
