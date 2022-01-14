@@ -10,7 +10,7 @@ import androidx.fragment.app.Fragment
 import com.epfl.esl.myapplication.R
 //import com.epfl.esl.myapplication.activities.databinding.FragmentNotificationsBinding
 
-class NotificationsFragment : Fragment() {
+class OutfitsFragment : Fragment() {
 
     // TODO Step 3: Remove the ViewModel class and its instance as we are not going to use it as for now.
     // START
@@ -24,7 +24,7 @@ class NotificationsFragment : Fragment() {
         /*notificationsViewModel =
             ViewModelProviders.of(this).get(NotificationsViewModel::class.java)*/
 
-        val root = inflater.inflate(R.layout.fragment_notifications, container, false)
+        val root = inflater.inflate(R.layout.fragment_outfits, container, false)
         val textView: TextView = root.findViewById(R.id.text_notifications)
         textView.text = "This is notifications Fragment"
 

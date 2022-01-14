@@ -8,30 +8,30 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 
 import com.epfl.esl.myapplication.R
-//import com.epfl.esl.myapplication.activities.databinding.FragmentHomeBinding
+//import com.epfl.esl.myapplication.activities.databinding.FragmentDashboardBinding
 
 class HomeFragment : Fragment() {
 
-    // TODO Step 2: Remove the ViewModel class and its instance as we are not going to use it as for now.
+    // TODO Step 1: Remove the ViewModel class and its instance as we are not going to use it as for now.
     // START
-    /*private lateinit var homeViewModel: HomeViewModel*/
+    /*private lateinit var dashboardViewModel: DashboardViewModel*/
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        /*homeViewModel =
-            ViewModelProviders.of(this).get(HomeViewModel::class.java)*/
+
+        /*dashboardViewModel =
+            ViewModelProviders.of(this).get(DashboardViewModel::class.java)*/
 
         val root = inflater.inflate(R.layout.fragment_home, container, false)
-        val textView: TextView = root.findViewById(R.id.text_home)
-        textView.text = "This is home Fragment"
+        val textView: TextView = root.findViewById(R.id.text_dashboard)
+        textView.text = "This is dashboard Fragment"
 
-        /*homeViewModel.text.observe(viewLifecycleOwner, Observer {
+        /*dashboardViewModel.text.observe(viewLifecycleOwner, Observer {
             textView.text = it
         })*/
-
         return root
     }
     // END
