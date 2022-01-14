@@ -1,20 +1,23 @@
 package com.epfl.esl.myapplication.ui.fragments
 
+import android.content.Intent
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 
 import com.epfl.esl.myapplication.R
+import com.epfl.esl.myapplication.ui.activities.SettingsActivity
+
 //import com.epfl.esl.myapplication.activities.databinding.FragmentDashboardBinding
 
 class DashboardFragment : Fragment() {
 
-    // TODO Step 1: Remove the ViewModel class and its instance as we are not going to use it as for now.
-    // START
-    /*private lateinit var dashboardViewModel: DashboardViewModel*/
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        // If we want to use the option menu in fragment we need to add it.
+        setHasOptionsMenu(true)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -34,5 +37,21 @@ class DashboardFragment : Fragment() {
         })*/
         return root
     }
-    // END
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.dashboard_menu, menu)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        val id = item.itemId
+
+        when (id) {
+
+            R.id.action_settings -> {
+                startActivity(Intent(activity, SettingsActivity::class.java))
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
 }
