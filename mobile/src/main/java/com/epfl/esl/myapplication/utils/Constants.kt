@@ -38,6 +38,7 @@ object Constants {
     const val IMAGE: String = "image"
 
     const val COMPLETE_PROFILE: String = "profileCompleted"
+
     // END
 
 
