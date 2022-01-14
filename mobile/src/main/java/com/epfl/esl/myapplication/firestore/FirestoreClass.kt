@@ -18,6 +18,7 @@ class FirestoreClass {
     private val mFireStore = FirebaseFirestore.getInstance()
 
     /**
+     * 
      * A function to make an entry of the registered user in the FireStore database.
      */
     fun registerUser(activity: RegisterActivity, userInfo: User) {
