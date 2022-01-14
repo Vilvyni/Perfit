@@ -8,6 +8,7 @@ import com.epfl.esl.myapplication.ui.activities.LoginActivity
 import com.epfl.esl.myapplication.ui.activities.RegisterActivity
 import com.epfl.esl.myapplication.ui.activities.UserProfileActivity
 import com.epfl.esl.myapplication.models.User
+import com.epfl.esl.myapplication.ui.activities.SettingsActivity
 import com.epfl.esl.myapplication.utils.Constants
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -98,6 +99,10 @@ class FirestoreClass {
                         // Call a function of base activity for transferring the result to it.
                         activity.userLoggedInSuccess(user)
                     }
+
+                    is SettingsActivity -> {
+                        activity.userDetailsSuccess(user)
+                    }
                 }
             }
             .addOnFailureListener { e ->
@@ -105,6 +110,10 @@ class FirestoreClass {
                 when (activity) {
                     is LoginActivity -> {
                         activity.hideProgressDialog()
+                    }
+                    is SettingsActivity ->{
+                        activity.hideProgressDialog()
+
                     }
                 }
 
