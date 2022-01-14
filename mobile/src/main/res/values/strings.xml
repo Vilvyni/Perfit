@@ -70,7 +70,7 @@
 
     <string name="please_click_back_again_to_exit">Please click back again to exit.</string>
     <string name="title_closet">Closet</string>
-    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
     <string name="title_outfits">Outfits</string>
 
 </resources>

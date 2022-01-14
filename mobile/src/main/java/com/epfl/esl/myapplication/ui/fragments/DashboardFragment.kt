@@ -10,7 +10,7 @@ import androidx.fragment.app.Fragment
 import com.epfl.esl.myapplication.R
 //import com.epfl.esl.myapplication.activities.databinding.FragmentDashboardBinding
 
-class HomeFragment : Fragment() {
+class DashboardFragment : Fragment() {
 
     // TODO Step 1: Remove the ViewModel class and its instance as we are not going to use it as for now.
     // START
@@ -25,7 +25,7 @@ class HomeFragment : Fragment() {
         /*dashboardViewModel =
             ViewModelProviders.of(this).get(DashboardViewModel::class.java)*/
 
-        val root = inflater.inflate(R.layout.fragment_home, container, false)
+        val root = inflater.inflate(R.layout.fragment_dashboard, container, false)
         val textView: TextView = root.findViewById(R.id.text_dashboard)
         textView.text = "This is dashboard Fragment"
 

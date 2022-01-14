@@ -73,6 +73,7 @@
         <entry key="mobile/src/main/res/drawable/drawable_gender_tab_selector.xml" value="0.29010416666666666" />
         <entry key="mobile/src/main/res/drawable/drawable_gender_tab_text_color_selector.xml" value="0.29010416666666666" />
         <entry key="mobile/src/main/res/drawable/ic_black_color_back_24dp.xml" value="0.28229166666666666" />
+        <entry key="mobile/src/main/res/drawable/ic_dashboard_black.xml" value="0.23385416666666667" />
         <entry key="mobile/src/main/res/drawable/ic_user_placeholder.xml" value="0.29010416666666666" />
         <entry key="mobile/src/main/res/drawable/user_image_background.xml" value="0.44375" />
         <entry key="mobile/src/main/res/layout/activity_base.xml" value="0.27395833333333336" />
