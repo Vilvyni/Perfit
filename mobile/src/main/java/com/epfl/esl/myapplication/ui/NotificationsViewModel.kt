@@ -1,4 +1,4 @@
-package com.epfl.esl.myapplication.activities.ui.notifications
+package com.epfl.esl.myapplication.ui
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

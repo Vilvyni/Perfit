@@ -1,4 +1,4 @@
-package com.epfl.esl.myapplication.activities
+package com.epfl.esl.myapplication.ui.activities
 import android.os.Bundle
 import android.text.TextUtils
 import android.view.WindowManager

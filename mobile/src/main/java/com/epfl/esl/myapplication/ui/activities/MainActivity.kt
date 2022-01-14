@@ -1,18 +1,10 @@
-package com.epfl.esl.myapplication.activities
+package com.epfl.esl.myapplication.ui.activities
 
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
-import androidx.databinding.DataBindingUtil
-import androidx.drawerlayout.widget.DrawerLayout
-import androidx.navigation.findNavController
-import androidx.navigation.ui.NavigationUI
-import androidx.navigation.ui.setupWithNavController
 import com.epfl.esl.myapplication.R
-import com.epfl.esl.myapplication.databinding.ActivityMainBinding
 import com.epfl.esl.myapplication.utils.Constants
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
