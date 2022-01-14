@@ -2,6 +2,7 @@ package com.epfl.esl.myapplication.firestore
 import android.app.Activity
 import android.content.Context
 import android.content.SharedPreferences
+import android.net.Uri
 import android.util.Log
 import com.epfl.esl.myapplication.activities.LoginActivity
 import com.epfl.esl.myapplication.activities.RegisterActivity
@@ -11,6 +12,8 @@ import com.epfl.esl.myapplication.utils.Constants
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
 
 class FirestoreClass {
 
@@ -76,8 +79,6 @@ class FirestoreClass {
                 // Here we have received the document snapshot which is converted into the User Data model object.
                 val user = document.toObject(User::class.java)!!
 
-                // TODO Step 2: Create an instance of the Android SharedPreferences.
-                // START
                 val sharedPreferences =
                     activity.getSharedPreferences(
                         Constants.MYPERFIT_PREFERENCES,
@@ -91,7 +92,6 @@ class FirestoreClass {
                     "${user.firstName} ${user.lastName}"
                 )
                 editor.apply()
-                // END
 
                 when (activity) {
                     is LoginActivity -> {
@@ -116,6 +116,7 @@ class FirestoreClass {
             }
     }
 
+
     /**
      * A function to update the user profile data into the database.
      *
@@ -131,8 +132,6 @@ class FirestoreClass {
             .update(userHashMap)
             .addOnSuccessListener {
 
-                // TODO Step 9: Notify the success result to the base activity.
-                // START
                 // Notify the success result.
                 when (activity) {
                     is UserProfileActivity -> {
@@ -140,7 +139,6 @@ class FirestoreClass {
                         activity.userProfileUpdateSuccess()
                     }
                 }
-                // END
             }
             .addOnFailureListener { e ->
 
@@ -158,4 +156,61 @@ class FirestoreClass {
                 )
             }
     }
+
+    // TODO Step 6: Create a function to upload the image to the Cloud Storage.
+    // START
+    // A function to upload the image to the cloud storage.
+    fun uploadImageToCloudStorage(activity: Activity, imageFileURI: Uri?) {
+
+        //getting the storage reference
+        val sRef: StorageReference = FirebaseStorage.getInstance().reference.child(
+            Constants.USER_PROFILE_IMAGE + System.currentTimeMillis() + "."
+                    + Constants.getFileExtension(
+                activity,
+                imageFileURI
+            )
+        )
+
+        //adding the file to reference
+        sRef.putFile(imageFileURI!!)
+            .addOnSuccessListener { taskSnapshot ->
+                // The image upload is success
+                Log.e(
+                    "Firebase Image URL",
+                    taskSnapshot.metadata!!.reference!!.downloadUrl.toString()
+                )
+
+                // Get the downloadable url from the task snapshot
+                taskSnapshot.metadata!!.reference!!.downloadUrl
+                    .addOnSuccessListener { uri ->
+                        Log.e("Downloadable Image URL", uri.toString())
+
+                        // TODO Step 8: Pass the success result to base class.
+                        // START
+                        // Here call a function of base activity for transferring the result to it.
+                        when (activity) {
+                            is UserProfileActivity -> {
+                                activity.imageUploadSuccess(uri.toString())
+                            }
+                        }
+
+                    }
+            }
+            .addOnFailureListener { exception ->
+
+                // Hide the progress dialog if there is any error. And print the error in log.
+                when (activity) {
+                    is UserProfileActivity -> {
+                        activity.hideProgressDialog()
+                    }
+                }
+
+                Log.e(
+                    activity.javaClass.simpleName,
+                    exception.message,
+                    exception
+                )
+            }
+    }
+    // END
 }

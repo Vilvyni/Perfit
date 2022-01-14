@@ -22,15 +22,17 @@ import kotlinx.android.synthetic.main.activity_user_profile.*
 import java.io.IOException
 
 
-/**
- * A user profile screen.
- */
 class UserProfileActivity : BaseActivity(), View.OnClickListener {
 
-    // TODO Step 2: Create the userDetails variable as global and rename it as "mUserDetails."
-    // START
     // Instance of User data model class. We will initialize it later on.
     private lateinit var mUserDetails: User
+
+    // Add a global variable for URI of a selected image from phone storage.
+    private var mSelectedImageFileUri: Uri? = null
+
+    // TODO Step 1: Create a global variable for uploaded image URL.
+    // START
+    private var mUserProfileImageURL: String = ""
     // END
 
     /**
@@ -41,12 +43,6 @@ class UserProfileActivity : BaseActivity(), View.OnClickListener {
         super.onCreate(savedInstanceState)
         // This is used to align the xml view to this class
         setContentView(R.layout.activity_user_profile)
-
-        // TODO Step 1: Make the userDetails variable global.
-        // START
-        // Create a instance of the User model class.
-        /*var userDetails: User = User()*/
-        // END
 
         if (intent.hasExtra(Constants.EXTRA_USER_DETAILS)) {
             // Get the user details from intent as a ParcelableExtra.
@@ -97,45 +93,63 @@ class UserProfileActivity : BaseActivity(), View.OnClickListener {
 
                 R.id.btn_save -> {
 
+                    // TODO Step 3: Uncomment the code and use the image URL global variable to update the image URL to Firestore. Make the necessary changes.
+
                     if (validateUserProfileDetails()) {
 
-                        // TODO Step 4: Create a HashMap of user details to be updated in the database and add the values init.
+                        // TODO Step 12: Make it common for the both cases.
                         // START
-                        val userHashMap = HashMap<String, Any>()
-
-                        // Here the field which are not editable needs no update. So, we will update user Mobile Number and Gender for now.
-
-                        // Here we get the text from editText and trim the space
-                        val mobileNumber = et_mobile_number.text.toString().trim { it <= ' ' }
-
-                        val gender = if (rb_male.isChecked) {
-                            Constants.MALE
-                        } else {
-                            Constants.FEMALE
-                        }
-
-                        if (mobileNumber.isNotEmpty()) {
-                            userHashMap[Constants.MOBILE] = mobileNumber.toLong()
-                        }
-
-                        userHashMap[Constants.GENDER] = gender
-                        // END
-
-
-                        // TODO Step 6: Remove the message and call the function to update user details.
-                        // START
-                        /*showErrorSnackBar("Your details are valid. You can update them.", false)*/
-
                         // Show the progress dialog.
                         showProgressDialog(resources.getString(R.string.please_wait))
-
-                        // call the registerUser function of FireStore class to make an entry in the database.
-                        FirestoreClass().updateUserProfileData(
-                            this@UserProfileActivity,
-                            userHashMap
-                        )
                         // END
+
+                        if (mSelectedImageFileUri != null) {
+
+                            FirestoreClass().uploadImageToCloudStorage(
+                                this@UserProfileActivity,
+                                mSelectedImageFileUri
+                            )
+                        } else {
+
+                            // TODO Step 4: Move this piece of code to the separate function as the profile image is optional. So, if the image is uploaded then we will update the image URL in the firestore.
+                            // START
+                            /*val userHashMap = HashMap<String, Any>()
+
+                            // Here the field which are not editable needs no update. So, we will update user Mobile Number and Gender for now.
+
+                            // Here we get the text from editText and trim the space
+                            val mobileNumber = et_mobile_number.text.toString().trim { it <= ' ' }
+
+                            val gender = if (rb_male.isChecked) {
+                                Constants.MALE
+                            } else {
+                                Constants.FEMALE
+                            }
+
+                            if (mobileNumber.isNotEmpty()) {
+                                userHashMap[Constants.MOBILE] = mobileNumber.toLong()
+                            }
+
+                            userHashMap[Constants.GENDER] = gender
+
+                            // Show the progress dialog.
+                            showProgressDialog(resources.getString(R.string.please_wait))
+
+                            // call the registerUser function of FireStore class to make an entry in the database.
+                            FirestoreClass().updateUserProfileData(
+                                this@UserProfileActivity,
+                                userHashMap
+                            )*/
+
+                            // END
+
+                            // TODO Step 8: Call the user update details function.
+                            // START
+                            updateUserProfileDetails()
+                            // END
+                        }
                     }
+                    // END
                 }
             }
         }
@@ -189,11 +203,12 @@ class UserProfileActivity : BaseActivity(), View.OnClickListener {
             if (requestCode == Constants.PICK_IMAGE_REQUEST_CODE) {
                 if (data != null) {
                     try {
+
                         // The uri of selected image from phone storage.
-                        val selectedImageFileUri = data.data!!
+                        mSelectedImageFileUri = data.data!!
 
                         GlideLoader(this@UserProfileActivity).loadUserPicture(
-                            selectedImageFileUri,
+                            mSelectedImageFileUri!!,
                             iv_user_photo
                         )
                     } catch (e: IOException) {
@@ -234,8 +249,53 @@ class UserProfileActivity : BaseActivity(), View.OnClickListener {
         }
     }
 
-    // TODO Step 7: Create a function to notify the success result and proceed further accordingly.
+    // TODO Step 5: Create a function to update the user profile details to firestore.
     // START
+    /**
+     * A function to update user profile details to the firestore.
+     */
+    private fun updateUserProfileDetails() {
+
+        val userHashMap = HashMap<String, Any>()
+
+        // Here the field which are not editable needs no update. So, we will update user Mobile Number and Gender for now.
+
+        // Here we get the text from editText and trim the space
+        val mobileNumber = et_mobile_number.text.toString().trim { it <= ' ' }
+
+        val gender = if (rb_male.isChecked) {
+            Constants.MALE
+        } else {
+            Constants.FEMALE
+        }
+
+        // TODO Step 7: Now update the profile image field if the image URL is not empty.
+        // START
+        if (mUserProfileImageURL.isNotEmpty()) {
+            userHashMap[Constants.IMAGE] = mUserProfileImageURL
+        }
+        // END
+
+        if (mobileNumber.isNotEmpty()) {
+            userHashMap[Constants.MOBILE] = mobileNumber.toLong()
+        }
+
+        userHashMap[Constants.GENDER] = gender
+
+        // TODO 11 : Remove the show progress dialog piece of code from here to avoid the jerk hiding and showing it at the same time.
+        // START
+        // Show the progress dialog.
+        /*showProgressDialog(resources.getString(R.string.please_wait))*/
+        // END
+
+        // call the registerUser function of FireStore class to make an entry in the database.
+        FirestoreClass().updateUserProfileData(
+            this@UserProfileActivity,
+            userHashMap
+        )
+    }
+    // END
+
     /**
      * A function to notify the success result and proceed further accordingly after updating the user details.
      */
@@ -255,5 +315,28 @@ class UserProfileActivity : BaseActivity(), View.OnClickListener {
         startActivity(Intent(this@UserProfileActivity, MainActivity::class.java))
         finish()
     }
-    // END
+
+    /**
+     * A function to notify the success result of image upload to the Cloud Storage.
+     *
+     * @param imageURL After successful upload the Firebase Cloud returns the URL.
+     */
+    fun imageUploadSuccess(imageURL: String) {
+
+        // TODO Step 10: Remove the hide progress dialog code
+        // START
+        // Hide the progress dialog
+        /*hideProgressDialog()*/
+        // END
+
+        // TODO Step 2: Remove the Toast message and assign the value to the global variable.
+        // START
+        mUserProfileImageURL = imageURL
+        // END
+
+        // TODO Step 9: Call the user update details function.
+        // START
+        updateUserProfileDetails()
+        // END
+    }
 }
