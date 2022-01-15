@@ -39,6 +39,9 @@ object Constants {
 
     const val COMPLETE_PROFILE: String = "profileCompleted"
 
+    const val FIRST_NAME: String = "firstName"
+    const val LAST_NAME: String = "lastName"
+
     // END
 
 

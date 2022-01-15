@@ -78,4 +78,6 @@
     <string name="lbl_addresses">Location</string>
     <string name="btn_lbl_logout">Logout</string>
 
+    <string name="title_edit_profile">EDIT PROFILE</string>
+
 </resources>
