@@ -9,6 +9,7 @@ import com.epfl.esl.myapplication.models.Item
 import com.epfl.esl.myapplication.models.User
 import com.epfl.esl.myapplication.ui.activities.*
 import com.epfl.esl.myapplication.ui.fragments.ClosetFragment
+import com.epfl.esl.myapplication.ui.fragments.DashboardFragment
 import com.epfl.esl.myapplication.utils.Constants
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -301,33 +302,35 @@ class FirestoreClass {
     /**
      * A function to get the dashboard items list. The list will be an overall items list, not based on the user's id.
      */
-//    fun getDashboardItemsList(fragment: DashboardFragment) {
-//        // The collection name for PRODUCTS
-//        mFireStore.collection(Constants.PRODUCTS)
-//            .get() // Will get the documents snapshots.
-//            .addOnSuccessListener { document ->
-//
-//                // Here we get the list of boards in the form of documents.
-//                Log.e(fragment.javaClass.simpleName, document.documents.toString())
-//
-//                // Here we have created a new instance for Products ArrayList.
-//                val productsList: ArrayList<Product> = ArrayList()
-//
-//                // A for loop as per the list of documents to convert them into Products ArrayList.
-//                for (i in document.documents) {
-//
-//                    val product = i.toObject(Product::class.java)!!
-//                    product.product_id = i.id
-//                    productsList.add(product)
-//                }
-//
-//                // Pass the success result to the base fragment.
-//                fragment.successDashboardItemsList(productsList)
-//            }
-//            .addOnFailureListener { e ->
-//                // Hide the progress dialog if there is any error which getting the dashboard items list.
-//                fragment.hideProgressDialog()
-//                Log.e(fragment.javaClass.simpleName, "Error while getting dashboard items list.", e)
-//            }
-//    }
+
+    // Getting data for every user (might not need to do this).
+    fun getDashboardItemsList(fragment: DashboardFragment) {
+        // The collection name for PRODUCTS
+        mFireStore.collection(Constants.ITEMS)
+            .get() // Will get the documents snapshots.
+            .addOnSuccessListener { document ->
+
+                // Here we get the list of boards in the form of documents.
+                Log.e(fragment.javaClass.simpleName, document.documents.toString())
+
+                // Here we have created a new instance for Products ArrayList.
+                val itemsList: ArrayList<Item> = ArrayList()
+
+                // A for loop as per the list of documents to convert them into Products ArrayList.
+                for (i in document.documents) {
+
+                    val item = i.toObject(Item::class.java)!!
+                    item.item_id = i.id
+                    itemsList.add(item)
+                }
+
+                // Pass the success result to the base fragment.
+                fragment.successDashboardItemsList(itemsList)
+            }
+            .addOnFailureListener { e ->
+                // Hide the progress dialog if there is any error which getting the dashboard items list.
+                fragment.hideProgressDialog()
+                Log.e(fragment.javaClass.simpleName, "Error while getting dashboard items list.", e)
+            }
+    }
 }

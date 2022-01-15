@@ -13,6 +13,8 @@ import com.epfl.esl.myapplication.firestore.FirestoreClass
 import com.epfl.esl.myapplication.models.Item
 import com.epfl.esl.myapplication.ui.activities.AddItemActivity
 import com.epfl.esl.myapplication.ui.activities.SettingsActivity
+import com.epfl.esl.myapplication.ui.adapters.MyItemsListAdapter
+import kotlinx.android.synthetic.main.fragment_closet.*
 
 //import com.epfl.esl.myapplication.activities.databinding.FragmentHomeBinding
 
@@ -34,27 +36,21 @@ class ClosetFragment : BaseFragment(){
         // Hide Progress dialog.
         hideProgressDialog()
 
-        for (i in itemsList){
-            Log.i("Item Name",i.title)
-        }
+        if (itemsList.size > 0) {
 
-//        if (productsList.size > 0) {
-//            rv_my_product_items.visibility = View.VISIBLE
-//            tv_no_products_found.visibility = View.GONE
-//
-//            rv_my_product_items.layoutManager = LinearLayoutManager(activity)
-//            rv_my_product_items.setHasFixedSize(true)
-//
-//            // TODO Step 7: Pass the third parameter value.
-//            // START
-//            val adapterProducts =
-//                MyProductsListAdapter(requireActivity(), productsList, this@ProductsFragment)
-//            // END
-//            rv_my_product_items.adapter = adapterProducts
-//        } else {
-//            rv_my_product_items.visibility = View.GONE
-//            tv_no_products_found.visibility = View.VISIBLE
-//        }
+            rv_my_product_items.visibility = View.VISIBLE
+            tv_no_products_found.visibility = View.GONE
+
+            rv_my_product_items.layoutManager = LinearLayoutManager(activity)
+            rv_my_product_items.setHasFixedSize(true)
+
+            val adapterProducts = MyItemsListAdapter(requireActivity(), itemsList, this)
+            // END
+            rv_my_product_items.adapter = adapterProducts
+        } else {
+            rv_my_product_items.visibility = View.GONE
+            tv_no_products_found.visibility = View.VISIBLE
+        }
     }
 
     private fun getItemListFromFireStore() {
