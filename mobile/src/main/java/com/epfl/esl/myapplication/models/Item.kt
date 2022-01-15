@@ -12,7 +12,7 @@ data class Item(
     val description: String = "",
     val stock_quantity: String = "",
     val image: String = "",
-    val id: String = "",
+    var item_id: String = "",
 
 
 

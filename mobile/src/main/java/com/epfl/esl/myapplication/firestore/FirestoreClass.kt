@@ -4,9 +4,11 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.net.Uri
 import android.util.Log
+import androidx.fragment.app.Fragment
 import com.epfl.esl.myapplication.models.Item
 import com.epfl.esl.myapplication.models.User
 import com.epfl.esl.myapplication.ui.activities.*
+import com.epfl.esl.myapplication.ui.fragments.ClosetFragment
 import com.epfl.esl.myapplication.utils.Constants
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -246,49 +248,55 @@ class FirestoreClass {
             }
     }
 //
-//    /**
-//     * A function to get the products list from cloud firestore.
-//     *
-//     * @param fragment The fragment is passed as parameter as the function is called from fragment and need to the success result.
-//     */
-//    fun getProductsList(fragment: Fragment) {
-//        // The collection name for PRODUCTS
-//        mFireStore.collection(Constants.PRODUCTS)
-//            .whereEqualTo(Constants.USER_ID, getCurrentUserID())
-//            .get() // Will get the documents snapshots.
-//            .addOnSuccessListener { document ->
-//
-//                // Here we get the list of boards in the form of documents.
-//                Log.e("Products List", document.documents.toString())
-//
-//                // Here we have created a new instance for Products ArrayList.
-//                val productsList: ArrayList<Product> = ArrayList()
-//
-//                // A for loop as per the list of documents to convert them into Products ArrayList.
-//                for (i in document.documents) {
-//
-//                    val product = i.toObject(Product::class.java)
-//                    product!!.product_id = i.id
-//
-//                    productsList.add(product)
-//                }
-//
-//                when (fragment) {
-//                    is ProductsFragment -> {
-//                        fragment.successProductsListFromFireStore(productsList)
-//                    }
-//                }
-//            }
-//            .addOnFailureListener { e ->
-//                // Hide the progress dialog if there is any error based on the base class instance.
-//                when (fragment) {
-//                    is ProductsFragment -> {
-//                        fragment.hideProgressDialog()
-//                    }
-//                }
-//                Log.e("Get Product List", "Error while getting product list.", e)
-//            }
-//    }
+    /**
+     * A function to get the products list from cloud firestore.
+     *
+     * @param fragment The fragment is passed as parameter as the function is called from fragment and need to the success result.
+     */
+
+    //Looking into our database
+    fun getItemsList(fragment: Fragment) {
+        // The collection name for PRODUCTS
+        mFireStore.collection(Constants.ITEMS)
+            .whereEqualTo(Constants.USER_ID, getCurrentUserID())  // only get the elements that fit our user ID
+            .get() // Will get the documents snapshots.
+            .addOnSuccessListener { document ->
+
+                // Here we get the list of boards in the form of documents.
+                Log.e("Items List", document.documents.toString())
+
+                // Here we have created a new instance for Products ArrayList.
+                val itemsList: ArrayList<Item> = ArrayList()
+
+                // A for loop as per the list of documents to convert them into Products ArrayList.
+                for (i in document.documents) {
+
+                    val item = i.toObject(Item::class.java)
+                    item!!.item_id = i.id // create a new product id
+
+                    itemsList.add(item)
+                }
+
+                when (fragment) {
+                    is ClosetFragment -> {
+                        fragment.successItemsListFromFireStore(itemsList)
+                    }
+                }
+            }
+            .addOnFailureListener { e ->
+                // Hide the progress dialog if there is any error based on the base class instance.
+                when (fragment) {
+                    is ClosetFragment -> {
+                        fragment.hideProgressDialog()
+                    }
+                }
+                Log.e("Get Item List", "Error while getting product list.", e)
+            }
+
+    }
+
+
+
 
     /**
      * A function to get the dashboard items list. The list will be an overall items list, not based on the user's id.
