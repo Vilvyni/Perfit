@@ -20,12 +20,12 @@ class ForgotPasswordActivity : BaseActivity() {
 
         setupActionBar()
 
-        //TODO Step 2: Assign the click even to the submit button.
+        // Assign the click even to the submit button.
         // In this screen there is only a one input field so we will not create the separate function what we have done in the Register and Login Screens.
         // I will show you how to perform all the operations in the on click function it self.
 
         // START
-        btn_submit.setOnClickListener {
+        btn_submit_add_item.setOnClickListener {
 
             // Get the email id from the input field.
             val email: String = et_forgot_pw.text.toString().trim { it <= ' ' }
@@ -78,7 +78,7 @@ class ForgotPasswordActivity : BaseActivity() {
         }
 
         toolbar_forgot_password_activity.setNavigationOnClickListener { onBackPressed() }
-        btn_submit.setOnClickListener{
+        btn_submit_add_item.setOnClickListener{
             val email: String = et_forgot_pw.text.toString().trim{ it <= ' '}
 
             if(email.isEmpty()){

@@ -110,7 +110,7 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
 
                     if (task.isSuccessful) {
 
-                        // TODO Step 5: Move the hide progress dialog to else part and remove the success message and call the getUserDetails function from Firestore class once the user is logged in.
+                        //  Move the hide progress dialog to else part and remove the success message and call the getUserDetails function from Firestore class once the user is logged in.
                         // START
                         /*showErrorSnackBar("You are logged in successfully.", false)*/
 
@@ -125,7 +125,7 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
         }
     }
 
-    // TODO Step 7: Create a function to notify user that logged in success and details are fetched from Cloud Firestore.
+    //  Create a function to notify user that logged in success and details are fetched from Cloud Firestore.
     // START
     /**
      * A function to notify user that logged in success and get the user details from the FireStore database after authentication.
@@ -140,7 +140,7 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
         if (user.profileCompleted == 0) {
             // If the user profile is incomplete then launch the UserProfileActivity.
             val intent = Intent(this@LoginActivity, UserProfileActivity::class.java)
-            // TODO Step 4: Pass the user details to the user profile screen.
+            // Pass the user details to the user profile screen.
             // START
             intent.putExtra(Constants.EXTRA_USER_DETAILS, user)
             // END

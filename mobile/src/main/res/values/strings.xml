@@ -11,7 +11,7 @@
     <string name="menu_home">Home</string>
     <string name="menu_gallery">Gallery</string>
     <string name="menu_slideshow">Slideshow</string>
-    <!-- TODO: Remove or change this placeholder text -->
+
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <string name="content_description">image</string>
@@ -99,5 +99,25 @@
     <string name="item_uploaded_success_message">Your product is uploaded successfully.</string>
     <string name="no_item_added_yet">No products added yet!</string>
     <string name="no_dashboard_item_found">No items found!</string>
+
+
+    <string-array name = "season">
+        <item>Winter</item>
+        <item>Summer</item>
+    </string-array>
+
+    <string-array name = "occasion">
+        <item>Sports</item>
+        <item>Casual</item>
+        <item>Formal</item>
+        <item>Night</item>
+    </string-array>
+
+    <string-array name = "part">
+        <item>Top</item>
+        <item>Bottom</item>
+        <item>Shoes</item>
+    </string-array>
+
 
 </resources>

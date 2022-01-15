@@ -13,7 +13,7 @@ import kotlinx.android.synthetic.main.activity_settings.*
 
 class SettingsActivity : BaseActivity(), View.OnClickListener {
 
-    // TODO Step 5: Create a global variable for user details.
+    //  Create a global variable for user details.
     // START
     // A variable for user details which will be initialized later on.
     private lateinit var mUserDetails: User
@@ -32,12 +32,12 @@ class SettingsActivity : BaseActivity(), View.OnClickListener {
         setupActionBar()
 
 
-        // TODO Step 7: Assign the onclick event to the edit text.
+        //  Assign the onclick event to the edit text.
         // START
         tv_edit.setOnClickListener(this@SettingsActivity)
         // END
 
-        // TODO Step 3: Assign the onclick event to the logout button.
+        // Assign the onclick event to the logout button.
         // START
         btn_logout.setOnClickListener(this@SettingsActivity)
         // END
@@ -50,13 +50,13 @@ class SettingsActivity : BaseActivity(), View.OnClickListener {
         getUserDetails()
     }
 
-    // TODO Step 2: Override the onClick function.
+    //  Override the onClick function.
     // START
     override fun onClick(v: View?) {
         if (v != null) {
             when (v.id) {
 
-                // TODO Step 8: Call the User Profile Activity to add the Edit Profile feature to the app. Pass the user details through intent.
+                //  Call the User Profile Activity to add the Edit Profile feature to the app. Pass the user details through intent.
                 // START
                 R.id.tv_edit -> {
                     val intent = Intent(this@SettingsActivity, UserProfileActivity::class.java)
@@ -65,7 +65,7 @@ class SettingsActivity : BaseActivity(), View.OnClickListener {
                 }
                 // END
 
-                // TODO Step 4: Add Logout feature when user clicks on logout button.
+                //  Add Logout feature when user clicks on logout button.
                 // START
                 R.id.btn_logout -> {
 
@@ -115,7 +115,7 @@ class SettingsActivity : BaseActivity(), View.OnClickListener {
      */
     fun userDetailsSuccess(user: User) {
 
-        // TODO Step 6: Initialize the mUserDetails variable.
+        // Initialize the mUserDetails variable.
         // START
         mUserDetails = user
         // END

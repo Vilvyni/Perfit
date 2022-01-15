@@ -2,11 +2,9 @@ package com.epfl.esl.myapplication.ui.activities
 
 import android.Manifest
 import android.app.Activity
-import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
 import com.epfl.esl.myapplication.R
@@ -14,7 +12,6 @@ import android.view.View
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import com.epfl.esl.myapplication.firestore.FirestoreClass
 import com.epfl.esl.myapplication.utils.Constants
 import com.epfl.esl.myapplication.utils.GlideLoader
 import kotlinx.android.synthetic.main.activity_add_item.*
@@ -29,9 +26,24 @@ class AddItemActivity : BaseActivity(), View.OnClickListener {
     // A global variable for uploaded product image URL.
     private var mItemImageURL: String = ""
 
+//    private var _binding : ActivityAddItemBinding? = null
+//    private val binding get() = _binding!!
+//
+//    override fun onCreateView(
+//        inflater: LayoutInflater,container:ViewGroup?,
+//        savedInstanceState: Bundle?
+//    ): View? {
+//        _binding = ActivityAddItemBinding.inflate(inflater,container,false)
+//
+//
+//        binding.autoCompleteTextView.setAdapter(arrayAdapter)
+//        return binding.root
+//    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_item)
+
 
         setupActionBar()
 
@@ -39,7 +51,10 @@ class AddItemActivity : BaseActivity(), View.OnClickListener {
         iv_add_update_product.setOnClickListener(this)
 
         // Assign the click event to submit button.
-        btn_submit.setOnClickListener(this)
+        btn_submit_add_item.setOnClickListener(this)
+
+
+
 
     }
 
@@ -70,7 +85,7 @@ class AddItemActivity : BaseActivity(), View.OnClickListener {
                     }
                 }
 
-                R.id.btn_submit -> {
+                R.id.btn_submit_add_item -> {
                     if (validateProductDetails()) {
 
 //                        uploadProductImage()
@@ -154,6 +169,8 @@ class AddItemActivity : BaseActivity(), View.OnClickListener {
         toolbar_add_product_activity.setNavigationOnClickListener { onBackPressed() }
     }
 
+
+    // TODO : CHANGE THIS TO OUR APP
     /**
      * A function to validate the product details.
      */

@@ -44,7 +44,7 @@ class UserProfileActivity : BaseActivity(), View.OnClickListener {
             mUserDetails = intent.getParcelableExtra(Constants.EXTRA_USER_DETAILS)!!
         }
 
-        // TODO Step 2: Once we receive the user details through intent make some changes to the code so user can complete his profile if he is from the login screen. If user is from settings screen he can edit the profile details.
+        // Once we receive the user details through intent make some changes to the code so user can complete his profile if he is from the login screen. If user is from settings screen he can edit the profile details.
         // START
         // If the profile is incomplete then user is from login screen and wants to complete the profile.
         if (mUserDetails.profileCompleted == 0) {
@@ -222,7 +222,7 @@ class UserProfileActivity : BaseActivity(), View.OnClickListener {
         }
     }
 
-    // TODO Step 1: Create a function to setup action bar if the user is about to edit profile.
+    // Create a function to setup action bar if the user is about to edit profile.
     // START
     /**
      * A function for actionBar Setup.
@@ -269,7 +269,7 @@ class UserProfileActivity : BaseActivity(), View.OnClickListener {
 
         val userHashMap = HashMap<String, Any>()
 
-        // TODO Step 5: Update the code if user is about to Edit Profile details instead of Complete Profile.
+        //  Update the code if user is about to Edit Profile details instead of Complete Profile.
         // Get the FirstName from editText and trim the space
         val firstName = et_first_name.text.toString().trim { it <= ' ' }
         if (firstName != mUserDetails.firstName) {
@@ -282,7 +282,7 @@ class UserProfileActivity : BaseActivity(), View.OnClickListener {
             userHashMap[Constants.LAST_NAME] = lastName
         }
 
-        // TODO Step 6: Email ID is not editable so we don't need to add it here to get the text from EditText.
+        //  Email ID is not editable so we don't need to add it here to get the text from EditText.
 
         // Here we get the text from editText and trim the space
         val mobileNumber = et_mobile_number.text.toString().trim { it <= ' ' }
@@ -296,7 +296,7 @@ class UserProfileActivity : BaseActivity(), View.OnClickListener {
             userHashMap[Constants.IMAGE] = mUserProfileImageURL
         }
 
-        // TODO Step 7: Update the code here if it is to edit the profile.
+        //  Update the code here if it is to edit the profile.
         if (mobileNumber.isNotEmpty() && mobileNumber != mUserDetails.mobile.toString()) {
             userHashMap[Constants.MOBILE] = mobileNumber.toLong()
         }
@@ -335,7 +335,7 @@ class UserProfileActivity : BaseActivity(), View.OnClickListener {
         ).show()
 
 
-        // TODO Step 8: Redirect it to the DashboardActivity instead of MainActivity.
+        //  Redirect it to the DashboardActivity instead of MainActivity.
         // Redirect to the Main Screen after profile completion.
         startActivity(Intent(this@UserProfileActivity, DashboardActivity::class.java))
         finish()

@@ -75,6 +75,7 @@
         <entry key="mobile/src/main/res/drawable/button_background.xml" value="0.24479166666666666" />
         <entry key="mobile/src/main/res/drawable/drawable_gender_tab_selector.xml" value="0.29010416666666666" />
         <entry key="mobile/src/main/res/drawable/drawable_gender_tab_text_color_selector.xml" value="0.29010416666666666" />
+        <entry key="mobile/src/main/res/drawable/ic_baseline_cloud_queue_24.xml" value="0.28" />
         <entry key="mobile/src/main/res/drawable/ic_black_color_back_24dp.xml" value="0.28229166666666666" />
         <entry key="mobile/src/main/res/drawable/ic_dashboard_black.xml" value="0.23385416666666667" />
         <entry key="mobile/src/main/res/drawable/ic_dashboard_black_24dp.xml" value="0.2861111111111111" />
@@ -86,7 +87,7 @@
         <entry key="mobile/src/main/res/drawable/ic_vector_settings.xml" value="0.284375" />
         <entry key="mobile/src/main/res/drawable/item_grey_border_background.xml" value="0.284375" />
         <entry key="mobile/src/main/res/drawable/user_image_background.xml" value="0.44375" />
-        <entry key="mobile/src/main/res/layout/activity_add_item.xml" value="0.19655797101449277" />
+        <entry key="mobile/src/main/res/layout/activity_add_item.xml" value="0.33" />
         <entry key="mobile/src/main/res/layout/activity_add_outfit.xml" value="0.19655797101449277" />
         <entry key="mobile/src/main/res/layout/activity_base.xml" value="0.27395833333333336" />
         <entry key="mobile/src/main/res/layout/activity_dashboard.xml" value="0.17864583333333334" />
@@ -98,6 +99,7 @@
         <entry key="mobile/src/main/res/layout/activity_splash.xml" value="0.25" />
         <entry key="mobile/src/main/res/layout/activity_user_profile.xml" value="0.1897644927536232" />
         <entry key="mobile/src/main/res/layout/dialog_progress.xml" value="0.2006340579710145" />
+        <entry key="mobile/src/main/res/layout/dropdown_item.xml" value="0.2682291666666667" />
         <entry key="mobile/src/main/res/layout/fragment_add_closet.xml" value="0.31657608695652173" />
         <entry key="mobile/src/main/res/layout/fragment_add_outfit.xml" value="0.20925925925925926" />
         <entry key="mobile/src/main/res/layout/fragment_closet.xml" value="0.20878623188405798" />

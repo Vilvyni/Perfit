@@ -60,7 +60,7 @@ object Constants {
         activity.startActivityForResult(galleryIntent, PICK_IMAGE_REQUEST_CODE)
     }
 
-    // TODO Step 5: Create a function to get the extension of the selected image file.
+    //  Create a function to get the extension of the selected image file.
     // START
     /**
      * A function to get the image file extension of the selected image.

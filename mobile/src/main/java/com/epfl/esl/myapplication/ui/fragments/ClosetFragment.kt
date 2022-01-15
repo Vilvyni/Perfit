@@ -20,7 +20,7 @@ class ClosetFragment : Fragment() {
         setHasOptionsMenu(true)
     }
 
-    // TODO Step 2: Remove the ViewModel class and its instance as we are not going to use it as for now.
+
     // START
     /*private lateinit var homeViewModel: HomeViewModel*/
 
