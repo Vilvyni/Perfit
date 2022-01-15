@@ -48,6 +48,7 @@ class AddItemActivity : BaseActivity(), View.OnClickListener {
         if (v != null) {
             when (v.id) {
 
+                // if the user presses on the new photo
                 // The permission code is similar to the user profile image selection.
                 R.id.iv_add_update_product -> {
                     if (ContextCompat.checkSelfPermission(
@@ -127,10 +128,10 @@ class AddItemActivity : BaseActivity(), View.OnClickListener {
 
             try {
                 // Load the product image in the ImageView.
-//                GlideLoader(this@AddItemActivity).loadItemPicture(
-//                    mSelectedImageFileUri!!,
-//                    iv_product_image
-//                )
+                GlideLoader(this@AddItemActivity).loadUserPicture(
+                    mSelectedImageFileUri!!,
+                    iv_product_image
+                )
             } catch (e: IOException) {
                 e.printStackTrace()
             }
