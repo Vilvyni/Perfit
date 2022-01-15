@@ -12,11 +12,18 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".activities.AddClosetActivity"
+            android:exported="false"
+            android:label="@string/title_activity_add_closet"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activities.ClosetActivity"
+            android:exported="false" />
+        <activity
             android:name=".activities.UserProfileActivity"
             android:exported="true"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar"
-            />
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activities.SplashActivity"
             android:exported="true"

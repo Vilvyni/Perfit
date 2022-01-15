@@ -19,6 +19,9 @@
     <color name="cream">#fdedcb</color>
     <color name="colorPrimaryText">#222934</color>
     <color name="colorSecondaryText">#989898</color>
+    <color name="colorImageViewBackground">#E1E1E1</color>
+    <color name="colorWhite">#FFFFFF</color>
+
     <!--END-->
 
     <color name="colorSnackBarSuccess">#8BC34A</color>

@@ -44,6 +44,8 @@
     <string name="err_msg_agree_terms_and_condition">Please agree terms and condition.</string>
     <string name="registery_successfull">Thanks for registering!</string>
 
+    <string name="err_msg_select_product_image"> Please select item image.</string>
+
     <string name="please_wait">Please Wait&#8230;</string>
 
     <string name="title_forgot_password">FORGOT PASSWORD?</string>
@@ -66,5 +68,17 @@
     <string name="err_msg_enter_mobile_number">Please enter mobile number.</string>
 
     <string name="msg_profile_update_success">Your profile is updated successfully.</string>
+    <string name="title_activity_add_closet">AddCloset</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="title_add_product" />
+    <string name="et_hint_product_title" />
+    <string name="product_uploaded_success_message"> The item has been added successfully.</string>
 
 </resources>
