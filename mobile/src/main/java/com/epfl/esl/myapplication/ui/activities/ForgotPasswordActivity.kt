@@ -74,7 +74,7 @@ class ForgotPasswordActivity : BaseActivity() {
         val actionBar = supportActionBar
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true)
-            actionBar.setHomeAsUpIndicator(R.drawable.ic_black_color_back_24dp)
+            actionBar.setHomeAsUpIndicator(R.drawable.ic_black_back_24dp)
         }
 
         toolbar_forgot_password_activity.setNavigationOnClickListener { onBackPressed() }

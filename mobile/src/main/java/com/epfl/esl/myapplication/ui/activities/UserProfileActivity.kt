@@ -67,6 +67,12 @@ class UserProfileActivity : BaseActivity(), View.OnClickListener {
 
             // Update the title of the screen to edit profile.
             tv_title.text = resources.getString(R.string.title_edit_profile)
+            val actionBar = supportActionBar
+            if (actionBar != null) {
+                actionBar.setDisplayHomeAsUpEnabled(true)
+                actionBar.setHomeAsUpIndicator(R.drawable.ic_white_back_24dp)
+            }
+
 
             // Load the image using the GlideLoader class with the use of Glide Library.
             GlideLoader(this@UserProfileActivity).loadUserPicture(mUserDetails.image, iv_user_photo)
@@ -228,7 +234,7 @@ class UserProfileActivity : BaseActivity(), View.OnClickListener {
         val actionBar = supportActionBar
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true)
-            actionBar.setHomeAsUpIndicator(R.drawable.ic_white_black_back_24dp)
+            actionBar.setHomeAsUpIndicator(R.drawable.ic_white_back_24dp)
         }
 
         toolbar_user_profile_activity.setNavigationOnClickListener { onBackPressed() }
