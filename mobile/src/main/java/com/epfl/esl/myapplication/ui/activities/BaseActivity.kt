@@ -11,10 +11,17 @@ import kotlinx.android.synthetic.main.dialog_progress.*
 
 open class BaseActivity : AppCompatActivity() {
 
+    // A global variable for double back press feature.
     private var doubleBackToExitPressedOnce = false
 
+    /**
+     * This is a progress dialog instance which we will initialize later on.
+     */
     private lateinit var mProgressDialog: Dialog
 
+    /**
+     * A function to show the success and error messages in snack bar component.
+     */
     fun showErrorSnackBar(message: String, errorMessage: Boolean) {
         val snackBar =
             Snackbar.make(findViewById(android.R.id.content), message, Snackbar.LENGTH_LONG)
@@ -38,6 +45,9 @@ open class BaseActivity : AppCompatActivity() {
         snackBar.show()
     }
 
+    /**
+     * This function is used to show the progress dialog with the title and message to user.
+     */
     fun showProgressDialog(text: String) {
         mProgressDialog = Dialog(this)
 
@@ -54,10 +64,16 @@ open class BaseActivity : AppCompatActivity() {
         mProgressDialog.show()
     }
 
-     fun hideProgressDialog() {
-            mProgressDialog.dismiss()
-     }
+    /**
+     * This function is used to dismiss the progress dialog if it is visible to user.
+     */
+    fun hideProgressDialog() {
+        mProgressDialog.dismiss()
+    }
 
+    /**
+     * A function to implement the double back press feature to exit the app.
+     */
     fun doubleBackToExit() {
 
         if (doubleBackToExitPressedOnce) {

@@ -12,6 +12,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import com.epfl.esl.myapplication.firestore.FirestoreClass
 import com.epfl.esl.myapplication.utils.Constants
 import com.epfl.esl.myapplication.utils.GlideLoader
 import kotlinx.android.synthetic.main.activity_add_item.*
@@ -43,17 +44,11 @@ class AddItemActivity : BaseActivity(), View.OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_item)
-
-
         setupActionBar()
 
-        // Assign the click event to iv_add_update_product image.
-        iv_add_update_product.setOnClickListener(this)
-
-        // Assign the click event to submit button.
+        // Assign the click event to iv_add_update_product image and to to submit button.
+        iv_add_update_item.setOnClickListener(this)
         btn_submit_add_item.setOnClickListener(this)
-
-
 
 
     }
@@ -65,7 +60,7 @@ class AddItemActivity : BaseActivity(), View.OnClickListener {
 
                 // if the user presses on the new photo
                 // The permission code is similar to the user profile image selection.
-                R.id.iv_add_update_product -> {
+                R.id.iv_add_update_item -> {
                     if (ContextCompat.checkSelfPermission(
                             this,
                             Manifest.permission.READ_EXTERNAL_STORAGE
@@ -87,12 +82,19 @@ class AddItemActivity : BaseActivity(), View.OnClickListener {
 
                 R.id.btn_submit_add_item -> {
                     if (validateProductDetails()) {
+                        uploadItemImage()
 
-//                        uploadProductImage()
                     }
                 }
             }
         }
+    }
+
+    fun imageUploadSuccess(imageURL: String) {
+        hideProgressDialog()
+        showErrorSnackBar("Item image is uploaded succesfully,Image URl:  $imageURL",false)
+
+
     }
 
     /**
@@ -111,7 +113,7 @@ class AddItemActivity : BaseActivity(), View.OnClickListener {
         if (requestCode == Constants.READ_STORAGE_PERMISSION_CODE) {
             //If permission is granted
             if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                Constants.showImageChooser(this@AddItemActivity)
+                Constants.showImageChooser(this)
             } else {
                 //Displaying another toast if permission is not granted
                 Toast.makeText(
@@ -131,9 +133,9 @@ class AddItemActivity : BaseActivity(), View.OnClickListener {
         ) {
 
             // Replace the add icon with edit icon once the image is selected.
-            iv_add_update_product.setImageDrawable(
+            iv_add_update_item.setImageDrawable(
                 ContextCompat.getDrawable(
-                    this@AddItemActivity,
+                    this,
                     R.drawable.ic_vector_edit
                 )
             )
@@ -143,7 +145,7 @@ class AddItemActivity : BaseActivity(), View.OnClickListener {
 
             try {
                 // Load the product image in the ImageView.
-                GlideLoader(this@AddItemActivity).loadUserPicture(
+                GlideLoader(this).loadUserPicture(
                     mSelectedImageFileUri!!,
                     iv_product_image
                 )
@@ -214,18 +216,15 @@ class AddItemActivity : BaseActivity(), View.OnClickListener {
     }
 
     /**
-     * A function to upload the selected product image to firebase cloud storage.
+     * A function to upload the selected item image to firebase cloud storage.
      */
-//    private fun uploadProductImage() {
-//
-//        showProgressDialog(resources.getString(R.string.please_wait))
-//
-//        FirestoreClass().uploadImageToCloudStorage(
-//            this@AddItemActivity,
-//            mSelectedImageFileUri,
-//            Constants.ITEM_IMAGE
-//        )
-//    }
+    private fun uploadItemImage() {
+
+        showProgressDialog(resources.getString(R.string.please_wait))
+
+        //you could also add to the image the userID we'll see
+        FirestoreClass().uploadImageToCloudStorage(this, mSelectedImageFileUri, Constants.ITEM_IMAGE)
+    }
 //
 //    /**
 //     * A function to get the successful result of product image upload.
