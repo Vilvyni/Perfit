@@ -296,6 +296,30 @@ class FirestoreClass {
 
     }
 
+    fun deleteItem(fragment: ClosetFragment, itemId: String) {
+
+        mFireStore.collection(Constants.ITEMS)
+            .document(itemId)
+            .delete()
+            .addOnSuccessListener {
+
+
+                fragment.itemDeleteSuccess()
+
+            }
+            .addOnFailureListener { e ->
+
+                // Hide the progress dialog if there is an error.
+                fragment.hideProgressDialog()
+
+                Log.e(
+                    fragment.requireActivity().javaClass.simpleName,
+                    "Error while deleting the product.",
+                    e
+                )
+            }
+    }
+
 
 
 

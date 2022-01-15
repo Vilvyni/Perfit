@@ -2,18 +2,16 @@ package com.epfl.esl.myapplication.ui.fragments
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.*
-import android.widget.TextView
-import androidx.fragment.app.Fragment
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
 
 import com.epfl.esl.myapplication.R
 import com.epfl.esl.myapplication.firestore.FirestoreClass
 import com.epfl.esl.myapplication.models.Item
 import com.epfl.esl.myapplication.ui.activities.AddItemActivity
-import com.epfl.esl.myapplication.ui.activities.SettingsActivity
-import com.epfl.esl.myapplication.ui.adapters.MyItemsListAdapter
+import com.myshoppal.ui.adapters.MyItemsListAdapter
 import kotlinx.android.synthetic.main.fragment_closet.*
 
 //import com.epfl.esl.myapplication.activities.databinding.FragmentHomeBinding
@@ -24,6 +22,60 @@ class ClosetFragment : BaseFragment(){
         super.onCreate(savedInstanceState)
         // If we want to use the option menu in fragment we need to add it.
         setHasOptionsMenu(true)
+    }
+
+    fun deleteItem(itemID: String) {
+        // Here we will call the delete function of the FirestoreClass. But, for now lets display the Toast message and call this function from adapter class.
+        showAlertDialogToDeleteItem(itemID)
+
+    }
+
+    private fun showAlertDialogToDeleteItem(itemID: String) {
+
+        val builder = AlertDialog.Builder(requireActivity())
+        //set title for alert dialog
+        builder.setTitle(resources.getString(R.string.delete_dialog_title))
+        //set message for alert dialog
+        builder.setMessage(resources.getString(R.string.delete_dialog_message))
+        builder.setIcon(android.R.drawable.ic_dialog_alert)
+
+        //performing positive action
+        builder.setPositiveButton(resources.getString(R.string.yes)) { dialogInterface, _ ->
+            // Call the function to delete the product from cloud firestore.
+            // START
+            // Show the progress dialog.
+            showProgressDialog(resources.getString(R.string.please_wait))
+
+            // Call the function of Firestore class.
+            FirestoreClass().deleteItem(this, itemID)
+            // END
+
+            dialogInterface.dismiss()
+        }
+
+        //performing negative action
+        builder.setNegativeButton(resources.getString(R.string.no)) { dialogInterface, _ ->
+
+            dialogInterface.dismiss()
+        }
+        // Create the AlertDialog
+        val alertDialog: AlertDialog = builder.create()
+        // Set other dialog properties
+        alertDialog.setCancelable(false)
+        alertDialog.show()
+    }
+
+    fun itemDeleteSuccess(){
+        hideProgressDialog()
+
+        Toast.makeText(
+            requireActivity(),
+            resources.getString(R.string.product_delete_success_message),
+            Toast.LENGTH_SHORT
+        ).show()
+
+        getItemListFromFireStore()
+
     }
 
     /**
