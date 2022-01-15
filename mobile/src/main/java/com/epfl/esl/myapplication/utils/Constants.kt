@@ -42,6 +42,8 @@ object Constants {
     const val FIRST_NAME: String = "firstName"
     const val LAST_NAME: String = "lastName"
 
+    const val ITEM_IMAGE: String = "Product_Image"
+
     // END
 
 
