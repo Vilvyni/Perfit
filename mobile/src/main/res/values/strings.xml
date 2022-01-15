@@ -79,5 +79,7 @@
     <string name="btn_lbl_logout">Logout</string>
 
     <string name="title_edit_profile">EDIT PROFILE</string>
+    <string name="action_add_item">Add Item</string>
+    <string name="action_add_outfit">Add Outfit</string>
 
 </resources>

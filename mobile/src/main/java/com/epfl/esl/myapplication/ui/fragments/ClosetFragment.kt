@@ -1,16 +1,24 @@
 package com.epfl.esl.myapplication.ui.fragments
 
+import android.content.Intent
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 
 import com.epfl.esl.myapplication.R
+import com.epfl.esl.myapplication.ui.activities.AddItemActivity
+import com.epfl.esl.myapplication.ui.activities.SettingsActivity
+
 //import com.epfl.esl.myapplication.activities.databinding.FragmentHomeBinding
 
 class ClosetFragment : Fragment() {
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        // If we want to use the option menu in fragment we need to add it.
+        setHasOptionsMenu(true)
+    }
 
     // TODO Step 2: Remove the ViewModel class and its instance as we are not going to use it as for now.
     // START
@@ -26,7 +34,7 @@ class ClosetFragment : Fragment() {
 
         val root = inflater.inflate(R.layout.fragment_closet, container, false)
         val textView: TextView = root.findViewById(R.id.text_home)
-        textView.text = "This is home Fragment"
+        textView.text = "This is Closet Fragment"
 
         /*homeViewModel.text.observe(viewLifecycleOwner, Observer {
             textView.text = it
@@ -34,5 +42,22 @@ class ClosetFragment : Fragment() {
 
         return root
     }
-    // END
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.add_item_menu, menu)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        val id = item.itemId
+
+        when (id) {
+
+            R.id.action_add_item -> {
+                startActivity(Intent(activity, AddItemActivity::class.java))
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
 }
