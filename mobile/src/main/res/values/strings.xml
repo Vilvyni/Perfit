@@ -84,7 +84,7 @@
 
 
     <string name="title_add_item">ADD ITEM</string>
-<!--    -->
+    <!--    -->
     <string name="et_hint_item_title">Item Title</string>
     <string name="et_hint_product_price">Product Price ($)</string>
     <string name="et_hint_product_description">Product Description</string>
@@ -98,22 +98,26 @@
 
     <string name="item_uploaded_success_message">Your product is uploaded successfully.</string>
     <string name="no_item_added_yet">No products added yet!</string>
+
+
+    <string name="product_uploaded_success_message">Your product is uploaded successfully.</string>
+    <string name="no_items_added_yet">No items added yet!</string>
     <string name="no_dashboard_item_found">No items found!</string>
 
 
-    <string-array name = "season">
+    <string-array name="season">
         <item>Winter</item>
         <item>Summer</item>
     </string-array>
 
-    <string-array name = "occasion">
+    <string-array name="occasion">
         <item>Sports</item>
         <item>Casual</item>
         <item>Formal</item>
         <item>Night</item>
     </string-array>
 
-    <string-array name = "part">
+    <string-array name="part">
         <item>Top</item>
         <item>Bottom</item>
         <item>Shoes</item>

@@ -2,6 +2,7 @@ package com.epfl.esl.myapplication.ui.activities
 
 import android.Manifest
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
@@ -13,6 +14,7 @@ import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.epfl.esl.myapplication.firestore.FirestoreClass
+import com.epfl.esl.myapplication.models.Item
 import com.epfl.esl.myapplication.utils.Constants
 import com.epfl.esl.myapplication.utils.GlideLoader
 import kotlinx.android.synthetic.main.activity_add_item.*
@@ -90,10 +92,46 @@ class AddItemActivity : BaseActivity(), View.OnClickListener {
         }
     }
 
-    fun imageUploadSuccess(imageURL: String) {
+    fun itemUploadSuccess(){
         hideProgressDialog()
-        showErrorSnackBar("Item image is uploaded succesfully,Image URl:  $imageURL",false)
+        Toast.makeText(
+            this,
+            resources.getString(R.string.item_uploaded_success_message),
+            Toast.LENGTH_SHORT
+        ).show()
+        finish()
 
+
+    }
+
+    fun imageUploadSuccess(imageURL: String) {
+//        hideProgressDialog()
+//        showErrorSnackBar("Item image is uploaded succesfully,Image URl:  $imageURL",false)
+
+        mItemImageURL = imageURL
+
+        uploadItemDetails()
+    }
+
+    //we got the items details
+    private fun uploadItemDetails(){
+        val username = this.getSharedPreferences(Constants.MYPERFIT_PREFERENCES, Context.MODE_PRIVATE)
+            .getString(Constants.LOGGED_IN_USERNAME,"")!!
+
+        //Making object where I am passing all the Items objects
+        // editable text on the xml
+        //TODO change this to droppdown menu values, we get it from the xml
+        val item = Item(
+            FirestoreClass().getCurrentUserID(),
+            username,
+            et_product_title.text.toString().trim{ it <= ' '},
+            et_product_price.text.toString().trim{ it <= ' '},
+            et_product_description.text.toString().trim{ it <= ' '},
+            et_product_quantity.text.toString().trim{ it <= ' '},
+            mItemImageURL
+        )
+
+        FirestoreClass().uploadItemDetails(this, item)
 
     }
 

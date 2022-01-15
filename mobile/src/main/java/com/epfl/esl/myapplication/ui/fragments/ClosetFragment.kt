@@ -12,7 +12,7 @@ import com.epfl.esl.myapplication.ui.activities.SettingsActivity
 
 //import com.epfl.esl.myapplication.activities.databinding.FragmentHomeBinding
 
-class ClosetFragment : Fragment() {
+class ClosetFragment : BaseFragment(){
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,8 +33,7 @@ class ClosetFragment : Fragment() {
             ViewModelProviders.of(this).get(HomeViewModel::class.java)*/
 
         val root = inflater.inflate(R.layout.fragment_closet, container, false)
-        val textView: TextView = root.findViewById(R.id.text_home)
-        textView.text = "This is Closet Fragment"
+
 
         /*homeViewModel.text.observe(viewLifecycleOwner, Observer {
             textView.text = it

@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.net.Uri
 import android.util.Log
+import com.epfl.esl.myapplication.models.Item
 import com.epfl.esl.myapplication.models.User
 import com.epfl.esl.myapplication.ui.activities.*
 import com.epfl.esl.myapplication.utils.Constants
@@ -224,28 +225,26 @@ class FirestoreClass {
     /**
      * A function to make an entry of the user's product in the cloud firestore database.
      */
-//    fun uploadProductDetails(activity: AddItemActivity, productInfo: Product) {
-//
-//        mFireStore.collection(Constants.Items)
-//            .document()
-//            // Here the userInfo are Field and the SetOption is set to merge. It is for if we wants to merge
-//            .set(productInfo, SetOptions.merge())
-//            .addOnSuccessListener {
-//
-//                // Here call a function of base activity for transferring the result to it.
-//                activity.productUploadSuccess()
-//            }
-//            .addOnFailureListener { e ->
-//
-//                activity.hideProgressDialog()
-//
-//                Log.e(
-//                    activity.javaClass.simpleName,
-//                    "Error while uploading the product details.",
-//                    e
-//                )
-//            }
-//    }
+    fun uploadItemDetails(activity: AddItemActivity, itemInfo: Item) {
+
+        mFireStore.collection(Constants.ITEMS)
+            .document()
+            // Here the userInfo are Field and the SetOption is set to merge. It is for if we wants to merge
+            .set(itemInfo, SetOptions.merge())
+            .addOnSuccessListener {
+
+                // Here call a function of base activity for transferring the result to it.
+                activity.itemUploadSuccess()
+            }
+            .addOnFailureListener { e ->
+                activity.hideProgressDialog()
+                Log.e(
+                    activity.javaClass.simpleName,
+                    "Error while uploading the product details.",
+                    e
+                )
+            }
+    }
 //
 //    /**
 //     * A function to get the products list from cloud firestore.
