@@ -42,7 +42,7 @@ class AddClothesActivity : BaseActivity(), View.OnClickListener{
         setContentView(R.layout.activity_add_clothing)
 
 
-      setupActionBar()
+        setupActionBar()
 
         // Assign the click event to iv_add_update_product image and to to submit button.
 
