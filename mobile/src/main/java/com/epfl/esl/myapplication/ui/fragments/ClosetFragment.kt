@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 
 import com.epfl.esl.myapplication.R
 import com.epfl.esl.myapplication.firestore.FirestoreClass
+import com.epfl.esl.myapplication.models.Clothing
 import com.epfl.esl.myapplication.models.Item
 import com.epfl.esl.myapplication.ui.activities.AddClothesActivity
 import com.epfl.esl.myapplication.ui.activities.AddItemActivity
@@ -84,33 +85,90 @@ class ClosetFragment : BaseFragment(){
      *
      * @param productsList Will receive the product list from cloud firestore.
      */
-    fun successItemsListFromFireStore(itemsList: ArrayList<Item>) {
+    fun successItemsListFromFireStoreTop(top: ArrayList<Clothing>) {
 
         // Hide Progress dialog.
         hideProgressDialog()
 
-        if (itemsList.size > 0) {
+        if (top.size > 0) {
+            rv_my_product_top.visibility = View.VISIBLE // which contains the recyclerview
 
-            rv_my_product_items.visibility = View.VISIBLE
-            tv_no_products_found.visibility = View.GONE
+            rv_my_product_top.layoutManager = LinearLayoutManager(activity,LinearLayoutManager.HORIZONTAL,false)
 
-            rv_my_product_items.layoutManager = LinearLayoutManager(activity)
-            rv_my_product_items.setHasFixedSize(true)
+            rv_my_product_top.setHasFixedSize(false)
 
-            val adapterProducts = MyItemsListAdapter(requireActivity(), itemsList, this)
-            // END
-            rv_my_product_items.adapter = adapterProducts
+
+            val adapterTop = MyItemsListAdapter(requireActivity(), top, this@ClosetFragment)
+
+
+            rv_my_product_top.adapter = adapterTop
+
+
+
         } else {
-            rv_my_product_items.visibility = View.GONE
-            tv_no_products_found.visibility = View.VISIBLE
+            rv_my_product_top.visibility = View.GONE
+
         }
     }
+    fun successItemsListFromFireStoreTrouser(trouser: ArrayList<Clothing>) {
+
+        // Hide Progress dialog.
+        hideProgressDialog()
+
+        if (trouser.size > 0) {
+            rv_my_product_trouser.visibility = View.VISIBLE // which contains the recyclerview
+
+            rv_my_product_trouser.layoutManager = LinearLayoutManager(activity,LinearLayoutManager.HORIZONTAL,false)
+
+            rv_my_product_trouser.setHasFixedSize(false)
+
+
+            val adaptertrouser = MyItemsListAdapter(requireActivity(), trouser, this@ClosetFragment)
+
+
+            rv_my_product_trouser.adapter = adaptertrouser
+
+
+
+        } else {
+            rv_my_product_trouser.visibility = View.GONE
+
+        }
+    }
+    fun successItemsListFromFireStoreShoes(shoes: ArrayList<Clothing>) {
+
+        // Hide Progress dialog.
+        hideProgressDialog()
+
+        if (shoes.size > 0) {
+            rv_my_product_shoes.visibility = View.VISIBLE // which contains the recyclerview
+
+            rv_my_product_shoes.layoutManager = LinearLayoutManager(activity,LinearLayoutManager.HORIZONTAL,false)
+
+            rv_my_product_shoes.setHasFixedSize(false)
+
+
+            val adaptershoes = MyItemsListAdapter(requireActivity(), shoes, this@ClosetFragment)
+
+
+            rv_my_product_shoes.adapter = adaptershoes
+
+
+
+        } else {
+            rv_my_product_shoes.visibility = View.GONE
+
+        }
+    }
+
 
     private fun getItemListFromFireStore() {
         // Show the progress dialog.
         showProgressDialog(resources.getString(R.string.please_wait))
         // Call the function of Firestore class.
-        FirestoreClass().getItemsList(this)
+        FirestoreClass().getItemsListTop(this)
+        FirestoreClass().getItemsListTrouser(this)
+        FirestoreClass().getItemsListShoes(this)
     }
 
     override fun onResume() {

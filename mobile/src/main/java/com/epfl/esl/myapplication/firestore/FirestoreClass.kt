@@ -297,31 +297,32 @@ class FirestoreClass {
      */
 
     //Looking into our database
-    fun getItemsList(fragment: Fragment) {
+    fun getItemsListTop(fragment: Fragment) {
         // The collection name for PRODUCTS
-        mFireStore.collection(Constants.ITEMS)
-            .whereEqualTo(Constants.USER_ID, getCurrentUserID())  // only get the elements that fit our user ID
+        mFireStore.collection(Constants.TOP)
+            .whereEqualTo(Constants.ID_USER, getCurrentUserID())  // only get the elements that fit our user ID
             .get() // Will get the documents snapshots.
             .addOnSuccessListener { document ->
 
                 // Here we get the list of boards in the form of documents.
                 Log.e("Items List", document.documents.toString())
+                Log.e("Items List", getCurrentUserID())
 
                 // Here we have created a new instance for Products ArrayList.
-                val itemsList: ArrayList<Item> = ArrayList()
+                val topList: ArrayList<Clothing> = ArrayList()
 
                 // A for loop as per the list of documents to convert them into Products ArrayList.
                 for (i in document.documents) {
 
-                    val item = i.toObject(Item::class.java)
-                    item!!.item_id = i.id // create a new product id
+                    val item = i.toObject(Clothing::class.java)
+                    item!!.id_clothing = i.id // create a new product id
 
-                    itemsList.add(item)
+                    topList.add(item)
                 }
 
                 when (fragment) {
                     is ClosetFragment -> {
-                        fragment.successItemsListFromFireStore(itemsList)
+                        fragment.successItemsListFromFireStoreTop(topList)
                     }
                 }
             }
@@ -336,7 +337,86 @@ class FirestoreClass {
             }
 
     }
+    //Looking into our database
+    fun getItemsListTrouser(fragment: Fragment) {
+        // The collection name for PRODUCTS
+        mFireStore.collection(Constants.BOTTOM)
+            .whereEqualTo(Constants.ID_USER, getCurrentUserID())  // only get the elements that fit our user ID
+            .get() // Will get the documents snapshots.
+            .addOnSuccessListener { document ->
 
+                // Here we get the list of boards in the form of documents.
+                Log.e("Items List", document.documents.toString())
+
+                // Here we have created a new instance for Products ArrayList.
+                val topList: ArrayList<Clothing> = ArrayList()
+
+                // A for loop as per the list of documents to convert them into Products ArrayList.
+                for (i in document.documents) {
+
+                    val item = i.toObject(Clothing::class.java)
+                    item!!.id_clothing = i.id // create a new product id
+
+                    topList.add(item)
+                }
+
+                when (fragment) {
+                    is ClosetFragment -> {
+                        fragment.successItemsListFromFireStoreTrouser(topList)
+                    }
+                }
+            }
+            .addOnFailureListener { e ->
+                // Hide the progress dialog if there is any error based on the base class instance.
+                when (fragment) {
+                    is ClosetFragment -> {
+                        fragment.hideProgressDialog()
+                    }
+                }
+                Log.e("Get Item List", "Error while getting product list.", e)
+            }
+
+    }
+    //Looking into our database
+    fun getItemsListShoes(fragment: Fragment) {
+        // The collection name for PRODUCTS
+        mFireStore.collection(Constants.SHOES)
+            .whereEqualTo(Constants.ID_USER, getCurrentUserID())  // only get the elements that fit our user ID
+            .get() // Will get the documents snapshots.
+            .addOnSuccessListener { document ->
+
+                // Here we get the list of boards in the form of documents.
+                Log.e("Items List", document.documents.toString())
+
+                // Here we have created a new instance for Products ArrayList.
+                val topList: ArrayList<Clothing> = ArrayList()
+
+                // A for loop as per the list of documents to convert them into Products ArrayList.
+                for (i in document.documents) {
+
+                    val item = i.toObject(Clothing::class.java)
+                    item!!.id_clothing = i.id // create a new product id
+
+                    topList.add(item)
+                }
+
+                when (fragment) {
+                    is ClosetFragment -> {
+                        fragment.successItemsListFromFireStoreShoes(topList)
+                    }
+                }
+            }
+            .addOnFailureListener { e ->
+                // Hide the progress dialog if there is any error based on the base class instance.
+                when (fragment) {
+                    is ClosetFragment -> {
+                        fragment.hideProgressDialog()
+                    }
+                }
+                Log.e("Get Item List", "Error while getting product list.", e)
+            }
+
+    }
     fun deleteItem(fragment: ClosetFragment, itemId: String) {
 
         mFireStore.collection(Constants.ITEMS)

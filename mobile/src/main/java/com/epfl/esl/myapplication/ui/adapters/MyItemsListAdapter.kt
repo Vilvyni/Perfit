@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.epfl.esl.myapplication.R
+import com.epfl.esl.myapplication.models.Clothing
 import com.epfl.esl.myapplication.models.Item
 import com.epfl.esl.myapplication.ui.fragments.ClosetFragment
 import com.epfl.esl.myapplication.utils.GlideLoader
@@ -18,7 +19,7 @@ import kotlinx.android.synthetic.main.item_list_layout.view.*
 // START
 open class MyItemsListAdapter(
     private val context: Context,
-    private var list: ArrayList<Item>,
+    private var list: ArrayList<Clothing>,
     private val fragment: ClosetFragment
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 // END
@@ -56,18 +57,7 @@ open class MyItemsListAdapter(
 
             GlideLoader(context).loadItemPicture(model.image, holder.itemView.iv_item_image)
 
-            holder.itemView.tv_item_name.text = model.title
-            holder.itemView.tv_item_price.text = "$${model.price}"
 
-            // TODO Step 4: Assigning the click event to the delete button.
-            // START
-            holder.itemView.ib_delete_item.setOnClickListener {
-
-                // Now let's call the delete function of the ProductsFragment.
-                // START
-                fragment.deleteItem(model.item_id)
-                // END
-            }
             // END
         }
     }

@@ -42,7 +42,7 @@ class AddClothesActivity : BaseActivity(), View.OnClickListener{
         setContentView(R.layout.activity_add_clothing)
 
 
-//        setupActionBar() to debug
+      setupActionBar()
 
         // Assign the click event to iv_add_update_product image and to to submit button.
 
@@ -219,15 +219,15 @@ class AddClothesActivity : BaseActivity(), View.OnClickListener{
     //allows the user to go back with the arrow bar
     private fun setupActionBar() {
 
-        setSupportActionBar(toolbar_settings_activity)
+        setSupportActionBar(toolbar_add_clothing_activity)
 
         val actionBar = supportActionBar
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true)
-            actionBar.setHomeAsUpIndicator(R.drawable.ic_black_back_24dp)
+            actionBar.setHomeAsUpIndicator(R.drawable.ic_white_back_24dp)
         }
 
-        toolbar_settings_activity.setNavigationOnClickListener { onBackPressed() }
+        toolbar_add_clothing_activity.setNavigationOnClickListener { onBackPressed() }
     }
 
     private fun validateClothingDetails(): Boolean {

@@ -61,6 +61,8 @@ object Constants {
     const val LAST_NAME: String = "lastName"
 
     const val USER_ID: String = "user_id"
+    const val ID_USER: String = "id_user"
+
 
 
     const val ITEM_IMAGE: String = "Item_Image"
