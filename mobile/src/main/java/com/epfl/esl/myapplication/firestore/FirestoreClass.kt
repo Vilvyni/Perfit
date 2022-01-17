@@ -77,7 +77,7 @@ class FirestoreClass {
             CurrentUserID = "aT1z8IdoOJT6irLx3BDcCAR1XRk1"
         }
 
-        Log.i("lol",CurrentUserID)
+        Log.i("lool",CurrentUserID)
 
         // Here we pass the collection name from which we wants the data.
         mFireStore.collection(Constants.USERS)
