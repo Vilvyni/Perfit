@@ -25,7 +25,7 @@ class ForgotPasswordActivity : BaseActivity() {
         // I will show you how to perform all the operations in the on click function it self.
 
         // START
-        btn_submit_add_item.setOnClickListener {
+        btn_submit.setOnClickListener {
 
             // Get the email id from the input field.
             val email: String = et_forgot_pw.text.toString().trim { it <= ' ' }
@@ -78,7 +78,7 @@ class ForgotPasswordActivity : BaseActivity() {
         }
 
         toolbar_forgot_password_activity.setNavigationOnClickListener { onBackPressed() }
-        btn_submit_add_item.setOnClickListener{
+        btn_submit.setOnClickListener{
             val email: String = et_forgot_pw.text.toString().trim{ it <= ' '}
 
             if(email.isEmpty()){
