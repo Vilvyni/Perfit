@@ -5,6 +5,7 @@ import android.content.SharedPreferences
 import android.net.Uri
 import android.util.Log
 import androidx.fragment.app.Fragment
+import com.epfl.esl.myapplication.models.Clothing
 import com.epfl.esl.myapplication.models.Item
 import com.epfl.esl.myapplication.models.User
 import com.epfl.esl.myapplication.ui.activities.*
@@ -180,6 +181,7 @@ class FirestoreClass {
     // A function to upload the image to the cloud storage.
     fun uploadImageToCloudStorage(activity: Activity, imageFileURI: Uri?, imageType: String) {
         //getting the storage reference
+        Log.e("lolo", "here 1")
         val sRef: StorageReference = FirebaseStorage.getInstance().reference.child(
             imageType + System.currentTimeMillis() + "."
                     + Constants.getFileExtension(
@@ -188,6 +190,7 @@ class FirestoreClass {
             )
         )
 
+        Log.e("lolo", imageFileURI.toString())
         //adding the file to reference
         sRef.putFile(imageFileURI!!)
             .addOnSuccessListener { taskSnapshot ->
@@ -211,6 +214,9 @@ class FirestoreClass {
                             is AddItemActivity -> {
                                 activity.imageUploadSuccess(uri.toString())
                             }
+                            is AddClothesActivity ->{
+                                activity.imageUploadSuccess(uri.toString())
+                            }
                         }
                     }
             }
@@ -223,6 +229,9 @@ class FirestoreClass {
                     }
 
                     is AddItemActivity -> {
+                        activity.hideProgressDialog()
+                    }
+                    is AddClothesActivity -> {
                         activity.hideProgressDialog()
                     }
                 }
@@ -248,6 +257,28 @@ class FirestoreClass {
 
                 // Here call a function of base activity for transferring the result to it.
                 activity.itemUploadSuccess()
+            }
+            .addOnFailureListener { e ->
+                activity.hideProgressDialog()
+                Log.e(
+                    activity.javaClass.simpleName,
+                    "Error while uploading the product details.",
+                    e
+                )
+            }
+    }
+
+
+    fun uploadClothingDetails(activity: AddClothesActivity, itemInfo: Clothing, category:String) {
+
+        mFireStore.collection(category)
+            .document()
+            // Here the userInfo are Field and the SetOption is set to merge. It is for if we wants to merge
+            .set(itemInfo, SetOptions.merge())
+            .addOnSuccessListener {
+
+                // Here call a function of base activity for transferring the result to it.
+                activity.clothingUploadSuccess()
             }
             .addOnFailureListener { e ->
                 activity.hideProgressDialog()

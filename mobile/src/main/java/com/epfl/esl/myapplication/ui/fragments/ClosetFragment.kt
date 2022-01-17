@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.epfl.esl.myapplication.R
 import com.epfl.esl.myapplication.firestore.FirestoreClass
 import com.epfl.esl.myapplication.models.Item
+import com.epfl.esl.myapplication.ui.activities.AddClothesActivity
 import com.epfl.esl.myapplication.ui.activities.AddItemActivity
 import com.myshoppal.ui.adapters.MyItemsListAdapter
 import kotlinx.android.synthetic.main.fragment_closet.*
@@ -150,7 +151,7 @@ class ClosetFragment : BaseFragment(){
         when (id) {
 
             R.id.action_add_item -> {
-                startActivity(Intent(activity, AddItemActivity::class.java))
+                startActivity(Intent(activity, AddClothesActivity::class.java))
                 return true
             }
         }

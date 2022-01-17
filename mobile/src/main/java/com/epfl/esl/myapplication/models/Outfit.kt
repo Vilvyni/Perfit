@@ -4,7 +4,7 @@ import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 @Parcelize
 
-data class Cloth(
+data class Outfit(
     val id_top: String = "",
     val id_trouser: String = "",
     val id_shoes: String = "",

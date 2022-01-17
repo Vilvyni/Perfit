@@ -100,8 +100,6 @@ class AddItemActivity : BaseActivity(), View.OnClickListener {
             Toast.LENGTH_SHORT
         ).show()
         finish()
-
-
     }
 
     fun imageUploadSuccess(imageURL: String) {

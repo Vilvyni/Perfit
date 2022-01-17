@@ -83,7 +83,7 @@
     <string name="action_add_outfit">Add Outfit</string>
 
 
-    <string name="title_add_item">ADD ITEM</string>
+    <string name="title_add_item">ADD CLOTHES</string>
     <!--    -->
     <string name="et_hint_item_title">Item Title</string>
     <string name="et_hint_product_price">Product Price ($)</string>
@@ -109,6 +109,15 @@
     <string name="delete_dialog_message">Are you sure you want to delete the product?</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
+    <string name="rb_lbl_Spring_Summer">Spring-Summer</string>
+    <string name="rb_lbl_Winter_Fall">Winter-Fall</string>
+    <string name="rb_lbl_Sporty">Sports</string>
+    <string name="rb_lbl_Casual">Casual</string>
+    <string name="rb_lbl_Formal">Formal</string>
+    <string name="rb_lbl_Night">Night</string>
+    <string name="rb_lbl_Top">Top</string>
+    <string name="rb_lbl_Bottom">Bottom</string>
+    <string name="rb_lbl_Shoes">Shoes</string>
 
 
     <string-array name="season">

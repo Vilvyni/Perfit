@@ -31,6 +31,22 @@ object Constants {
     const val MALE: String = "Male"
     const val FEMALE: String = "Female"
 
+    // Constant Season
+    const val WINTERFALL: String = "Winter-Fall"
+    const val SUMMERSPRING: String = "Summer-Spring"
+
+
+    // Constant purpose
+    const val SPORTY: String = "sporty"
+    const val CAUSAL: String = "causal"
+    const val FORMAL: String = "formal"
+    const val NIGHT: String = "night"
+
+    // Constant category
+    const val TOP: String = "top"
+    const val BOTTOM: String = "bottom"
+    const val SHOES: String = "shoes"
+
     // Firebase database field names
     const val MOBILE: String = "mobile"
     const val GENDER: String = "gender"
@@ -48,6 +64,7 @@ object Constants {
 
 
     const val ITEM_IMAGE: String = "Item_Image"
+    const val CLOTHING_IMAGE: String = "Clothing_Image"
 
 
 
