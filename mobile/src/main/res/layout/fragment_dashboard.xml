@@ -1,12 +1,107 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
+
+
+
+<androidx.constraintlayout.widget.ConstraintLayout
+
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorOffWhite"
     tools:context=".ui.fragments.DashboardFragment">
 
+    <FrameLayout
+        android:id="@+id/fl_header_Weather"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/auth_header_image_height"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+<!--        Background Image-->
+        <ImageView
+            android:id = "@+id/weather_Background"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:contentDescription="@string/content_description"
+            android:scaleType="fitXY"
+            android:src="@drawable/splash" />
+
+<!--        Icon Image-->
+<!--        <ImageView-->
+<!--            android:id="@+id/weather_icon"-->
+<!--            android:layout_width="38dp"-->
+<!--            android:layout_height="56dp"-->
+<!--            android:layout_gravity="center"-->
+<!--            android:contentDescription="@string/app_name"-->
+<!--            android:scaleType="fitCenter"-->
+<!--            android:src="@drawable/ic_baseline_wb_sunny_24"-->
+<!--            app:tint="@color/colorOffWhite" />-->
+
+        <com.epfl.esl.myapplication.utils.MSPTextViewBold
+            android:id="@+id/tv_WeatherToday"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="35dp"
+            android:text="Weather Today:"
+            android:textColor="@color/colorOffWhite"
+            android:textSize="@dimen/forgot_password_title_textSize"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/fl_header_Weather"
+            />
+
+<!--        Celcius Temperature -->
+        <com.epfl.esl.myapplication.utils.MSPTextView
+            android:id="@+id/tv_weather_description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="100dp"
+            android:layout_marginTop="80dp"
+            android:layout_marginEnd="50dp"
+            android:gravity="center"
+            android:text="23 &#xb0;"
+            android:textColor="@color/colorOffWhite"
+            android:textSize="50dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+
+            />
+
+
+    </FrameLayout>
+
+    <com.epfl.esl.myapplication.utils.MSPTextViewBold
+        android:id="@+id/tv_style"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="35dp"
+        android:text="Choose Your Style"
+        android:textColor="@color/colorPrimaryText"
+        android:textSize="@dimen/forgot_password_title_textSize"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/fl_header_Weather" />
+
+    <com.epfl.esl.myapplication.utils.MSPTextView
+        android:id="@+id/tv_style_description"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="50dp"
+        android:gravity="center"
+        android:text="In what mood are you feeling today?"
+        android:textColor="@color/colorPrimaryText"
+        android:textSize="@dimen/forgot_password_title_description_textSize"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_style" />
+
+
+<!--    Here is the outfit recycler view with the visibility set to GONE -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_dashboard_items"
         android:layout_width="match_parent"
@@ -17,18 +112,126 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/tv_no_dashboard_items_found"
+    <!--    Here are the  Buttons -->
+    <Button
+            android:id="@+id/btn_dashboard_sporty"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:text="@string/no_dashboard_item_found"
-        android:textAlignment="center"
-        android:textSize="@dimen/no_data_found_textSize"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_gravity="center"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="16dp"
+
+        android:background="@drawable/button_background"
+        android:foreground="?attr/selectableItemBackground"
+        android:minHeight="60dp"
+        android:fontFamily="@font/montserrat"
+        android:gravity="center"
+        android:paddingTop="@dimen/btn_padding"
+        android:paddingBottom="@dimen/btn_padding"
+        android:text="SPORTY"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/btn_textSize"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/tv_style_description" />
+
+    <Button
+        android:id="@+id/btn_dashboard_casual"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="16dp"
+
+        android:background="@drawable/button_background"
+        android:foreground="?attr/selectableItemBackground"
+        android:minHeight="60dp"
+        android:fontFamily="@font/montserrat"
+        android:gravity="center"
+        android:paddingTop="@dimen/btn_padding"
+        android:paddingBottom="@dimen/btn_padding"
+        android:text="CASUAL"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/btn_textSize"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btn_dashboard_sporty" />
+
+    <Button
+        android:id="@+id/btn_dashboard_formal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="16dp"
+
+        android:background="@drawable/button_background"
+        android:foreground="?attr/selectableItemBackground"
+        android:minHeight="60dp"
+        android:fontFamily="@font/montserrat"
+        android:gravity="center"
+        android:paddingTop="@dimen/btn_padding"
+        android:paddingBottom="@dimen/btn_padding"
+        android:text="FORMAL"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/btn_textSize"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btn_dashboard_casual" />
+
+    <Button
+        android:id="@+id/btn_dashboard_night"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="16dp"
+        android:fontFamily="@font/montserrat"
+
+        android:background="@drawable/button_background"
+        android:foreground="?attr/selectableItemBackground"
+        android:minHeight="60dp"
+
+        android:gravity="center"
+        android:paddingTop="@dimen/btn_padding"
+        android:paddingBottom="@dimen/btn_padding"
+        android:text="NIGHT"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/btn_textSize"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btn_dashboard_formal" />
+
+
+    <!--    Here are the Purpose Buttons -->
+<!--    <com.epfl.esl.myapplication.utils.MSPButton-->
+<!--        android:id="@+id/btn_dashboard_Sporty"-->
+
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_gravity="center"-->
+<!--        android:layout_marginStart="16dp"-->
+<!--        android:layout_marginTop="30dp"-->
+<!--        android:layout_marginEnd="16dp"-->
+<!--        android:background="@drawable/button_background"-->
+<!--        android:foreground="?attr/selectableItemBackground"-->
+<!--        android:gravity="center"-->
+<!--        android:paddingTop="@dimen/btn_padding"-->
+<!--        android:paddingBottom="@dimen/btn_padding"-->
+<!--        android:text="SPORTY"-->
+<!--        android:textColor="@android:color/white"-->
+<!--        android:textSize="@dimen/btn_textSize"-->
+
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintHorizontal_bias="0.0"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+
+<!--        />-->
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

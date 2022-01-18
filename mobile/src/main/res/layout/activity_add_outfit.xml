@@ -1,9 +1,178 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorOffWhite"
+    android:orientation="vertical"
     tools:context=".ui.activities.AddOutfitActivity">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+// add the back button
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar_add_outfit_activity"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@drawable/app_gradient_color_background"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/tv_title_outfit"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:paddingStart="@dimen/toolbar_title_paddingStart"
+            android:paddingEnd="0dp"
+            android:text="ADD OUTFIT"
+            android:textColor="@color/white"
+            android:textSize="@dimen/toolbar_title_text_size"
+            android:textStyle="bold" />
+
+    </androidx.appcompat.widget.Toolbar>
+
+<!--    HERE IS THE RECYCLER VIEW     -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_my_outfit_top"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_my_outfit_trouser"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_my_outfit_shoes"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+
+<!--       HERE IS THE SEASONS BUTTONS     -->
+    <RadioGroup
+        android:id="@+id/rg_outfit_season"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/profile_radio_button_height"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginEnd="16dp"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@id/rv_my_outfit_shoes"
+        >
+
+        <com.epfl.esl.myapplication.utils.MSPRadioButton
+            android:id="@+id/rb_outfit_Spring_Summer"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="@dimen/profile_radio_button_marginStartEnd"
+            android:layout_weight="1"
+            android:background="@drawable/drawable_gender_tab_selector"
+            android:button="@null"
+            android:checked="true"
+            android:gravity="center"
+            android:text="@string/rb_lbl_Spring_Summer"
+            android:textColor="@drawable/drawable_gender_tab_text_color_selector"
+            android:textStyle="bold" />
+
+        <com.epfl.esl.myapplication.utils.MSPRadioButton
+            android:id="@+id/rb_outfit_Winter_Fall"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="@dimen/profile_radio_button_marginStartEnd"
+            android:layout_weight="1"
+            android:background="@drawable/drawable_gender_tab_selector"
+            android:button="@null"
+            android:gravity="center"
+            android:text="@string/rb_lbl_Winter_Fall"
+            android:textColor="@drawable/drawable_gender_tab_text_color_selector"
+            android:textStyle="bold" />
+    </RadioGroup>
+
+
+    <!--       HERE IS THE PURPOSE BUTTONS     -->
+    <RadioGroup
+        android:id="@+id/rg_outfit_purpose"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/profile_radio_button_height"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginEnd="16dp"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@id/rg_outfit_season"
+        >
+
+        <com.epfl.esl.myapplication.utils.MSPRadioButton
+            android:id="@+id/rb_outfit_sporty"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="@dimen/profile_radio_button_marginStartEnd"
+            android:layout_weight="1"
+            android:background="@drawable/drawable_gender_tab_selector"
+            android:button="@null"
+            android:checked="true"
+            android:gravity="center"
+            android:text="@string/rb_lbl_Sporty"
+            android:textColor="@drawable/drawable_gender_tab_text_color_selector"
+            android:textStyle="bold" />
+
+        <com.epfl.esl.myapplication.utils.MSPRadioButton
+            android:id="@+id/rb_outfit_casual"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="@dimen/profile_radio_button_marginStartEnd"
+            android:layout_weight="1"
+            android:background="@drawable/drawable_gender_tab_selector"
+            android:button="@null"
+            android:gravity="center"
+            android:text="@string/rb_lbl_Casual"
+            android:textColor="@drawable/drawable_gender_tab_text_color_selector"
+            android:textStyle="bold" />
+
+        <com.epfl.esl.myapplication.utils.MSPRadioButton
+            android:id="@+id/rb_outfit_formal"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="@dimen/profile_radio_button_marginStartEnd"
+            android:layout_marginEnd="@dimen/profile_radio_button_marginStartEnd"
+            android:layout_weight="1"
+            android:background="@drawable/drawable_gender_tab_selector"
+            android:button="@null"
+            android:gravity="center"
+            android:text="@string/rb_lbl_Formal"
+            android:textColor="@drawable/drawable_gender_tab_text_color_selector"
+            android:textStyle="bold" />
+
+        <com.epfl.esl.myapplication.utils.MSPRadioButton
+            android:id="@+id/rb_outfit_night"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="@dimen/profile_radio_button_marginStartEnd"
+            android:layout_weight="1"
+            android:background="@drawable/drawable_gender_tab_selector"
+            android:button="@null"
+            android:gravity="center"
+            android:text="@string/rb_lbl_Night"
+            android:textColor="@drawable/drawable_gender_tab_text_color_selector"
+            android:textStyle="bold" />
+
+    </RadioGroup>
+
+
+</LinearLayout>

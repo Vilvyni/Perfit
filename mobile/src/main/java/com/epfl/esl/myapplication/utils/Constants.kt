@@ -35,12 +35,18 @@ object Constants {
     const val WINTERFALL: String = "Winter-Fall"
     const val SUMMERSPRING: String = "Summer-Spring"
 
+    //Current Season //default
+    const val SEASON: String = "season"
+
 
     // Constant purpose
     const val SPORTY: String = "sporty"
     const val CAUSAL: String = "causal"
     const val FORMAL: String = "formal"
     const val NIGHT: String = "night"
+
+    const val PURPOSE: String = "purpose"
+
 
     // Constant category
     const val TOP: String = "top"

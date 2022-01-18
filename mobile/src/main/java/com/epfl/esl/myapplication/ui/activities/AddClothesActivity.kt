@@ -18,8 +18,6 @@ import com.epfl.esl.myapplication.models.Clothing
 import com.epfl.esl.myapplication.utils.Constants
 import com.epfl.esl.myapplication.utils.GlideLoader
 import kotlinx.android.synthetic.main.activity_add_clothing.*
-import kotlinx.android.synthetic.main.activity_settings.*
-import kotlinx.android.synthetic.main.activity_user_profile.*
 import java.io.IOException
 
 class AddClothesActivity : BaseActivity(), View.OnClickListener{
@@ -30,12 +28,6 @@ class AddClothesActivity : BaseActivity(), View.OnClickListener{
     // A global variable for uploaded product image URL.
     private var mItemImageURL: String = ""
 
-//    // Add button Listeners
-//    val winter_fall = if (rb_Spring_Summer.isChecked) {
-//        Constants.WINTERFALL
-//    } else {
-//        Constants.SUMMERSPRING
-//    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

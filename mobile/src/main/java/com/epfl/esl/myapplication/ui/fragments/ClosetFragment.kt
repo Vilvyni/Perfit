@@ -6,17 +6,13 @@ import android.view.*
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
-
 import com.epfl.esl.myapplication.R
 import com.epfl.esl.myapplication.firestore.FirestoreClass
 import com.epfl.esl.myapplication.models.Clothing
-import com.epfl.esl.myapplication.models.Item
-import com.epfl.esl.myapplication.ui.activities.AddClothesActivity
-import com.epfl.esl.myapplication.ui.activities.AddItemActivity
 import com.myshoppal.ui.adapters.MyItemsListAdapter
 import kotlinx.android.synthetic.main.fragment_closet.*
+import com.epfl.esl.myapplication.ui.activities.AddClothesActivity
 
-//import com.epfl.esl.myapplication.activities.databinding.FragmentHomeBinding
 
 class ClosetFragment : BaseFragment(){
 
@@ -110,6 +106,7 @@ class ClosetFragment : BaseFragment(){
 
         }
     }
+
     fun successItemsListFromFireStoreTrouser(trouser: ArrayList<Clothing>) {
 
         // Hide Progress dialog.
@@ -135,6 +132,7 @@ class ClosetFragment : BaseFragment(){
 
         }
     }
+
     fun successItemsListFromFireStoreShoes(shoes: ArrayList<Clothing>) {
 
         // Hide Progress dialog.
