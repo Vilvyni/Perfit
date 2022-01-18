@@ -271,10 +271,12 @@ class FirestoreClass {
 
     fun uploadClothingDetails(activity: AddClothesActivity, itemInfo: Clothing, category:String) {
 
-        mFireStore.collection(category)
-            .document()
+
+        val clothRef = mFireStore.collection(category).document()
+
+        itemInfo.id_clothing =clothRef.id
             // Here the userInfo are Field and the SetOption is set to merge. It is for if we wants to merge
-            .set(itemInfo, SetOptions.merge())
+        clothRef.set(itemInfo, SetOptions.merge())
             .addOnSuccessListener {
 
                 // Here call a function of base activity for transferring the result to it.

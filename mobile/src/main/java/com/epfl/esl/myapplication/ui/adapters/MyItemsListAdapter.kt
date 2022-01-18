@@ -1,6 +1,7 @@
 package com.myshoppal.ui.adapters
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -56,7 +57,9 @@ open class MyItemsListAdapter(
         if (holder is MyViewHolder) {
 
             GlideLoader(context).loadItemPicture(model.image, holder.itemView.iv_item_image)
-
+            holder.itemView.setOnClickListener {
+                Log.d("yo",model.id_clothing)
+            }
 
             // END
         }

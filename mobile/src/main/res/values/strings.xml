@@ -118,7 +118,6 @@
     <string name="rb_lbl_Top">Top</string>
     <string name="rb_lbl_Bottom">Bottom</string>
     <string name="rb_lbl_Shoes">Shoes</string>
-    <string name="btn_lbl_laundry">Laundry</string>
 
 
     <string-array name="season">
