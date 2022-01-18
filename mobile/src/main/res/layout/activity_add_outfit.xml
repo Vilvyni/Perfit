@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -10,6 +11,7 @@
     android:layout_centerVertical="true"
 
     tools:context=".ui.activities.AddOutfitActivity">
+
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar_add_outfit_activity"
         android:layout_width="match_parent"
@@ -34,58 +36,58 @@
     </androidx.appcompat.widget.Toolbar>
 
 
+    <!--       HERE IS THE SEASONS BUTTONS     -->
     <ImageView
         android:id="@+id/iv_add_outfit_top"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:layout_margin="@dimen/settings_user_picture_margin"
-        android:layout_marginBottom="20dp"
+        android:layout_marginTop="19dp"
         android:contentDescription="@string/content_description"
         android:scaleType="fitXY"
-        android:src="@drawable/ic_user_placeholder"
-        app:layout_constraintBottom_toTopOf="@+id/iv_user_shoes"
+        android:src="@drawable/tshirt"
+        app:layout_constraintBottom_toTopOf="@+id/iv_add_outfit_bottom"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.947" />
+        app:layout_constraintTop_toBottomOf="@+id/toolbar_add_outfit_activity"
+        app:layout_constraintVertical_bias="0.193" />
 
     <ImageView
         android:id="@+id/iv_add_outfit_bottom"
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:layout_margin="@dimen/settings_user_picture_margin"
-        android:layout_marginBottom="172dp"
         android:contentDescription="@string/content_description"
         android:scaleType="fitXY"
-        android:src="@drawable/ic_user_placeholder"
-        app:layout_constraintBottom_toTopOf="@+id/iv_user_shoes"
+        android:src="@drawable/trousers"
+        app:layout_constraintBottom_toTopOf="@+id/iv_add_outfit_shoes"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.131" />
+        app:layout_constraintVertical_bias="0.945" />
 
     <ImageView
         android:id="@+id/iv_add_outfit_shoes"
         android:layout_width="150dp"
         android:layout_height="150dp"
+
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
         android:layout_margin="@dimen/settings_user_picture_margin"
+        android:layout_marginBottom="20dp"
         android:contentDescription="@string/content_description"
         android:scaleType="fitXY"
-        android:src="@drawable/ic_user_placeholder"
-        app:layout_constraintBottom_toTopOf="@+id/btn_suggestion_confirm"
+        android:src="@drawable/sneakers"
+
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="0.668" />
 
-
-<!--       HERE IS THE SEASONS BUTTONS     -->
     <RadioGroup
         android:id="@+id/rg_outfit_season"
         android:layout_width="match_parent"
@@ -194,5 +196,26 @@
 
     </RadioGroup>
 
+    <com.epfl.esl.myapplication.utils.MSPButton
+        android:id="@+id/btn_outfit_add"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/button_background"
+        android:foreground="?attr/selectableItemBackground"
+        android:gravity="center"
+        android:paddingTop="@dimen/btn_padding"
+        android:paddingBottom="@dimen/btn_padding"
+        android:text="ADD OUTFIT"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/btn_textSize"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/rg_outfit_purpose" />
 
-</LinearLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

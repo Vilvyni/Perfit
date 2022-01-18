@@ -290,6 +290,59 @@ class FirestoreClass {
                 )
             }
     }
+
+
+
+    fun getItemsListClothes(activity: Activity,category: String) {
+
+
+
+        // The collection name for PRODUCTS
+        mFireStore.collection(category)
+            .whereEqualTo(Constants.ID_USER, getCurrentUserID())  // only get the elements that fit our user ID
+            .get() // Will get the documents snapshots.
+            .addOnSuccessListener { document ->
+
+                // Here we get the list of boards in the form of documents.
+                Log.e("Items List", document.documents.toString())
+                Log.e("Items List", getCurrentUserID())
+
+                // Here we have created a new instance for Products ArrayList.
+                val topList: ArrayList<Clothing> = ArrayList()
+
+                // A for loop as per the list of documents to convert them into Products ArrayList.
+                for (i in document.documents) {
+
+                    val item = i.toObject(Clothing::class.java)
+                    item!!.id_clothing = i.id // create a new product id
+
+                    topList.add(item)
+                }
+
+                when (activity) {
+                    is ClothesSelectionActivity -> {
+                        activity.successItemsListFromFireStoreClothes(topList)
+                    }
+                }
+            }
+            .addOnFailureListener { e ->
+                // Hide the progress dialog if there is any error based on the base class instance.
+                when (activity) {
+                    is ClothesSelectionActivity -> {
+//                        activity.hideProgressDialog()
+                    }
+                }
+                Log.e("Get Item List", "Error while getting product list.", e)
+            }
+
+    }
+
+
+
+
+
+
+
 //
     /**
      * A function to get the products list from cloud firestore.

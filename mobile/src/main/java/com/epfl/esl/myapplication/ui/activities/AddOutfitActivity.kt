@@ -37,42 +37,43 @@ class AddOutfitActivity :BaseActivity(), View.OnClickListener{
 
         // Assign the click event to iv_add_update_product image and to to submit button.
 
-//        iv_add_update_clothing.setOnClickListener(this)
-//        btn_submit_add_clothing.setOnClickListener(this)
+        iv_add_outfit_top.setOnClickListener(this)
 
+        iv_add_outfit_bottom.setOnClickListener(this)
+
+        iv_add_outfit_shoes.setOnClickListener(this)
 
     }
 
 
 
     override fun onClick(v: View?) {
-        TODO("Not yet implemented")
 
-////        if (v != null) {
-////            when (v.id) {
+        if (v != null) {
+            when (v.id) {
+                R.id.iv_add_outfit_top -> {
+                    val intent = Intent(this, ClothesSelectionActivity::class.java)
+                    intent.putExtra(Constants.CATEGORY,Constants.TOP )
+                    startActivity(intent)
+                }
 //
-//                // if the user presses on the new photo
-//                // The permission code is similar to the user profile image selection.
-////                R.id.iv_add_update_clothing -> {
-//
-////                    if (ContextCompat.checkSelfPermission(this@AddClothesActivity, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
-////
-////                        Constants.showImageChooser(this@AddClothesActivity)
-////
-////                    } else {
-////
-////                        /*Requests permissions to be granted to this application. These permissions
-////                         must be requested in your manifest, they should not be granted to your app,
-////                         and they should have protection level*/
-////                        ActivityCompat.requestPermissions(this@AddClothesActivity, arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE), Constants.READ_STORAGE_PERMISSION_CODE)
-////
-////                    }
-////                }
-//
-////                R.id.btn_submit_add_clothing -> { if (validateClothingDetails()) { uploadClothingImage() }
-////                }
-////            }
-////        }
+                R.id.iv_add_outfit_bottom -> {
+                    val intent = Intent(this, ClothesSelectionActivity::class.java)
+                    intent.putExtra(Constants.CATEGORY,Constants.BOTTOM )
+                    startActivity(intent)
+                }
+
+                R.id.iv_add_outfit_shoes -> {
+                    val intent = Intent(this, ClothesSelectionActivity::class.java)
+                    intent.putExtra(Constants.CATEGORY,Constants.SHOES )
+                    startActivity(intent)
+                }
+
+                R.id.btn_outfit_add -> {
+
+                }
+            }
+        }
     }
 
 //    fun OutfitUploadSuccess(){

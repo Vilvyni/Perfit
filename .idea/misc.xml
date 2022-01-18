@@ -103,8 +103,9 @@
         <entry key="mobile/src/main/res/layout/activity_add_clothes.xml" value="0.5074074074074074" />
         <entry key="mobile/src/main/res/layout/activity_add_clothing.xml" value="0.1" />
         <entry key="mobile/src/main/res/layout/activity_add_item.xml" value="0.33" />
-        <entry key="mobile/src/main/res/layout/activity_add_outfit.xml" value="0.15463917525773196" />
+        <entry key="mobile/src/main/res/layout/activity_add_outfit.xml" value="0.22" />
         <entry key="mobile/src/main/res/layout/activity_base.xml" value="0.27395833333333336" />
+        <entry key="mobile/src/main/res/layout/activity_clothes_selection.xml" value="0.33" />
         <entry key="mobile/src/main/res/layout/activity_dashboard.xml" value="0.17864583333333334" />
         <entry key="mobile/src/main/res/layout/activity_forgot_password.xml" value="0.1" />
         <entry key="mobile/src/main/res/layout/activity_login.xml" value="0.33" />

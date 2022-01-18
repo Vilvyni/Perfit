@@ -13,6 +13,7 @@ object Constants {
     // This  is used for the collection name for USERS and Items
     const val USERS: String = "users"
     const val ITEMS : String = "items"
+    const val IdClothing : String = "id_clothing"
 
 
     const val MYPERFIT_PREFERENCES: String = "MyShopPalPrefs"
@@ -39,6 +40,8 @@ object Constants {
     const val SEASON: String = "season"
 
 
+
+
     // Constant purpose
     const val SPORTY: String = "sporty"
     const val CAUSAL: String = "causal"
@@ -49,6 +52,7 @@ object Constants {
 
 
     // Constant category
+    const val CATEGORY: String = "category"
     const val TOP: String = "top"
     const val BOTTOM: String = "bottom"
     const val SHOES: String = "shoes"
