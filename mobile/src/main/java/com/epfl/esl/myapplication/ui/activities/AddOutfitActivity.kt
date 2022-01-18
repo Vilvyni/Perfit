@@ -16,65 +16,151 @@ import androidx.core.content.ContextCompat
 import com.epfl.esl.myapplication.R
 import com.epfl.esl.myapplication.firestore.FirestoreClass
 import com.epfl.esl.myapplication.models.Clothing
+import com.epfl.esl.myapplication.models.Outfit
 import com.epfl.esl.myapplication.utils.Constants
 import com.epfl.esl.myapplication.utils.GlideLoader
+import kotlinx.android.synthetic.main.activity_add_clothing.*
 import kotlinx.android.synthetic.main.activity_add_outfit.*
+import kotlinx.android.synthetic.main.activity_user_profile.*
+import kotlinx.android.synthetic.main.item_dashboard_layout.view.*
 import java.io.IOException
 
-class AddOutfitActivity :BaseActivity(), View.OnClickListener{
+class AddOutfitActivity :BaseActivity(), View.OnClickListener {
     // A global variable for URI of a selected image from phone storage.
-    private var mSelectedImageFileUri: Uri? = null
+    private lateinit var outfit: Outfit
+
+    lateinit var received_category: String
 
     // A global variable for uploaded product image URL.
-    private var mItemImageURL: String = ""
+    var mTop_ImageURL: String = ""
+    private var mBottom_ImageURL: String = ""
+    private var mShoes_ImageURL: String = ""
+
+    var temp_IdTop: String= ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_outfit)
 
-
-        setupActionBar()
-
-        // Assign the click event to iv_add_update_product image and to to submit button.
-
-        iv_add_outfit_top.setOnClickListener(this)
-
-        iv_add_outfit_bottom.setOnClickListener(this)
-
-        iv_add_outfit_shoes.setOnClickListener(this)
-
-    }
+        if (intent.hasExtra(Constants.CATEGORY)) {
 
 
+            mTop_ImageURL = intent.getStringExtra(Constants.OUTFIT_TOP)!!
+            mBottom_ImageURL = intent.getStringExtra(Constants.OUTFIT_BOTTOM)!!
+            mShoes_ImageURL = intent.getStringExtra(Constants.OUTFIT_SHOES)!!
 
-    override fun onClick(v: View?) {
 
-        if (v != null) {
-            when (v.id) {
-                R.id.iv_add_outfit_top -> {
-                    val intent = Intent(this, ClothesSelectionActivity::class.java)
-                    intent.putExtra(Constants.CATEGORY,Constants.TOP )
-                    startActivity(intent)
-                }
+            GlideLoader(this).loadUserTop(mTop_ImageURL, iv_add_outfit_top)
+            GlideLoader(this).loadUserTop(mBottom_ImageURL, iv_add_outfit_bottom)
+            GlideLoader(this).loadUserTop(mShoes_ImageURL, iv_add_outfit_shoes)
+
+
+        }
+
+
+
+
+//         SEASON
+
+
+//        if(rb_outfit_Spring_Summer.isChecked){
+//            outfit.weather= Constants.SUMMERSPRING
+//        }
+//        else{
+//            outfit.weather = Constants.WINTERFALL
+//        }
 //
-                R.id.iv_add_outfit_bottom -> {
-                    val intent = Intent(this, ClothesSelectionActivity::class.java)
-                    intent.putExtra(Constants.CATEGORY,Constants.BOTTOM )
-                    startActivity(intent)
-                }
+//        // PURPOSE
+//        if(rb_outfit_sporty.isChecked){
+//            outfit.purpose= Constants.SPORTY
+//        }
+//        else if(rb_outfit_casual.isChecked) {
+//            outfit.purpose = Constants.CAUSAL
+//        }
+//        else if(rb_outfit_formal.isChecked) {
+//            outfit.purpose = Constants.FORMAL
+//        } else{
+//            outfit.purpose= Constants.NIGHT
+//        }
 
-                R.id.iv_add_outfit_shoes -> {
-                    val intent = Intent(this, ClothesSelectionActivity::class.java)
-                    intent.putExtra(Constants.CATEGORY,Constants.SHOES )
-                    startActivity(intent)
-                }
+//        outfit.id_user = FirestoreClass().getCurrentUserID()
 
-                R.id.btn_outfit_add -> {
 
+//        if (intent.hasExtra(Constants.CATEGORY)) {
+//
+//            if( received_category == Constants.TOP){
+//                outfit.
+//            }
+//
+//
+//            outfit. = intent.getStringExtra(Constants.CATEGORY)!!
+//        }
+
+        val outfit = Outfit(
+            "",
+            "",
+            "",
+
+            FirestoreClass().getCurrentUserID(),
+            "",
+            "",
+        )
+
+
+
+
+
+
+            setupActionBar()
+
+            // Assign the click event to iv_add_update_product image and to to submit button.
+
+            iv_add_outfit_top.setOnClickListener(this)
+
+            iv_add_outfit_bottom.setOnClickListener(this)
+
+            iv_add_outfit_shoes.setOnClickListener(this)
+
+        }
+
+
+
+        override fun onClick(v: View?) {
+
+            if (v != null) {
+                when (v.id) {
+                    R.id.iv_add_outfit_top -> {
+
+                        val intent = Intent(this, ClothesSelectionActivity::class.java)
+                        intent.putExtra(Constants.CATEGORY, Constants.TOP)
+//                        intent.putExtra(Constants.OUTFIT_TOP,"hi")
+//                        intent.putExtra(Constants.OUTFIT_BOTTOM,"hi")
+//                        intent.putExtra(Constants.OUTFIT_SHOES,"hi")
+
+                        startActivity(intent)
+                    }
+//
+                    R.id.iv_add_outfit_bottom -> {
+                        val intent = Intent(this, ClothesSelectionActivity::class.java)
+                        intent.putExtra(Constants.CATEGORY, Constants.BOTTOM)
+                        intent.putExtra(Constants.OUTFIT_TOP,"hi")
+                        intent.putExtra(Constants.OUTFIT_BOTTOM,"hi")
+                        intent.putExtra(Constants.OUTFIT_SHOES,"hi")
+                        startActivity(intent)
+                    }
+
+                    R.id.iv_add_outfit_shoes -> {
+                        val intent = Intent(this, ClothesSelectionActivity::class.java)
+                        intent.putExtra(Constants.CATEGORY, Constants.SHOES)
+                        startActivity(intent)
+                    }
+
+                    R.id.btn_outfit_add -> {
+
+                    }
                 }
             }
         }
-    }
 
 //    fun OutfitUploadSuccess(){
 //        hideProgressDialog()
@@ -95,7 +181,7 @@ class AddOutfitActivity :BaseActivity(), View.OnClickListener{
 //        uploadClothingDetails()
 //    }
 
-//    private fun uploadClothingDetails(){
+        //    private fun uploadClothingDetails(){
 //        var tempSeason:String = ""
 //        var tempPurpose:String = ""
 //        var tempCate:String = ""
@@ -212,18 +298,18 @@ class AddOutfitActivity :BaseActivity(), View.OnClickListener{
 //
 //
 //    //allows the user to go back with the arrow bar
-    private fun setupActionBar() {
+        private fun setupActionBar() {
 
-        setSupportActionBar(toolbar_add_outfit_activity)
+            setSupportActionBar(toolbar_add_outfit_activity)
 
-        val actionBar = supportActionBar
-        if (actionBar != null) {
-            actionBar.setDisplayHomeAsUpEnabled(true)
-            actionBar.setHomeAsUpIndicator(R.drawable.ic_white_back_24dp)
+            val actionBar = supportActionBar
+            if (actionBar != null) {
+                actionBar.setDisplayHomeAsUpEnabled(true)
+                actionBar.setHomeAsUpIndicator(R.drawable.ic_white_back_24dp)
+            }
+
+            toolbar_add_outfit_activity.setNavigationOnClickListener { onBackPressed() }
         }
-
-    toolbar_add_outfit_activity.setNavigationOnClickListener { onBackPressed() }
-    }
 
 //
 //    private fun validateClothingDetails(): Boolean {
@@ -246,6 +332,4 @@ class AddOutfitActivity :BaseActivity(), View.OnClickListener{
 //        FirestoreClass().uploadImageToCloudStorage(this, mSelectedImageFileUri, Constants.ITEM_IMAGE)
 //    }
 //
-
-
 }

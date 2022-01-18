@@ -18,6 +18,9 @@ import kotlinx.android.synthetic.main.activity_clothes_selection.*
 class ClothesSelectionActivity : AppCompatActivity(){
 
     private lateinit var selected_category: String
+    private lateinit var messenger_top_id: String
+    private lateinit var messenger_bottom_id: String
+    private lateinit var messenger_shoes_id: String
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,6 +30,16 @@ class ClothesSelectionActivity : AppCompatActivity(){
 
         if (intent.hasExtra(Constants.CATEGORY)) {
             selected_category = intent.getStringExtra(Constants.CATEGORY)!!
+        }
+
+        if(intent.hasExtra(Constants.OUTFIT_TOP)){
+            messenger_top_id = intent.getStringExtra(Constants.OUTFIT_TOP)!!
+        }
+        if(intent.hasExtra(Constants.BOTTOM)){
+            messenger_bottom_id = intent.getStringExtra(Constants.OUTFIT_BOTTOM)!!
+        }
+        if(intent.hasExtra(Constants.OUTFIT_SHOES)){
+            messenger_shoes_id = intent.getStringExtra(Constants.OUTFIT_SHOES)!!
         }
 
 
@@ -47,7 +60,7 @@ class ClothesSelectionActivity : AppCompatActivity(){
             rv_selection_clothes.setHasFixedSize(false)
 
 
-            val adapteroutfit = MyOutfitAdapter(this, clothing)
+            val adapteroutfit = MyOutfitAdapter(this, clothing, messenger_top_id, messenger_bottom_id,messenger_shoes_id)
 
 
             rv_selection_clothes.adapter = adapteroutfit

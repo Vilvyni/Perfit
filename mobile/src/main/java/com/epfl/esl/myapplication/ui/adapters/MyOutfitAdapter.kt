@@ -16,7 +16,11 @@ import kotlinx.android.synthetic.main.item_list_layout.view.*
 
 open class MyOutfitAdapter (
     private val context: Context,
-    private var list: ArrayList<Clothing>
+    private var list: ArrayList<Clothing>,
+    private var return_top: String,
+    private var return_bottom: String,
+    private var return_shoes: String
+//    private val activity: AddOutfitActivity
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     /**
@@ -48,16 +52,36 @@ open class MyOutfitAdapter (
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val model = list[position]
 
+
         if (holder is MyViewHolder) {
+
             GlideLoader(context).loadItemPicture(model.image, holder.itemView.iv_item_image)
 
 
             holder.itemView.setOnClickListener {
 
+//                activity.mTop_ImageURL = model.id_clothing
+
                 val intent = Intent(context, AddOutfitActivity::class.java)
-                intent.putExtra(Constants.CATEGORY, model.category)
-                intent.putExtra(Constants.IdClothing, model.id_clothing)
-                intent.putExtra(Constants.CLOTHING_IMAGE, model.image)
+                intent.putExtra(Constants.CATEGORY, model.category)             // Category
+                intent.putExtra(Constants.IdClothing, model.id_clothing)        // Clothing ID
+                intent.putExtra(Constants.CLOTHING_IMAGE, model.image)          // Image
+
+                if(model.category == Constants.TOP){
+                    intent.putExtra(Constants.OUTFIT_TOP,model.image)
+                    intent.putExtra(Constants.OUTFIT_BOTTOM,return_bottom)
+                    intent.putExtra(Constants.OUTFIT_SHOES,return_shoes)
+                }
+                else if(model.category == Constants.BOTTOM){
+                    intent.putExtra(Constants.OUTFIT_TOP,return_top)
+                    intent.putExtra(Constants.OUTFIT_BOTTOM,model.image)
+                    intent.putExtra(Constants.OUTFIT_SHOES,return_shoes)
+                }else{
+                    intent.putExtra(Constants.OUTFIT_TOP,return_top)
+                    intent.putExtra(Constants.OUTFIT_BOTTOM,return_bottom)
+                    intent.putExtra(Constants.OUTFIT_SHOES,model.image)
+                }
+
                 context.startActivity(intent)
             }
 

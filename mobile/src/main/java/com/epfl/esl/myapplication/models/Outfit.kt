@@ -5,13 +5,13 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 
 data class Outfit(
-    val id_top: String = "",
-    val id_trouser: String = "",
-    val id_shoes: String = "",
+    var id_top: String = "",
+    var id_bottom: String = "",
+    var id_shoes: String = "",
 
-    val id_user:String="",
+    var id_user:String="",
 
-    val weather:String = "",
-    val purpose: String = "",
+    var weather:String = "",
+    var purpose: String = "",
 
     ):Parcelable

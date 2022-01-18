@@ -40,6 +40,12 @@ object Constants {
     const val SEASON: String = "season"
 
 
+    //OUTFIT SELECTION
+    const val OUTFIT_TOP: String = "outfit_top_id"
+    const val OUTFIT_BOTTOM: String = "outfit_bottom_id"
+    const val OUTFIT_SHOES: String = "outfit_shoes_id"
+
+
 
 
     // Constant purpose
