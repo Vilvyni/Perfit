@@ -6,9 +6,10 @@
     android:layout_height="match_parent"
     android:background="@color/colorOffWhite"
     android:orientation="vertical"
-    tools:context=".ui.activities.AddOutfitActivity">
+    android:layout_centerHorizontal="true"
+    android:layout_centerVertical="true"
 
-// add the back button
+    tools:context=".ui.activities.AddOutfitActivity">
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar_add_outfit_activity"
         android:layout_width="match_parent"
@@ -32,37 +33,56 @@
 
     </androidx.appcompat.widget.Toolbar>
 
-<!--    HERE IS THE RECYCLER VIEW     -->
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_my_outfit_top"
-        android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_my_outfit_trouser"
-        android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <ImageView
+        android:id="@+id/iv_add_outfit_top"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_my_outfit_shoes"
-        android:layout_width="match_parent"
+        android:layout_width="150dp"
         android:layout_height="150dp"
-        android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_margin="@dimen/settings_user_picture_margin"
+        android:layout_marginBottom="20dp"
+        android:contentDescription="@string/content_description"
+        android:scaleType="fitXY"
+        android:src="@drawable/ic_user_placeholder"
+        app:layout_constraintBottom_toTopOf="@+id/iv_user_shoes"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.947" />
 
+    <ImageView
+        android:id="@+id/iv_add_outfit_bottom"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_margin="@dimen/settings_user_picture_margin"
+        android:layout_marginBottom="172dp"
+        android:contentDescription="@string/content_description"
+        android:scaleType="fitXY"
+        android:src="@drawable/ic_user_placeholder"
+        app:layout_constraintBottom_toTopOf="@+id/iv_user_shoes"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.131" />
+
+    <ImageView
+        android:id="@+id/iv_add_outfit_shoes"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_margin="@dimen/settings_user_picture_margin"
+        android:contentDescription="@string/content_description"
+        android:scaleType="fitXY"
+        android:src="@drawable/ic_user_placeholder"
+        app:layout_constraintBottom_toTopOf="@+id/btn_suggestion_confirm"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
 
 
 <!--       HERE IS THE SEASONS BUTTONS     -->
@@ -74,7 +94,7 @@
         android:layout_marginTop="25dp"
         android:layout_marginEnd="16dp"
         android:orientation="horizontal"
-        app:layout_constraintTop_toBottomOf="@id/rv_my_outfit_shoes"
+        app:layout_constraintTop_toBottomOf="@id/iv_add_outfit_shoes"
         >
 
         <com.epfl.esl.myapplication.utils.MSPRadioButton
