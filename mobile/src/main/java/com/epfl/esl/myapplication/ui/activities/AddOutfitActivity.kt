@@ -3,11 +3,13 @@ package com.epfl.esl.myapplication.ui.activities
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import com.epfl.esl.myapplication.R
 import com.epfl.esl.myapplication.firestore.FirestoreClass
 import com.epfl.esl.myapplication.models.Clothing
 import com.epfl.esl.myapplication.utils.Constants
 import com.epfl.esl.myapplication.utils.GlideLoader
+import kotlinx.android.synthetic.main.activity_add_clothing.*
 import kotlinx.android.synthetic.main.activity_add_outfit.*
 import kotlinx.android.synthetic.main.item_list_layout.view.*
 
@@ -28,6 +30,10 @@ class AddOutfitActivity :BaseActivity(), View.OnClickListener{
     private lateinit var bottom_list : ArrayList<Clothing>
     private lateinit var shoes_list : ArrayList<Clothing>
 
+    var id_top:String = "none"
+    var id_bottom:String = "none"
+    var id_shoes:String = "none"
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,6 +47,7 @@ class AddOutfitActivity :BaseActivity(), View.OnClickListener{
         top_right.setOnClickListener(this)
         bottom_right.setOnClickListener(this)
         shoes_right.setOnClickListener(this)
+        btn_outfit_add.setOnClickListener(this)
 
 
 
@@ -70,7 +77,8 @@ class AddOutfitActivity :BaseActivity(), View.OnClickListener{
                     if(index_top<0 ) {index_top=count_top-1}
 
                     var model = top_list[index_top]
-                    GlideLoader(this).loadUserPicture(model.image,iv_add_outfit_top)
+                    GlideLoader(this).loadItemPicture(model.image,iv_add_outfit_top)
+                    id_top = model.id_clothing
                     Log.e("loloo",index_top.toString())
                 }
 //
@@ -80,7 +88,8 @@ class AddOutfitActivity :BaseActivity(), View.OnClickListener{
                     if(index_bottom<0 ) {index_bottom=count_bottom-1}
 
                     var model = bottom_list[index_bottom]
-                    GlideLoader(this).loadUserPicture(model.image,iv_add_outfit_bottom)
+                    GlideLoader(this).loadItemPicture(model.image,iv_add_outfit_bottom)
+                    id_bottom = model.id_clothing
                     Log.e("loloo",index_bottom.toString())
 
                 }
@@ -91,7 +100,8 @@ class AddOutfitActivity :BaseActivity(), View.OnClickListener{
                     if(index_shoes<0 ) {index_shoes=count_shoes-1}
 
                     var model = shoes_list[index_shoes]
-                    GlideLoader(this).loadUserPicture(model.image,iv_add_outfit_shoes)
+                    GlideLoader(this).loadItemPicture(model.image,iv_add_outfit_shoes)
+                    id_shoes = model.id_clothing
                     Log.e("loloo",index_shoes.toString())
 
                 }
@@ -102,17 +112,19 @@ class AddOutfitActivity :BaseActivity(), View.OnClickListener{
                     if(index_top==count_top ) {index_top=0}
 
                     var model = top_list[index_top]
-                    GlideLoader(this).loadUserPicture(model.image,iv_add_outfit_top)
+                    GlideLoader(this).loadItemPicture(model.image,iv_add_outfit_top)
+                    id_top = model.id_clothing
                     Log.e("loloo",index_top.toString())
                 }
 //
                 R.id.bottom_right -> {
-                    index_bottom = index_bottom+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    1
+                    index_bottom = index_bottom+1
                     //if it is equal to 0
                     if(index_bottom==count_bottom ) {index_bottom=0}
 
                     var model = bottom_list[index_bottom]
-                    GlideLoader(this).loadUserPicture(model.image,iv_add_outfit_bottom)
+                    GlideLoader(this).loadItemPicture(model.image,iv_add_outfit_bottom)
+                    id_bottom = model.id_clothing
                     Log.e("loloo",index_bottom.toString())
 
                 }
@@ -123,17 +135,95 @@ class AddOutfitActivity :BaseActivity(), View.OnClickListener{
                     if(index_shoes==count_shoes ) {index_shoes=0}
 
                     var model = shoes_list[index_shoes]
-                    GlideLoader(this).loadUserPicture(model.image,iv_add_outfit_shoes)
+                    GlideLoader(this).loadItemPicture(model.image,iv_add_outfit_shoes)
+                    id_shoes = model.id_clothing
                     Log.e("loloo",index_shoes.toString())
 
                 }
 
                 R.id.btn_outfit_add -> {
+                    if(verify_oufit())
+                        Toast.makeText(
+                            this,
+                            "Yaay we got here",
+                            Toast.LENGTH_SHORT
+                        ).show()
+
 
                 }
             }
         }
     }
+    fun verify_oufit() :Boolean {
+        if (empty_top or empty_bottom or empty_shoes) {
+            Toast.makeText(
+                this,
+                "Add clothes in closet",
+                Toast.LENGTH_SHORT
+            ).show()
+            return false
+        } else if (id_top == "none") {
+            Toast.makeText(
+                this,
+                "Select top",
+                Toast.LENGTH_SHORT
+            ).show()
+            return false
+        } else if (id_bottom == "none") {
+            Toast.makeText(
+                this,
+                "Select bottom",
+                Toast.LENGTH_SHORT
+            ).show()
+            return false
+
+        } else if (id_shoes == "none") {
+            Toast.makeText(
+                this,
+                "Select shoes",
+                Toast.LENGTH_SHORT
+            ).show()
+            return false
+        } else {
+            return true
+        }
+    }
+
+
+//
+//        // season
+//        if(rb_Spring_Summer.isChecked){
+//            tempSeason = Constants.SUMMERSPRING
+//        }
+//        else{
+//            tempSeason = Constants.WINTERFALL
+//        }
+//
+//        // purpose
+//        if(rb_sporty.isChecked){
+//            tempPurpose = Constants.SPORTY
+//        }
+//        else if(rb_casual.isChecked){
+//            tempPurpose = Constants.CAUSAL
+//        }
+//        else if(rb_formal.isChecked){
+//            tempPurpose = Constants.FORMAL
+//        }
+//        else {
+//            tempPurpose = Constants.NIGHT
+//        }
+//
+//        if(rb_top.isChecked){
+//            tempCate = Constants.TOP
+//        }
+//        else if(rb_bottom.isChecked){
+//            tempCate = Constants.BOTTOM
+//        }
+//        else{
+//            tempCate = Constants.SHOES
+//        }
+//
+//    }
 
     fun getItemCount(list:ArrayList<Clothing>): Int {
         return list.size

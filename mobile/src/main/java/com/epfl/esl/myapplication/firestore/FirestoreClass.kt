@@ -7,6 +7,7 @@ import android.util.Log
 import androidx.fragment.app.Fragment
 import com.epfl.esl.myapplication.models.Clothing
 import com.epfl.esl.myapplication.models.Item
+import com.epfl.esl.myapplication.models.Outfit
 import com.epfl.esl.myapplication.models.User
 import com.epfl.esl.myapplication.ui.activities.*
 import com.epfl.esl.myapplication.ui.fragments.ClosetFragment
@@ -266,6 +267,10 @@ class FirestoreClass {
                     e
                 )
             }
+    }
+
+    fun uploadOutfitDetaisl(activity: AddOutfitActivity,outfitInfo:Outfit,){
+
     }
 
 
