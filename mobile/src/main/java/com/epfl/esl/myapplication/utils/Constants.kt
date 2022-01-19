@@ -51,6 +51,10 @@ object Constants {
     const val PURPOSE: String = "purpose"
 
 
+    const val TOP_IMAGE: String = "default top"
+    const val BOTTOM_IMAGE: String = "default bottom"
+    const val SHOES_IMAGE: String = "default shoes"
+
     // Constant category
     const val CATEGORY: String = "category"
     const val TOP: String = "top"

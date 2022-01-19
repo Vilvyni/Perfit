@@ -323,7 +323,11 @@ class FirestoreClass {
                     is ClothesSelectionActivity -> {
                         activity.successItemsListFromFireStoreClothes(topList)
                     }
+                    is AddOutfitActivity ->{
+                        activity.successItemsListFromFireStoreClothes(topList,category)
+                    }
                 }
+
             }
             .addOnFailureListener { e ->
                 // Hide the progress dialog if there is any error based on the base class instance.

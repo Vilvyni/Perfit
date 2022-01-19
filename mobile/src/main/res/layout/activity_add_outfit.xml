@@ -37,6 +37,97 @@
 
 
     <!--       HERE IS THE SEASONS BUTTONS     -->
+
+    Icon Image
+
+    <ImageView
+        android:id="@+id/top_left"
+        android:layout_width="38dp"
+        android:layout_height="56dp"
+        android:layout_gravity="center"
+        android:layout_marginEnd="12dp"
+        android:contentDescription="@string/app_name"
+        android:scaleType="fitCenter"
+        android:src="@drawable/ic_black_back_24dp"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_add_outfit_top"
+        app:layout_constraintEnd_toStartOf="@+id/iv_add_outfit_top"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/iv_add_outfit_top"
+        app:tint="@color/black" />
+
+    <ImageView
+        android:id="@+id/bottom_left"
+        android:layout_width="38dp"
+        android:layout_height="56dp"
+        android:layout_gravity="center"
+        android:contentDescription="@string/app_name"
+        android:scaleType="fitCenter"
+        android:src="@drawable/ic_black_back_24dp"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_add_outfit_bottom"
+        app:layout_constraintEnd_toStartOf="@+id/iv_add_outfit_bottom"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/iv_add_outfit_bottom"
+        app:tint="@color/black" />
+
+    <ImageView
+        android:id="@+id/shoes_left"
+        android:layout_width="38dp"
+        android:layout_height="56dp"
+        android:layout_gravity="center"
+        android:contentDescription="@string/app_name"
+        android:scaleType="fitCenter"
+        android:src="@drawable/ic_black_back_24dp"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_add_outfit_shoes"
+        app:layout_constraintEnd_toStartOf="@+id/iv_add_outfit_shoes"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/iv_add_outfit_shoes"
+        app:tint="@color/black" />
+
+    <ImageView
+        android:id="@+id/top_right"
+        android:layout_width="38dp"
+        android:layout_height="56dp"
+        android:layout_gravity="center"
+        android:contentDescription="@string/app_name"
+        android:rotation="180"
+        android:scaleType="fitCenter"
+        android:src="@drawable/ic_black_back_24dp"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_add_outfit_top"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/iv_add_outfit_top"
+        app:layout_constraintTop_toTopOf="@+id/iv_add_outfit_top"
+        app:tint="@color/black" />
+
+    <ImageView
+        android:id="@+id/bottom_right"
+        android:layout_width="38dp"
+        android:layout_height="56dp"
+        android:layout_gravity="center"
+        android:contentDescription="@string/app_name"
+        android:rotation="180"
+        android:scaleType="fitCenter"
+        android:src="@drawable/ic_black_back_24dp"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_add_outfit_bottom"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/iv_add_outfit_bottom"
+        app:layout_constraintTop_toTopOf="@+id/iv_add_outfit_bottom"
+        app:tint="@color/black" />
+
+    <ImageView
+        android:id="@+id/shoes_right"
+        android:layout_width="38dp"
+        android:layout_height="56dp"
+        android:layout_gravity="center"
+        android:contentDescription="@string/app_name"
+        android:rotation="180"
+        android:scaleType="fitCenter"
+        android:src="@drawable/ic_black_back_24dp"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_add_outfit_shoes"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/iv_add_outfit_shoes"
+        app:layout_constraintTop_toTopOf="@+id/iv_add_outfit_shoes"
+        app:tint="@color/black" />
+
     <ImageView
         android:id="@+id/iv_add_outfit_top"
         android:layout_width="150dp"

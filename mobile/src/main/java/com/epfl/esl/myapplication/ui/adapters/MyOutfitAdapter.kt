@@ -13,10 +13,13 @@ import com.epfl.esl.myapplication.ui.fragments.ClosetFragment
 import com.epfl.esl.myapplication.utils.Constants
 import com.epfl.esl.myapplication.utils.GlideLoader
 import kotlinx.android.synthetic.main.item_list_layout.view.*
+import android.content.SharedPreferences
+
 
 open class MyOutfitAdapter (
     private val context: Context,
     private var list: ArrayList<Clothing>
+
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     /**
@@ -47,12 +50,18 @@ open class MyOutfitAdapter (
      */
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val model = list[position]
+        val save = context.getSharedPreferences(Constants.CATEGORY,Context.MODE_PRIVATE)
 
         if (holder is MyViewHolder) {
             GlideLoader(context).loadItemPicture(model.image, holder.itemView.iv_item_image)
 
 
             holder.itemView.setOnClickListener {
+                val editor: SharedPreferences.Editor = save.edit()
+                editor.putString(
+                    model.category,
+                    model.image)
+                editor.apply()
 
                 val intent = Intent(context, AddOutfitActivity::class.java)
                 intent.putExtra(Constants.CATEGORY, model.category)

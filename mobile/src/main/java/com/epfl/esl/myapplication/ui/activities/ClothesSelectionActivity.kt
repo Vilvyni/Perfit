@@ -23,6 +23,8 @@ class ClothesSelectionActivity : AppCompatActivity(){
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_clothes_selection)
+// create the action bar
+        setupActionBar()
 
 
         if (intent.hasExtra(Constants.CATEGORY)) {
@@ -70,6 +72,22 @@ class ClothesSelectionActivity : AppCompatActivity(){
     override fun onResume() {
         super.onResume()
         getItemListFromFireStore()
+    }
+
+    /**
+     * A function for actionBar Setup.
+     */
+    private fun setupActionBar() {
+
+        setSupportActionBar(toolbar_clothes_selection_activity)
+
+        val actionBar = supportActionBar
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true)
+            actionBar.setHomeAsUpIndicator(R.drawable.ic_white_back_24dp)
+        }
+
+        toolbar_clothes_selection_activity.setNavigationOnClickListener { onBackPressed() }
     }
 
 
