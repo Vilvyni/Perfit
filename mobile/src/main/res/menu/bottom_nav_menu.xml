@@ -14,7 +14,7 @@
 
     <item
         android:id="@+id/navigation_outfits"
-        android:icon="@drawable/outfit"
+        android:icon="@drawable/outfit1"
         android:title="@string/title_outfits" />
 
 </menu>

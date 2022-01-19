@@ -7,6 +7,7 @@ import android.widget.Toast
 import com.epfl.esl.myapplication.R
 import com.epfl.esl.myapplication.firestore.FirestoreClass
 import com.epfl.esl.myapplication.models.Clothing
+import com.epfl.esl.myapplication.models.Outfit
 import com.epfl.esl.myapplication.utils.Constants
 import com.epfl.esl.myapplication.utils.GlideLoader
 import kotlinx.android.synthetic.main.activity_add_clothing.*
@@ -33,6 +34,10 @@ class AddOutfitActivity :BaseActivity(), View.OnClickListener{
     var id_top:String = "none"
     var id_bottom:String = "none"
     var id_shoes:String = "none"
+
+    var URI_top:String = "none"
+    var URI_bottom:String = "none"
+    var URI_shoes:String = "none"
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -78,6 +83,7 @@ class AddOutfitActivity :BaseActivity(), View.OnClickListener{
 
                     var model = top_list[index_top]
                     GlideLoader(this).loadItemPicture(model.image,iv_add_outfit_top)
+                    URI_top = model.image
                     id_top = model.id_clothing
                     Log.e("loloo",index_top.toString())
                 }
@@ -89,6 +95,7 @@ class AddOutfitActivity :BaseActivity(), View.OnClickListener{
 
                     var model = bottom_list[index_bottom]
                     GlideLoader(this).loadItemPicture(model.image,iv_add_outfit_bottom)
+                    URI_bottom = model.image
                     id_bottom = model.id_clothing
                     Log.e("loloo",index_bottom.toString())
 
@@ -101,6 +108,7 @@ class AddOutfitActivity :BaseActivity(), View.OnClickListener{
 
                     var model = shoes_list[index_shoes]
                     GlideLoader(this).loadItemPicture(model.image,iv_add_outfit_shoes)
+                    URI_shoes = model.image
                     id_shoes = model.id_clothing
                     Log.e("loloo",index_shoes.toString())
 
@@ -113,6 +121,7 @@ class AddOutfitActivity :BaseActivity(), View.OnClickListener{
 
                     var model = top_list[index_top]
                     GlideLoader(this).loadItemPicture(model.image,iv_add_outfit_top)
+                    URI_top= model.image
                     id_top = model.id_clothing
                     Log.e("loloo",index_top.toString())
                 }
@@ -124,6 +133,7 @@ class AddOutfitActivity :BaseActivity(), View.OnClickListener{
 
                     var model = bottom_list[index_bottom]
                     GlideLoader(this).loadItemPicture(model.image,iv_add_outfit_bottom)
+                    URI_bottom = model.image
                     id_bottom = model.id_clothing
                     Log.e("loloo",index_bottom.toString())
 
@@ -136,23 +146,78 @@ class AddOutfitActivity :BaseActivity(), View.OnClickListener{
 
                     var model = shoes_list[index_shoes]
                     GlideLoader(this).loadItemPicture(model.image,iv_add_outfit_shoes)
+                    URI_shoes = model.image
                     id_shoes = model.id_clothing
                     Log.e("loloo",index_shoes.toString())
 
                 }
 
                 R.id.btn_outfit_add -> {
+
                     if(verify_oufit())
-                        Toast.makeText(
-                            this,
-                            "Yaay we got here",
-                            Toast.LENGTH_SHORT
-                        ).show()
+                        showProgressDialog(resources.getString(R.string.please_wait))
+
+                        uploadOutfit()
 
 
                 }
             }
         }
+    }
+    fun uploadOutfit() {
+        var tempSeason:String = ""
+        var tempPurpose:String = ""
+        if(rb_outfit_Spring_Summer.isChecked){
+            tempSeason = Constants.SUMMERSPRING
+        }
+        else{
+            tempSeason = Constants.WINTERFALL
+        }
+
+        // purpose
+        if(rb_outfit_sporty.isChecked){
+            tempPurpose = Constants.SPORTY
+        }
+        else if(rb_outfit_casual.isChecked){
+            tempPurpose = Constants.CAUSAL
+        }
+        else if(rb_outfit_formal.isChecked){
+            tempPurpose = Constants.FORMAL
+        }
+        else {
+            tempPurpose = Constants.NIGHT
+        }
+
+
+
+        val outfit = Outfit(
+            id_top,
+            id_bottom,
+            id_shoes,
+            "",
+            FirestoreClass().getCurrentUserID(),
+            tempSeason,
+            tempPurpose,
+            URI_top,
+            URI_bottom,
+            URI_shoes
+
+            
+        )
+
+
+        FirestoreClass().uploadOutfitDetails(this@AddOutfitActivity, outfit)
+    }
+
+
+    fun outfitUploadSuccess(){
+        hideProgressDialog()
+        Toast.makeText(
+            this,
+            "Your outfit is uploaded.",
+            Toast.LENGTH_SHORT
+        ).show()
+        finish()
     }
     fun verify_oufit() :Boolean {
         if (empty_top or empty_bottom or empty_shoes) {
@@ -233,7 +298,6 @@ class AddOutfitActivity :BaseActivity(), View.OnClickListener{
         if(category == Constants.TOP){
             top_list= clothing
             count_top = getItemCount(clothing)
-            Log.d("lolo", count_top.toString())
             if(count_top == 0 ){
                 empty_top = true
             }else{
@@ -245,7 +309,6 @@ class AddOutfitActivity :BaseActivity(), View.OnClickListener{
         }else if(category == Constants.BOTTOM){
             bottom_list= clothing
             count_bottom = getItemCount(clothing)
-            Log.d("lolo", count_bottom.toString())
             if(count_bottom == 0 ){
                 empty_bottom = true
             }else{
@@ -255,7 +318,6 @@ class AddOutfitActivity :BaseActivity(), View.OnClickListener{
         }else {
             shoes_list= clothing
             count_shoes = getItemCount(clothing)
-            Log.d("lolo", count_shoes.toString())
             if (count_shoes == 0) {
                 empty_shoes = true
             } else {

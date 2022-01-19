@@ -2,23 +2,24 @@ package com.epfl.esl.myapplication.ui.adapters
 
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.epfl.esl.myapplication.R
 import com.epfl.esl.myapplication.models.Clothing
-import com.epfl.esl.myapplication.ui.activities.AddOutfitActivity
-import com.epfl.esl.myapplication.ui.fragments.ClosetFragment
-import com.epfl.esl.myapplication.utils.Constants
+import com.epfl.esl.myapplication.models.Outfit
+import kotlinx.android.synthetic.main.outfit_list_layout.view.*
+
+
 import com.epfl.esl.myapplication.utils.GlideLoader
-import kotlinx.android.synthetic.main.item_list_layout.view.*
-import android.content.SharedPreferences
+
 
 
 open class MyOutfitAdapter (
     private val context: Context,
-    private var list: ArrayList<Clothing>
+    private var list: ArrayList<Outfit>
 
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -31,7 +32,7 @@ open class MyOutfitAdapter (
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return MyViewHolder(
             LayoutInflater.from(context).inflate(
-                R.layout.item_list_layout,
+                R.layout.outfit_list_layout,
                 parent,
                 false
             )
@@ -50,28 +51,13 @@ open class MyOutfitAdapter (
      */
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val model = list[position]
-        val save = context.getSharedPreferences(Constants.CATEGORY,Context.MODE_PRIVATE)
+        Log.d("MEMEME",model.uri_top)
+
 
         if (holder is MyViewHolder) {
-            GlideLoader(context).loadItemPicture(model.image, holder.itemView.iv_item_image)
-
-
-            holder.itemView.setOnClickListener {
-                val editor: SharedPreferences.Editor = save.edit()
-                editor.putString(
-                    model.category,
-                    model.image)
-                editor.apply()
-
-                val intent = Intent(context, AddOutfitActivity::class.java)
-                intent.putExtra(Constants.CATEGORY, model.category)
-                intent.putExtra(Constants.IdClothing, model.id_clothing)
-                intent.putExtra(Constants.CLOTHING_IMAGE, model.image)
-                context.startActivity(intent)
-            }
-
-
-
+            GlideLoader(context).loadItemPicture(model.uri_top, holder.itemView.iv_outfit_top_image)
+            GlideLoader(context).loadItemPicture(model.uri_trouser, holder.itemView.iv_outfit_bottom_image)
+            GlideLoader(context).loadItemPicture(model.uri_shoes, holder.itemView.iv_outfit_shoes_image)
 
         }
     }

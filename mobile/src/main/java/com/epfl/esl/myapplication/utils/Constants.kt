@@ -13,6 +13,13 @@ object Constants {
     // This  is used for the collection name for USERS and Items
     const val USERS: String = "users"
     const val ITEMS : String = "items"
+    const val OUTFIT : String = "outfit"
+
+    //OutfitContants
+    const val URITOP: String = "URI_top"
+    const val URIBOTTOM: String = "URI_bottom"
+    const val URISHOES: String = "URI_shoes"
+
     const val IdClothing : String = "id_clothing"
 
 
@@ -50,10 +57,6 @@ object Constants {
 
     const val PURPOSE: String = "purpose"
 
-
-    const val TOP_IMAGE: String = "default top"
-    const val BOTTOM_IMAGE: String = "default bottom"
-    const val SHOES_IMAGE: String = "default shoes"
 
     // Constant category
     const val CATEGORY: String = "category"

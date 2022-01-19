@@ -12,6 +12,7 @@ import com.epfl.esl.myapplication.models.User
 import com.epfl.esl.myapplication.ui.activities.*
 import com.epfl.esl.myapplication.ui.fragments.ClosetFragment
 import com.epfl.esl.myapplication.ui.fragments.DashboardFragment
+import com.epfl.esl.myapplication.ui.fragments.OutfitsFragment
 import com.epfl.esl.myapplication.utils.Constants
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -182,7 +183,6 @@ class FirestoreClass {
     // A function to upload the image to the cloud storage.
     fun uploadImageToCloudStorage(activity: Activity, imageFileURI: Uri?, imageType: String) {
         //getting the storage reference
-        Log.e("lolo", "here 1")
         val sRef: StorageReference = FirebaseStorage.getInstance().reference.child(
             imageType + System.currentTimeMillis() + "."
                     + Constants.getFileExtension(
@@ -191,7 +191,6 @@ class FirestoreClass {
             )
         )
 
-        Log.e("lolo", imageFileURI.toString())
         //adding the file to reference
         sRef.putFile(imageFileURI!!)
             .addOnSuccessListener { taskSnapshot ->
@@ -269,8 +268,25 @@ class FirestoreClass {
             }
     }
 
-    fun uploadOutfitDetaisl(activity: AddOutfitActivity,outfitInfo:Outfit,){
+    fun uploadOutfitDetails(activity: AddOutfitActivity,outfitInfo:Outfit){
+        val outfitRef = mFireStore.collection(Constants.OUTFIT).document()
 
+        outfitInfo.id_outfit = outfitRef.id
+
+        outfitRef.set(outfitInfo, SetOptions.merge())
+            .addOnSuccessListener {
+
+                // Here call a function of base activity for transferring the result to it.
+                activity.outfitUploadSuccess()
+            }
+            .addOnFailureListener { e ->
+                activity.hideProgressDialog()
+                Log.e(
+                    activity.javaClass.simpleName,
+                    "Error while uploading the outfit details.",
+                    e
+                )
+            }
     }
 
 
@@ -325,9 +341,7 @@ class FirestoreClass {
                 }
 
                 when (activity) {
-                    is ClothesSelectionActivity -> {
-                        activity.successItemsListFromFireStoreClothes(topList)
-                    }
+
                     is AddOutfitActivity ->{
                         activity.successItemsListFromFireStoreClothes(topList,category)
                     }
@@ -339,6 +353,48 @@ class FirestoreClass {
                 when (activity) {
                     is ClothesSelectionActivity -> {
 //                        activity.hideProgressDialog()
+                    }
+                }
+                Log.e("Get Item List", "Error while getting product list.", e)
+            }
+
+    }
+    fun getOutfitList(fragment: Fragment) {
+        // The collection name for PRODUCTS
+        mFireStore.collection(Constants.OUTFIT)
+            .whereEqualTo(Constants.ID_USER, getCurrentUserID())  // only get the elements that fit our user ID
+            .get() // Will get the documents snapshots.
+            .addOnSuccessListener { document ->
+
+                // Here we get the list of boards in the form of documents.
+                Log.e("Items List", document.documents.toString())
+                Log.e("Items List", getCurrentUserID())
+
+                // Here we have created a new instance for Products ArrayList.
+                val outfitList: ArrayList<Outfit> = ArrayList()
+
+                // A for loop as per the list of documents to convert them into Products ArrayList.
+                for (i in document.documents) {
+
+                    val item = i.toObject(Outfit::class.java)
+                    item!!.id_outfit = i.id // create a new product id
+
+                    outfitList.add(item)
+
+                }
+
+                when (fragment) {
+                    is OutfitsFragment -> {
+
+                        fragment.successOutfitListFromFireStore(outfitList)
+                    }
+                }
+            }
+            .addOnFailureListener { e ->
+                // Hide the progress dialog if there is any error based on the base class instance.
+                when (fragment) {
+                    is OutfitsFragment -> {
+                        fragment.hideProgressDialog()
                     }
                 }
                 Log.e("Get Item List", "Error while getting product list.", e)
