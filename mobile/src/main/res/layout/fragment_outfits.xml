@@ -18,7 +18,7 @@
         >
 
         <com.epfl.esl.myapplication.utils.MSPRadioButton
-            android:id="@+id/rb_outfit_Spring_Summer"
+            android:id="@+id/rb_outfit_Spring_Summer_fragment"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_marginEnd="@dimen/profile_radio_button_marginStartEnd"
@@ -32,7 +32,7 @@
             android:textStyle="bold" />
 
         <com.epfl.esl.myapplication.utils.MSPRadioButton
-            android:id="@+id/rb_outfit_Winter_Fall"
+            android:id="@+id/rb_outfit_Winter_Fall_fragment"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_marginStart="@dimen/profile_radio_button_marginStartEnd"
@@ -59,7 +59,7 @@
         >
 
         <com.epfl.esl.myapplication.utils.MSPRadioButton
-            android:id="@+id/rb_outfit_sporty"
+            android:id="@+id/rb_outfit_sporty_fragment"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_marginEnd="@dimen/profile_radio_button_marginStartEnd"
@@ -73,7 +73,7 @@
             android:textStyle="bold" />
 
         <com.epfl.esl.myapplication.utils.MSPRadioButton
-            android:id="@+id/rb_outfit_casual"
+            android:id="@+id/rb_outfit_casual_fragment"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_marginStart="@dimen/profile_radio_button_marginStartEnd"
@@ -86,7 +86,7 @@
             android:textStyle="bold" />
 
         <com.epfl.esl.myapplication.utils.MSPRadioButton
-            android:id="@+id/rb_outfit_formal"
+            android:id="@+id/rb_outfit_formal_fragment"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_marginStart="@dimen/profile_radio_button_marginStartEnd"
@@ -100,7 +100,7 @@
             android:textStyle="bold" />
 
         <com.epfl.esl.myapplication.utils.MSPRadioButton
-            android:id="@+id/rb_outfit_night"
+            android:id="@+id/rb_outfit_night_fragment"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_marginStart="@dimen/profile_radio_button_marginStartEnd"
