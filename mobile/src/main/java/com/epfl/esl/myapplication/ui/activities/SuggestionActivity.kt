@@ -49,13 +49,15 @@ class SuggestionActivity : BaseActivity(), View.OnClickListener {
                 intent.getStringExtra(Constants.PURPOSE)!!
         }
         setupActionBar()
+//        setupActionBar()
+
 
         Log.e("lolo", season + purpose)
 
 
 // button listeners
         btn_suggestion_choose_from_outfit.setOnClickListener(this)
-        btn_suggestion_confirm.setOnClickListener(this)
+//        btn_suggestion_confirm.setOnClickListener(this)
         btn_suggestion_try_again.setOnClickListener(this)
 
     }
@@ -70,31 +72,35 @@ class SuggestionActivity : BaseActivity(), View.OnClickListener {
                     startActivity(intent)
 
                 }
-                R.id.btn_suggestion_confirm -> {
-                    val intent = Intent(this, DashboardActivity::class.java)
-                    startActivity(intent)
+//                R.id.btn_suggestion_confirm -> {
+//                    val intent = Intent(this, DashboardActivity::class.java)
+//                    intent.putExtra(Constants.GOCLOSET, "goToCloset")
+//                    startActivity(intent)
+////
+////
+//                    }
 
+                    R.id.btn_suggestion_try_again -> {
+                        Log.d("lo","to delete")
 
                     }
 
-                R.id.btn_suggestion_try_again -> {
-                    //do random algorithm
                 }
-
             }
         }
-    }
 
-    private fun setupActionBar() {
 
-        setSupportActionBar(toolbar_suggestion_activity)
+        private fun setupActionBar() {
 
-        val actionBar = supportActionBar
-        if (actionBar != null) {
-            actionBar.setDisplayHomeAsUpEnabled(true)
-            actionBar.setHomeAsUpIndicator(R.drawable.ic_white_back_24dp)
+            setSupportActionBar(toolbar_suggestion_activity)
+
+            val actionBar = supportActionBar
+            if (actionBar != null) {
+                actionBar.setDisplayHomeAsUpEnabled(true)
+                actionBar.setHomeAsUpIndicator(R.drawable.ic_white_back_24dp)
+            }
+
+            toolbar_suggestion_activity.setNavigationOnClickListener { onBackPressed() }
         }
-
-        toolbar_suggestion_activity.setNavigationOnClickListener { onBackPressed() }
     }
-}
+

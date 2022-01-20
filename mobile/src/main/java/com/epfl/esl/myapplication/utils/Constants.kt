@@ -20,6 +20,8 @@ object Constants {
     const val URIBOTTOM: String = "URI_bottom"
     const val URISHOES: String = "URI_shoes"
 
+    const val GOCLOSET: String = "goToCloset"
+
     const val IdClothing : String = "id_clothing"
 
 

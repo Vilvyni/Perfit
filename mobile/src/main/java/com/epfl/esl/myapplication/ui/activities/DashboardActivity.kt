@@ -1,6 +1,7 @@
 package com.epfl.esl.myapplication.ui.activities
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.navigation.findNavController
@@ -10,6 +11,7 @@ import androidx.navigation.ui.setupWithNavController
 import com.epfl.esl.myapplication.R
 //import com.epfl.esl.myapplication.activities.databinding.ActivityDashboardBinding
 import com.epfl.esl.myapplication.databinding.ActivityDashboardBinding
+import com.epfl.esl.myapplication.utils.Constants
 
 class DashboardActivity : BaseActivity() {
 
@@ -17,6 +19,8 @@ class DashboardActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+
 
         binding = ActivityDashboardBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -40,10 +44,12 @@ class DashboardActivity : BaseActivity() {
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+
     }
 
     override fun onBackPressed() {
         doubleBackToExit()
+
 
     }
 }
