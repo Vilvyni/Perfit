@@ -4,93 +4,70 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.*
-import android.widget.TextView
-import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
+import android.widget.RadioButton
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.epfl.esl.myapplication.R
 import com.epfl.esl.myapplication.firestore.FirestoreClass
-import com.epfl.esl.myapplication.models.Clothing
 import com.epfl.esl.myapplication.models.Outfit
 import kotlinx.android.synthetic.main.fragment_outfits.*
-import com.epfl.esl.myapplication.ui.activities.AddClothesActivity
 
 import com.epfl.esl.myapplication.ui.activities.AddOutfitActivity
 import com.epfl.esl.myapplication.ui.adapters.MyOutfitAdapter
-import com.myshoppal.ui.adapters.MyItemsListAdapter
-import kotlinx.android.synthetic.main.fragment_closet.*
+import com.epfl.esl.myapplication.utils.Constants
 
-class OutfitsFragment : BaseFragment(){
+class OutfitsFragment : BaseFragment(),View.OnClickListener{
+    var chosenCategory:String = ""
+    var chosenSeason:String = ""
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         // If we want to use the option menu in fragment we need to add it.
         setHasOptionsMenu(true)
     }
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+
+        //binding = DataBindingUtil.inflate(inflater,R.layout.fragment_outfits,container,false)
+
+        val view: View = inflater!!.inflate(R.layout.fragment_outfits, container, false)
+
+
+        RadioButtonEnable(view)
+
+        return view
+    }
+
+    fun RadioButtonEnable(view:View){
+    val rbWF: RadioButton = view.findViewById(R.id.rb_outfit_Winter_Fall_fragment)
+    val rbSS: RadioButton = view.findViewById(R.id.rb_outfit_Spring_Summer_fragment)
+    val rbSporty: RadioButton = view.findViewById(R.id.rb_outfit_sporty_fragment)
+    val rbCausal: RadioButton = view.findViewById(R.id.rb_outfit_casual_fragment)
+    val rbNight: RadioButton = view.findViewById(R.id.rb_outfit_night_fragment)
+    val rbFormal: RadioButton = view.findViewById(R.id.rb_outfit_formal_fragment)
+
+    rbWF.setOnClickListener(this)
+    rbSS.setOnClickListener(this)
+    rbSporty.setOnClickListener(this)
+    rbCausal.setOnClickListener(this)
+    rbNight.setOnClickListener(this)
+    rbFormal.setOnClickListener(this)
+
+    }
+
     override fun onResume() {
         super.onResume()
+
         getOutfitListFromFireStore()
     }
 
 
-
-//    fun deleteItem(itemID: String) {
-//        // Here we will call the delete function of the FirestoreClass. But, for now lets display the Toast message and call this function from adapter class.
-//        showAlertDialogToDeleteItem(itemID)
-//
-//    }
-
-//    private fun showAlertDialogToDeleteItem(itemID: String) {
-//
-//        val builder = AlertDialog.Builder(requireActivity())
-//        //set title for alert dialog
-//        builder.setTitle(resources.getString(R.string.delete_dialog_title))
-//        //set message for alert dialog
-//        builder.setMessage(resources.getString(R.string.delete_dialog_message))
-//        builder.setIcon(android.R.drawable.ic_dialog_alert)
-//
-//        //performing positive action
-//        builder.setPositiveButton(resources.getString(R.string.yes)) { dialogInterface, _ ->
-//            // Call the function to delete the product from cloud firestore.
-//            // START
-//            // Show the progress dialog.
-//            showProgressDialog(resources.getString(R.string.please_wait))
-//
-//            // Call the function of Firestore class.
-//            FirestoreClass().deleteItem(this, itemID)
-//            // END
-//
-//            dialogInterface.dismiss()
-//        }
-//
-//        //performing negative action
-//        builder.setNegativeButton(resources.getString(R.string.no)) { dialogInterface, _ ->
-//
-//            dialogInterface.dismiss()
-//        }
-//        // Create the AlertDialog
-//        val alertDialog: AlertDialog = builder.create()
-//        // Set other dialog properties
-//        alertDialog.setCancelable(false)
-//        alertDialog.show()
-//    }
-
-//    fun itemDeleteSuccess(){
-//        hideProgressDialog()
-//
-//        Toast.makeText(
-//            requireActivity(),
-//            resources.getString(R.string.product_delete_success_message),
-//            Toast.LENGTH_SHORT
-//        ).show()
-//
-//        getItemListFromFireStore()
-//
-//    }
-
     fun successOutfitListFromFireStore(outfit: ArrayList<Outfit>) {
 
-        // Hide Progress dialog.
         hideProgressDialog()
 
         if (outfit.size > 0) {
@@ -103,12 +80,7 @@ class OutfitsFragment : BaseFragment(){
 
             val adapterTop = MyOutfitAdapter(requireActivity(), outfit)
 
-
-
-            Log.d("MEMEME","hey")
             rv_outfit_list.adapter = adapterTop
-
-
 
         } else {
             rv_outfit_list.visibility = View.GONE
@@ -116,59 +88,7 @@ class OutfitsFragment : BaseFragment(){
         }
     }
 
-//    fun successItemsListFromFireStoreTrouser(trouser: ArrayList<Clothing>) {
-//
-//        // Hide Progress dialog.
-//        hideProgressDialog()
-//
-//        if (trouser.size > 0) {
-//            rv_my_product_trouser.visibility = View.VISIBLE // which contains the recyclerview
-//
-//            rv_my_product_trouser.layoutManager = LinearLayoutManager(activity,LinearLayoutManager.HORIZONTAL,false)
-//
-//            rv_my_product_trouser.setHasFixedSize(false)
-//
-//
-//            val adaptertrouser = MyItemsListAdapter(requireActivity(), trouser, this@ClosetFragment)
-//
-//
-//            rv_my_product_trouser.adapter = adaptertrouser
-//
-//
-//
-//        } else {
-//            rv_my_product_trouser.visibility = View.GONE
-//
-//        }
-//    }
 
-//    fun successItemsListFromFireStoreShoes(shoes: ArrayList<Clothing>) {
-//
-//        // Hide Progress dialog.
-//        hideProgressDialog()
-//
-//        if (shoes.size > 0) {
-//            rv_my_product_shoes.visibility = View.VISIBLE // which contains the recyclerview
-//
-//            rv_my_product_shoes.layoutManager = LinearLayoutManager(activity,LinearLayoutManager.HORIZONTAL,false)
-//
-//            rv_my_product_shoes.setHasFixedSize(false)
-//
-//
-//            val adaptershoes = MyItemsListAdapter(requireActivity(), shoes, this@ClosetFragment)
-//
-//
-//            rv_my_product_shoes.adapter = adaptershoes
-//
-//
-//
-//        } else {
-//            rv_my_product_shoes.visibility = View.GONE
-//
-//        }
-//    }
-//
-//
     private fun getOutfitListFromFireStore() {
         // Show the progress dialog.
         showProgressDialog(resources.getString(R.string.please_wait))
@@ -176,29 +96,7 @@ class OutfitsFragment : BaseFragment(){
         FirestoreClass().getOutfitList(this)
 
     }
-//
 
-//
-//    // START
-//    /*private lateinit var homeViewModel: HomeViewModel*/
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        /*homeViewModel =
-            ViewModelProviders.of(this).get(HomeViewModel::class.java)*/
-
-        val root = inflater.inflate(R.layout.fragment_outfits, container, false)
-
-
-        /*homeViewModel.text.observe(viewLifecycleOwner, Observer {
-            textView.text = it
-        })*/
-
-        return root
-    }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.add_outfit_menu, menu)
@@ -217,4 +115,44 @@ class OutfitsFragment : BaseFragment(){
         }
         return super.onOptionsItemSelected(item)
     }
+
+    override fun onClick(v: View?) {
+        when(v?.id){
+            R.id.rb_outfit_Spring_Summer_fragment->{
+                Log.d("yoyoyo","summer checked!")
+                chosenSeason = Constants.SUMMERSPRING
+            }
+            R.id.rb_outfit_Winter_Fall_fragment->{
+                Log.d("yoyoyo","winter checked!")
+                chosenSeason = Constants.WINTERFALL
+
+            }
+            R.id.rb_outfit_sporty_fragment->{
+                Log.d("yoyoyo","sporty")
+                chosenCategory = Constants.SPORTY
+
+            }
+            R.id.rb_outfit_formal_fragment->{
+                Log.d("yoyoyo","formal")
+                chosenCategory = Constants.FORMAL
+            }
+            R.id.rb_outfit_casual_fragment->{
+                Log.d("yoyoyo","causal")
+                chosenCategory = Constants.CAUSAL
+
+            }
+            R.id.rb_outfit_night_fragment->{
+                Log.d("yoyoyo","night")
+                chosenCategory = Constants.NIGHT
+
+            }
+
+        }
+        if(chosenCategory!="" && chosenSeason!="")
+        {Log.d("yoyoyo","now let's look for outfit for" + chosenCategory +"," +chosenSeason )}
+
+        /// TODO: 22.01.2022
+        // uodate outfit displaying
+    }
+
 }

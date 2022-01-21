@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+<androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.fragments.OutfitsFragment">
@@ -29,7 +30,7 @@
             android:gravity="center"
             android:text="@string/rb_lbl_Spring_Summer"
             android:textColor="@drawable/drawable_gender_tab_text_color_selector"
-            android:textStyle="bold" />
+            android:textStyle="bold"/>
 
         <com.epfl.esl.myapplication.utils.MSPRadioButton
             android:id="@+id/rb_outfit_Winter_Fall_fragment"
@@ -123,3 +124,4 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/rg_outfit_purpose_fragment" />
 </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

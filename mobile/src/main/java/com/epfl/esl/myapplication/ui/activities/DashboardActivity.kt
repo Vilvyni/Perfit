@@ -12,6 +12,7 @@ import com.epfl.esl.myapplication.R
 //import com.epfl.esl.myapplication.activities.databinding.ActivityDashboardBinding
 import com.epfl.esl.myapplication.databinding.ActivityDashboardBinding
 import com.epfl.esl.myapplication.utils.Constants
+import kotlinx.android.synthetic.main.fragment_outfits.*
 
 class DashboardActivity : BaseActivity() {
 
@@ -19,8 +20,6 @@ class DashboardActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-
 
         binding = ActivityDashboardBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -44,6 +43,9 @@ class DashboardActivity : BaseActivity() {
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+
+
+
 
     }
 
