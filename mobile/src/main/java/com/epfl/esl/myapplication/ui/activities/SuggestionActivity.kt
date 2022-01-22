@@ -97,7 +97,7 @@ class SuggestionActivity : BaseActivity(), View.OnClickListener {
             }
         }
         else{
-            Toast.makeText(this, "no item for in " + category  , Toast.LENGTH_SHORT).show()
+//            Toast.makeText(this, "no item for in " + category  , Toast.LENGTH_SHORT).show()
         }
 
 
@@ -110,6 +110,7 @@ class SuggestionActivity : BaseActivity(), View.OnClickListener {
 
                 R.id.btn_suggestion_confirm -> {
                     val intent = Intent(this, DashboardActivity::class.java)
+                    intent.putExtra(Constants.SUGGESTION,"confirm")
                     startActivity(intent)
 
                 }

@@ -139,5 +139,10 @@
         <item>Shoes</item>
     </string-array>
 
+    <string-array name="season_Dashboard">
+        <item>Winter-Fall</item>
+        <item>Summer-Spring</item>
+    </string-array>
+
 
 </resources>

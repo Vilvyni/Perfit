@@ -61,6 +61,8 @@ object Constants {
 
     const val PURPOSE: String = "purpose"
 
+    const val SUGGESTION : String = "suss"
+
 
     // Constant category
     const val CATEGORY: String = "category"
