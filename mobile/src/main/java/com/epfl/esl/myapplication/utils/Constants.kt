@@ -46,6 +46,8 @@ object Constants {
     const val SUMMERSPRING: String = "Summer-Spring"
 
     //Current Season //default
+    const val WEATHER: String = "weather"
+
     const val SEASON: String = "season"
 
 

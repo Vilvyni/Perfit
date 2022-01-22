@@ -96,6 +96,13 @@ class OutfitsFragment : BaseFragment(),View.OnClickListener{
         FirestoreClass().getOutfitList(this)
 
     }
+    private fun getOutfitListFromFireStoreWithCriteria(season:String,purpose:String) {
+        // Show the progress dialog.
+        showProgressDialog("Researching the your outfit according to your criterias...")
+        // Call the function of Firestore class.
+        FirestoreClass().getOutfitListWithCriterias(this, season, purpose)
+
+    }
 
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -121,7 +128,9 @@ class OutfitsFragment : BaseFragment(),View.OnClickListener{
             R.id.rb_outfit_Spring_Summer_fragment->{
                 Log.d("yoyoyo","summer checked!")
                 chosenSeason = Constants.SUMMERSPRING
-            }
+
+                }
+
             R.id.rb_outfit_Winter_Fall_fragment->{
                 Log.d("yoyoyo","winter checked!")
                 chosenSeason = Constants.WINTERFALL
@@ -151,8 +160,7 @@ class OutfitsFragment : BaseFragment(),View.OnClickListener{
         if(chosenCategory!="" && chosenSeason!="")
         {Log.d("yoyoyo","now let's look for outfit for" + chosenCategory +"," +chosenSeason )}
 
-        /// TODO: 22.01.2022
-        // uodate outfit displaying
+        getOutfitListFromFireStoreWithCriteria(chosenSeason,chosenCategory)
     }
 
 }
