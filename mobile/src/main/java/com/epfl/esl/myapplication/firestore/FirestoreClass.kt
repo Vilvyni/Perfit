@@ -359,6 +359,8 @@ class FirestoreClass {
             }
 
     }
+
+
     fun getOutfitList(fragment: Fragment) {
         // The collection name for PRODUCTS
         mFireStore.collection(Constants.OUTFIT)
@@ -447,6 +449,49 @@ class FirestoreClass {
 
     }
 
+
+    fun getItemListWithCriterias(activity:Activity,category: String, season:String, purpose:String){
+
+        // The collection name for PRODUCTS
+        mFireStore.collection(category)
+            .whereEqualTo(Constants.ID_USER, getCurrentUserID())// only get the elements that fit our user ID
+            .whereEqualTo(Constants.SEASON, season)
+            .whereEqualTo(Constants.PURPOSE, purpose)
+            .get() // Will get the documents snapshots.
+            .addOnSuccessListener { document ->
+
+                // Here we get the list of boards in the form of documents.
+                Log.e("Items List", document.documents.toString())
+                Log.e("Items List", getCurrentUserID())
+
+                // Here we have created a new instance for Products ArrayList.
+                val outfitList:ArrayList<Clothing> = ArrayList()
+                // A for loop as per the list of documents to convert them into Products ArrayList.
+                for (i in document.documents) {
+
+
+
+                    val item = i.toObject(Clothing::class.java)
+                    item!!.id_clothing = i.id // create a new product id
+
+                    outfitList.add(item)
+                    Log.d("yoyolololo","top item: "+ outfitList.size.toString())
+                }
+
+
+            when (activity) {
+                is SuggestionActivity -> {
+                    activity.getSelectionItem(outfitList,category)
+                }
+            }
+            }
+            .addOnFailureListener { e ->
+
+                Log.e("Get Item List", "Error while getting product list.", e)
+            }
+
+
+    }
 
 
 

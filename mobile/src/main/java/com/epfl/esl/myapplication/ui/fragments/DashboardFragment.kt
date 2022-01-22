@@ -39,28 +39,28 @@ class DashboardFragment :BaseFragment() {
 
         binding.btnDashboardSporty.setOnClickListener{
             val intent = Intent(context, SuggestionActivity::class.java)
-            intent.putExtra(Constants.SEASON , Constants.WINTERFALL)
+            intent.putExtra(Constants.SEASON , Constants.SUMMERSPRING)
             intent.putExtra(Constants.PURPOSE, Constants.SPORTY)
             startActivity(intent)
         }
 
         binding.btnDashboardCasual.setOnClickListener{
             val intent = Intent(context, SuggestionActivity::class.java)
-            intent.putExtra(Constants.SEASON , Constants.WINTERFALL)
+            intent.putExtra(Constants.SEASON , Constants.SUMMERSPRING)
             intent.putExtra(Constants.PURPOSE, Constants.CAUSAL)
             startActivity(intent)
         }
 
         binding.btnDashboardFormal.setOnClickListener{
             val intent = Intent(context, SuggestionActivity::class.java)
-            intent.putExtra(Constants.SEASON , Constants.WINTERFALL)
+            intent.putExtra(Constants.SEASON , Constants.SUMMERSPRING)
             intent.putExtra(Constants.PURPOSE, Constants.FORMAL)
             startActivity(intent)
         }
 
         binding.btnDashboardNight.setOnClickListener{
             val intent = Intent(context, SuggestionActivity::class.java)
-            intent.putExtra(Constants.SEASON , Constants.WINTERFALL)
+            intent.putExtra(Constants.SEASON , Constants.SUMMERSPRING)
             intent.putExtra(Constants.PURPOSE, Constants.NIGHT)
             startActivity(intent)
         }
