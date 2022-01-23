@@ -1,4 +1,5 @@
 package com.epfl.esl.myapplication.firestore
+
 import android.app.Activity
 import android.content.Context
 import android.content.SharedPreferences
@@ -21,24 +22,14 @@ import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 
 class FirestoreClass {
-
-    // Access a Cloud Firestore instance.
     private val mFireStore = FirebaseFirestore.getInstance()
 
-    /**
-     * A function to make an entry of the registered user in the FireStore database.
-     */
     fun registerUser(activity: RegisterActivity, userInfo: User) {
 
-        // The "users" is collection name. If the collection is already created then it will not create the same one again.
         mFireStore.collection(Constants.USERS)
-            // Document ID for users fields. Here the document it is the User ID.
             .document(userInfo.id)
-            // Here the userInfo are Field and the SetOption is set to merge. It is for if we wants to merge later on instead of replacing the fields.
             .set(userInfo, SetOptions.merge())
             .addOnSuccessListener {
-
-                // Here call a function of base activity for transferring the result to it.
                 activity.userRegistrationSuccess()
             }
             .addOnFailureListener { e ->
@@ -51,47 +42,33 @@ class FirestoreClass {
             }
     }
 
-    /**
-     * A function to get the user id of current logged user.
-     */
+
     fun getCurrentUserID(): String {
-        // An Instance of currentUser using FirebaseAuth
         val currentUser = FirebaseAuth.getInstance().currentUser
 
-        // A variable to assign the currentUserId if it is not null or else it will be blank.
         var currentUserID = ""
+
         if (currentUser != null) {
             currentUserID = currentUser.uid
-
         }
-
         return currentUserID
     }
 
-    /**
-     * A function to get the logged user details from from FireStore Database.
-     */
+
     fun getUserDetails(activity: Activity) {
-        var CurrentUserID:String = getCurrentUserID()
-
-
-        if (getCurrentUserID() == "")
-        {
+        var CurrentUserID: String = getCurrentUserID()
+        //TODO TO CHANGE LOGIN
+        if (getCurrentUserID() == "") {
             CurrentUserID = "aT1z8IdoOJT6irLx3BDcCAR1XRk1"
         }
 
-        Log.i("lool",CurrentUserID)
-
-        // Here we pass the collection name from which we wants the data.
         mFireStore.collection(Constants.USERS)
-            // The document id to get the Fields of user.
             .document(CurrentUserID)
             .get()
             .addOnSuccessListener { document ->
 
                 Log.i(activity.javaClass.simpleName, document.toString())
 
-                // Here we have received the document snapshot which is converted into the User Data model object.
                 val user = document.toObject(User::class.java)!!
 
                 val sharedPreferences =
@@ -100,7 +77,6 @@ class FirestoreClass {
                         Context.MODE_PRIVATE
                     )
 
-                // Create an instance of the editor which is help us to edit the SharedPreference.
                 val editor: SharedPreferences.Editor = sharedPreferences.edit()
                 editor.putString(
                     Constants.LOGGED_IN_USERNAME,
@@ -110,18 +86,15 @@ class FirestoreClass {
 
                 when (activity) {
                     is LoginActivity -> {
-                        // Call a function of base activity for transferring the result to it.
                         activity.userLoggedInSuccess(user)
                     }
 
                     is SettingsActivity -> {
-                        // Call a function of base activity for transferring the result to it.
                         activity.userDetailsSuccess(user)
                     }
                 }
             }
             .addOnFailureListener { e ->
-                // Hide the progress dialog if there is any error. And print the error in log.
                 when (activity) {
                     is LoginActivity -> {
                         activity.hideProgressDialog()
@@ -139,26 +112,14 @@ class FirestoreClass {
             }
     }
 
-
-    /**
-     * A function to update the user profile data into the database.
-     *
-     * @param activity The activity is used for identifying the Base activity to which the result is passed.
-     * @param userHashMap HashMap of fields which are to be updated.
-     */
     fun updateUserProfileData(activity: Activity, userHashMap: HashMap<String, Any>) {
-        // Collection Name
         mFireStore.collection(Constants.USERS)
-            // Document ID against which the data to be updated. Here the document id is the current logged in user id.
             .document(getCurrentUserID())
-            // A HashMap of fields which are to be updated.
             .update(userHashMap)
             .addOnSuccessListener {
 
-                // Notify the success result.
                 when (activity) {
                     is UserProfileActivity -> {
-                        // Call a function of base activity for transferring the result to it.
                         activity.userProfileUpdateSuccess()
                     }
                 }
@@ -167,7 +128,6 @@ class FirestoreClass {
 
                 when (activity) {
                     is UserProfileActivity -> {
-                        // Hide the progress dialog if there is any error. And print the error in log.
                         activity.hideProgressDialog()
                     }
                 }
@@ -191,21 +151,17 @@ class FirestoreClass {
             )
         )
 
-        //adding the file to reference
         sRef.putFile(imageFileURI!!)
             .addOnSuccessListener { taskSnapshot ->
-                // The image upload is success
                 Log.e(
                     "Firebase Image URL",
                     taskSnapshot.metadata!!.reference!!.downloadUrl.toString()
                 )
 
-                // Get the downloadable url from the task snapshot
                 taskSnapshot.metadata!!.reference!!.downloadUrl
                     .addOnSuccessListener { uri ->
                         Log.e("Downloadable Image URL", uri.toString())
 
-                        // Here call a function of base activity for transferring the result to it.
                         when (activity) {
                             is UserProfileActivity -> {
                                 activity.imageUploadSuccess(uri.toString())
@@ -214,7 +170,7 @@ class FirestoreClass {
                             is AddItemActivity -> {
                                 activity.imageUploadSuccess(uri.toString())
                             }
-                            is AddClothesActivity ->{
+                            is AddClothesActivity -> {
                                 activity.imageUploadSuccess(uri.toString())
                             }
                         }
@@ -222,7 +178,6 @@ class FirestoreClass {
             }
             .addOnFailureListener { exception ->
 
-                // Hide the progress dialog if there is any error. And print the error in log.
                 when (activity) {
                     is UserProfileActivity -> {
                         activity.hideProgressDialog()
@@ -235,7 +190,6 @@ class FirestoreClass {
                         activity.hideProgressDialog()
                     }
                 }
-
                 Log.e(
                     activity.javaClass.simpleName,
                     exception.message,
@@ -244,18 +198,13 @@ class FirestoreClass {
             }
     }
 
-    /**
-     * A function to make an entry of the user's product in the cloud firestore database.
-     */
     fun uploadItemDetails(activity: AddItemActivity, itemInfo: Item) {
 
         mFireStore.collection(Constants.ITEMS)
             .document()
-            // Here the userInfo are Field and the SetOption is set to merge. It is for if we wants to merge
             .set(itemInfo, SetOptions.merge())
             .addOnSuccessListener {
 
-                // Here call a function of base activity for transferring the result to it.
                 activity.itemUploadSuccess()
             }
             .addOnFailureListener { e ->
@@ -268,7 +217,7 @@ class FirestoreClass {
             }
     }
 
-    fun uploadOutfitDetails(activity: AddOutfitActivity,outfitInfo:Outfit){
+    fun uploadOutfitDetails(activity: AddOutfitActivity, outfitInfo: Outfit) {
         val outfitRef = mFireStore.collection(Constants.OUTFIT).document()
 
         outfitInfo.id_outfit = outfitRef.id
@@ -276,7 +225,6 @@ class FirestoreClass {
         outfitRef.set(outfitInfo, SetOptions.merge())
             .addOnSuccessListener {
 
-                // Here call a function of base activity for transferring the result to it.
                 activity.outfitUploadSuccess()
             }
             .addOnFailureListener { e ->
@@ -290,7 +238,7 @@ class FirestoreClass {
     }
 
 
-    fun uploadClothingDetails(activity: AddClothesActivity, itemInfo: Clothing, category:String) {
+    fun uploadClothingDetails(activity: AddClothesActivity, itemInfo: Clothing, category: String) {
 
         val clothRef = mFireStore.collection(category).document()
 
@@ -298,8 +246,6 @@ class FirestoreClass {
 
         clothRef.set(itemInfo, SetOptions.merge())
             .addOnSuccessListener {
-
-                // Here call a function of base activity for transferring the result to it.
                 activity.clothingUploadSuccess()
             }
             .addOnFailureListener { e ->
@@ -312,56 +258,50 @@ class FirestoreClass {
             }
     }
 
-    fun cleanAll(category:String) {
+    fun cleanAll(category: String) {
 
         mFireStore.collection(category)
-            .whereEqualTo(Constants.ID_USER, getCurrentUserID())  // only get the elements that fit our user ID
-            .get() // Will get the documents snapshots.
+            .whereEqualTo(
+                Constants.ID_USER,
+                getCurrentUserID()
+            )
+            .get()
             .addOnSuccessListener { document ->
 
-                // Here we get the list of boards in the form of documents.
                 Log.e("Items List", document.documents.toString())
 
-
-                // Here we have created a new instance for Products ArrayList.
                 val cleanliness = hashMapOf(Constants.CLEANLINESS to 100)
-                // A for loop as per the list of documents to convert them into Products ArrayList.
                 for (i in document.documents) {
 
                     val item = i.toObject(Clothing::class.java)
                     item!!.id_clothing = i.id // create a new product id
-                    mFireStore.collection(category).document(item.id_clothing).set(cleanliness,SetOptions.merge())
+                    mFireStore.collection(category).document(item.id_clothing)
+                        .set(cleanliness, SetOptions.merge())
 
                 }
 
             }
             .addOnFailureListener { e ->
-                // Hide the progress dialog if there is any error based on the base class instance.
                 Log.e("Get Item List", "Error while getting product list.", e)
             }
 
     }
 
 
-
-    fun getItemsListClothes(activity: Activity,category: String) {
-
-
-
+    fun getItemsListClothes(activity: Activity, category: String) {
         // The collection name for PRODUCTS
         mFireStore.collection(category)
-            .whereEqualTo(Constants.ID_USER, getCurrentUserID())  // only get the elements that fit our user ID
-            .get() // Will get the documents snapshots.
+            .whereEqualTo(
+                Constants.ID_USER,
+                getCurrentUserID()
+            )
+            .get()
             .addOnSuccessListener { document ->
-
-                // Here we get the list of boards in the form of documents.
                 Log.e("Items List", document.documents.toString())
                 Log.e("Items List", getCurrentUserID())
 
-                // Here we have created a new instance for Products ArrayList.
                 val topList: ArrayList<Clothing> = ArrayList()
 
-                // A for loop as per the list of documents to convert them into Products ArrayList.
                 for (i in document.documents) {
 
                     val item = i.toObject(Clothing::class.java)
@@ -372,40 +312,31 @@ class FirestoreClass {
 
                 when (activity) {
 
-                    is AddOutfitActivity ->{
-                        activity.successItemsListFromFireStoreClothes(topList,category)
+                    is AddOutfitActivity -> {
+                        activity.successItemsListFromFireStoreClothes(topList, category)
                     }
                 }
 
             }
             .addOnFailureListener { e ->
-                // Hide the progress dialog if there is any error based on the base class instance.
                 when (activity) {
                     is ClothesSelectionActivity -> {
-//                        activity.hideProgressDialog()
                     }
                 }
                 Log.e("Get Item List", "Error while getting product list.", e)
             }
-
     }
 
 
     fun getOutfitList(fragment: Fragment) {
-        // The collection name for PRODUCTS
         mFireStore.collection(Constants.OUTFIT)
-            .whereEqualTo(Constants.ID_USER, getCurrentUserID())  // only get the elements that fit our user ID
-            .get() // Will get the documents snapshots.
+            .whereEqualTo(
+                Constants.ID_USER,
+                getCurrentUserID()
+            )
+            .get()
             .addOnSuccessListener { document ->
-
-                // Here we get the list of boards in the form of documents.
-                Log.e("Items List", document.documents.toString())
-                Log.e("Items List", getCurrentUserID())
-
-                // Here we have created a new instance for Products ArrayList.
                 val outfitList: ArrayList<Outfit> = ArrayList()
-
-                // A for loop as per the list of documents to convert them into Products ArrayList.
                 for (i in document.documents) {
 
                     val item = i.toObject(Outfit::class.java)
@@ -423,38 +354,34 @@ class FirestoreClass {
                 }
             }
             .addOnFailureListener { e ->
-                // Hide the progress dialog if there is any error based on the base class instance.
                 when (fragment) {
                     is OutfitsFragment -> {
                         fragment.hideProgressDialog()
                     }
                 }
-                Log.e("Get Item List", "Error while getting product list.", e)
             }
 
     }
 
-    fun getOutfitListWithCriterias(fragment: Fragment, season:String, purpose:String) {
+    fun getOutfitListWithCriterias(fragment: Fragment, season: String, purpose: String) {
         // The collection name for PRODUCTS
         mFireStore.collection(Constants.OUTFIT)
-            .whereEqualTo(Constants.ID_USER, getCurrentUserID())// only get the elements that fit our user ID
+            .whereEqualTo(
+                Constants.ID_USER,
+                getCurrentUserID()
+            )
             .whereEqualTo(Constants.WEATHER, season)
             .whereEqualTo(Constants.PURPOSE, purpose)
-            .get() // Will get the documents snapshots.
+            .get()
             .addOnSuccessListener { document ->
 
-                // Here we get the list of boards in the form of documents.
-                Log.e("Items List", document.documents.toString())
-                Log.e("Items List", getCurrentUserID())
 
-                // Here we have created a new instance for Products ArrayList.
                 val outfitList: ArrayList<Outfit> = ArrayList()
 
-                // A for loop as per the list of documents to convert them into Products ArrayList.
                 for (i in document.documents) {
 
                     val item = i.toObject(Outfit::class.java)
-                    item!!.id_outfit = i.id // create a new product id
+                    item!!.id_outfit = i.id
 
                     outfitList.add(item)
 
@@ -468,80 +395,65 @@ class FirestoreClass {
                 }
             }
             .addOnFailureListener { e ->
-                // Hide the progress dialog if there is any error based on the base class instance.
                 when (fragment) {
                     is OutfitsFragment -> {
                         fragment.hideProgressDialog()
                     }
                 }
-                Log.e("Get Item List", "Error while getting product list.", e)
             }
-
     }
 
+    fun getItemListWithCriterias(
+        activity: Activity,
+        category: String,
+        season: String,
+        purpose: String
+    ) {
 
-    fun getItemListWithCriterias(activity:Activity,category: String, season:String, purpose:String){
-
-        // The collection name for PRODUCTS
         mFireStore.collection(category)
-            .whereEqualTo(Constants.ID_USER, getCurrentUserID())// only get the elements that fit our user ID
+            .whereEqualTo(
+                Constants.ID_USER,
+                getCurrentUserID()
+            )
             .whereEqualTo(Constants.SEASON, season)
             .whereEqualTo(Constants.PURPOSE, purpose)
             .get() // Will get the documents snapshots.
             .addOnSuccessListener { document ->
 
-                // Here we get the list of boards in the form of documents.
-                Log.e("Items List", document.documents.toString())
-                Log.e("Items List", getCurrentUserID())
 
-                // Here we have created a new instance for Products ArrayList.
-                val outfitList:ArrayList<Clothing> = ArrayList()
-                // A for loop as per the list of documents to convert them into Products ArrayList.
+                val outfitList: ArrayList<Clothing> = ArrayList()
                 for (i in document.documents) {
                     val item = i.toObject(Clothing::class.java)
                     item!!.id_clothing = i.id // create a new product id
-                    if(item.cleanliness>0) outfitList.add(item)
+                    if (item.cleanliness > 0) outfitList.add(item)
                 }
 
 
-            when (activity) {
-                is SuggestionActivity -> {
-                    activity.getSelectionItem(outfitList,category)
+                when (activity) {
+                    is SuggestionActivity -> {
+                        activity.getSelectionItem(outfitList, category)
+                    }
                 }
-            }
             }
             .addOnFailureListener { e ->
-
                 Log.e("Get Item List", "Error while getting product list.", e)
             }
 
 
     }
 
-
-
-
-
-//
-    /**
-     * A function to get the products list from cloud firestore.
-     *
-     * @param fragment The fragment is passed as parameter as the function is called from fragment and need to the success result.
-     */
-
     //Looking into our database
     fun getItemsListTop(fragment: Fragment) {
         // The collection name for PRODUCTS
         mFireStore.collection(Constants.TOP)
-            .whereEqualTo(Constants.ID_USER, getCurrentUserID())// only get the elements that fit our user ID
-            .get() // Will get the documents snapshots.
+            .whereEqualTo(
+                Constants.ID_USER,
+                getCurrentUserID()
+            )
+            .get()
             .addOnSuccessListener { document ->
 
-                // Here we get the list of boards in the form of documents.
-                Log.e("Items List", document.documents.toString())
-                Log.e("Items List", getCurrentUserID())
 
-                // Here we have created a new instance for Products ArrayList.
                 val topList: ArrayList<Clothing> = ArrayList()
 
                 // A for loop as per the list of documents to convert them into Products ArrayList.
@@ -549,9 +461,9 @@ class FirestoreClass {
 
                     val item = i.toObject(Clothing::class.java)
                     item!!.id_clothing = i.id // create a new product id
-                    if(item.cleanliness>0) topList.add(item)
+                    if (item.cleanliness > 0) topList.add(item)
                 }
-                Log.e("hizzzzz",topList.size.toString() )
+
 
 
                 when (fragment) {
@@ -561,37 +473,39 @@ class FirestoreClass {
                 }
             }
             .addOnFailureListener { e ->
-                // Hide the progress dialog if there is any error based on the base class instance.
                 when (fragment) {
                     is ClosetFragment -> {
                         fragment.hideProgressDialog()
                     }
                 }
-                Log.e("Get Item List", "Error while getting product list.", e)
+
             }
 
     }
-    //Looking into our database
+
     fun getItemsListTrouser(fragment: Fragment) {
-        // The collection name for PRODUCTS
         mFireStore.collection(Constants.BOTTOM)
-            .whereEqualTo(Constants.ID_USER, getCurrentUserID())  // only get the elements that fit our user ID
-            .get() // Will get the documents snapshots.
+            .whereEqualTo(
+                Constants.ID_USER,
+                getCurrentUserID()
+            )
+            .get()
             .addOnSuccessListener { document ->
 
-                // Here we get the list of boards in the form of documents.
+
                 Log.e("Items List", document.documents.toString())
 
-                // Here we have created a new instance for Products ArrayList.
+
                 val topList: ArrayList<Clothing> = ArrayList()
 
-                // A for loop as per the list of documents to convert them into Products ArrayList.
+
                 for (i in document.documents) {
 
                     val item = i.toObject(Clothing::class.java)
                     item!!.id_clothing = i.id // create a new product id
 
-                    if(item.cleanliness>0) topList.add(item)                }
+                    if (item.cleanliness > 0) topList.add(item)
+                }
 
                 when (fragment) {
                     is ClosetFragment -> {
@@ -600,37 +514,36 @@ class FirestoreClass {
                 }
             }
             .addOnFailureListener { e ->
-                // Hide the progress dialog if there is any error based on the base class instance.
+
                 when (fragment) {
                     is ClosetFragment -> {
                         fragment.hideProgressDialog()
                     }
                 }
-                Log.e("Get Item List", "Error while getting product list.", e)
             }
 
     }
-    //Looking into our database
+
     fun getItemsListShoes(fragment: Fragment) {
-        // The collection name for PRODUCTS
+
         mFireStore.collection(Constants.SHOES)
-            .whereEqualTo(Constants.ID_USER, getCurrentUserID())  // only get the elements that fit our user ID
-            .get() // Will get the documents snapshots.
+            .whereEqualTo(
+                Constants.ID_USER,
+                getCurrentUserID()
+            )
+            .get()
             .addOnSuccessListener { document ->
 
-                // Here we get the list of boards in the form of documents.
                 Log.e("Items List", document.documents.toString())
 
-                // Here we have created a new instance for Products ArrayList.
                 val topList: ArrayList<Clothing> = ArrayList()
 
-                // A for loop as per the list of documents to convert them into Products ArrayList.
                 for (i in document.documents) {
 
                     val item = i.toObject(Clothing::class.java)
                     item!!.id_clothing = i.id // create a new product id
 
-                    if(item.cleanliness>0) topList.add(item)
+                    if (item.cleanliness > 0) topList.add(item)
                 }
 
                 when (fragment) {
@@ -640,39 +553,24 @@ class FirestoreClass {
                 }
             }
             .addOnFailureListener { e ->
-                // Hide the progress dialog if there is any error based on the base class instance.
                 when (fragment) {
                     is ClosetFragment -> {
                         fragment.hideProgressDialog()
                     }
                 }
-                Log.e("Get Item List", "Error while getting product list.", e)
             }
 
     }
 
-
-
-
-
-    /**
-     * A function to get the dashboard items list. The list will be an overall items list, not based on the user's id.
-     */
-
-    // Getting data for every user (might not need to do this).
     fun getDashboardItemsList(fragment: DashboardFragment) {
-        // The collection name for PRODUCTS
         mFireStore.collection(Constants.ITEMS)
-            .get() // Will get the documents snapshots.
+            .get()
             .addOnSuccessListener { document ->
 
-                // Here we get the list of boards in the form of documents.
                 Log.e(fragment.javaClass.simpleName, document.documents.toString())
 
-                // Here we have created a new instance for Products ArrayList.
                 val itemsList: ArrayList<Item> = ArrayList()
 
-                // A for loop as per the list of documents to convert them into Products ArrayList.
                 for (i in document.documents) {
 
                     val item = i.toObject(Item::class.java)!!
@@ -680,19 +578,14 @@ class FirestoreClass {
                     itemsList.add(item)
                 }
 
-                // Pass the success result to the base fragment.
                 fragment.successDashboardItemsList(itemsList)
             }
             .addOnFailureListener { e ->
-                // Hide the progress dialog if there is any error which getting the dashboard items list.
                 fragment.hideProgressDialog()
-                Log.e(fragment.javaClass.simpleName, "Error while getting dashboard items list.", e)
             }
     }
 
     fun getProductDetails(activity: OutfitOfDayActivity, productId: String, category: String) {
-        Log.d("hihihih",productId + category )
-        // The collection name for PRODUCTS
         mFireStore.collection(category)
             .document(productId)
             .get() // Will get the document snapshots.
@@ -704,13 +597,10 @@ class FirestoreClass {
                 // Convert the snapshot to the object of Product data model class.
                 val product = document.toObject(Clothing::class.java)!!
 
-                activity.productDetailsSuccess(product,category)
+                activity.productDetailsSuccess(product, category)
             }
             .addOnFailureListener { e ->
-
-                // Hide the progress dialog if there is an error.
                 activity.hideProgressDialog()
-
                 Log.e(activity.javaClass.simpleName, "Product Id " + category + "details.", e)
             }
     }

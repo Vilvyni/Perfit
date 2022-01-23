@@ -26,31 +26,18 @@ import kotlin.random.Random.Default.nextInt
 
 class SuggestionActivity : BaseActivity(), View.OnClickListener {
 
-
-    // A global variable for URI of a selected image from phone storage.
-//    private var mSelectedImageFileUri: Uri? = null
-
-    // A global variable for uploaded product image URL.
-//    private var mItemImageURL: String = ""
-
-    // A global variable for product id.
     private var season: String = ""
     private var purpose: String = ""
     val listTop: ArrayList<Clothing> = ArrayList()
     val listButtom: ArrayList<Clothing> = ArrayList()
     val listShoes: ArrayList<Clothing> = ArrayList()
-     var chosenTop:Clothing= Clothing()
-     var chosenButtom:Clothing= Clothing()
-     var chosenShoes:Clothing= Clothing()
-
-
+    var chosenTop: Clothing = Clothing()
+    var chosenButtom: Clothing = Clothing()
+    var chosenShoes: Clothing = Clothing()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_suggestion)
-
-
-        //btn_suggestion_confirm.setOnClickListener(this)
 
         if (intent.hasExtra(Constants.SEASON)) {
             season =
@@ -63,64 +50,50 @@ class SuggestionActivity : BaseActivity(), View.OnClickListener {
         }
         setupActionBar()
 
-
-
-
-// button listeners
         btn_suggestion_confirm.setOnClickListener(this)
         btn_suggestion_try_again.setOnClickListener(this)
 
     }
-    fun getSelectionItem(itemList:ArrayList<Clothing>, category:String) {
 
+    fun getSelectionItem(itemList: ArrayList<Clothing>, category: String) {
 
         hideProgressDialog()
-        if (itemList.size != 0){
-            val tot_item:Int = itemList.size
-            Log.d("hihi", category + " has "+ tot_item.toString() +" found")
+        if (itemList.size != 0) {
+            val tot_item: Int = itemList.size
+            val random_index: Int = (0 until tot_item).random()
 
-            val random_index:Int = (0 until tot_item).random()
-            Log.d("hihi", category + " item "+ random_index.toString() +" is choosen")
-
-            Log.d("zozozo", category)
-
-            if(category == Constants.TOP)
-            {
-
-                if (listTop.size==0){
-                    for (item in itemList )
-                    {listTop.add(item)}}
-                Log.d("hiiiii", category + " has "  +listTop.toString()+"item ")
-
+            if (category == Constants.TOP) {
+                if (listTop.size == 0) {
+                    for (item in itemList) {
+                        listTop.add(item)
+                    }
+                }
                 chosenTop = listTop[random_index]
-                GlideLoader(this).loadItemPicture(chosenTop.image,iv_user_top)
-
+                GlideLoader(this).loadItemPicture(chosenTop.image, iv_user_top)
             }
-            if(category == Constants.BOTTOM)
-            {
-                if (listButtom.size==0){
-                    for (item in itemList )
-                    {listButtom.add(item)}}
+
+            if (category == Constants.BOTTOM) {
+                if (listButtom.size == 0) {
+                    for (item in itemList) {
+                        listButtom.add(item)
+                    }
+                }
                 chosenButtom = listButtom[random_index]
-                GlideLoader(this).loadItemPicture(chosenButtom.image,iv_user_bottom)
+                GlideLoader(this).loadItemPicture(chosenButtom.image, iv_user_bottom)
             }
-            if(category == Constants.SHOES )
-            {
-                if (listShoes.size==0){
-                    for (item in itemList )
-                    {listShoes.add(item)}}
-                Log.d("hiiiii", category + " has "  +listShoes.toString()+"item ")
 
+            if (category == Constants.SHOES) {
+                if (listShoes.size == 0) {
+                    for (item in itemList) {
+                        listShoes.add(item)
+                    }
+                }
                 chosenShoes = listShoes[random_index]
-                GlideLoader(this).loadItemPicture(chosenShoes.image,iv_user_shoes)
+                GlideLoader(this).loadItemPicture(chosenShoes.image, iv_user_shoes)
             }
+        } else {
+            Toast.makeText(this, "no item for in " + category, Toast.LENGTH_SHORT).show()
         }
-        else{
-           Toast.makeText(this, "no item for in " + category  , Toast.LENGTH_SHORT).show()
-        }
-
-
-
     }
 
     override fun onClick(v: View?) {
@@ -129,105 +102,50 @@ class SuggestionActivity : BaseActivity(), View.OnClickListener {
 
                 R.id.btn_suggestion_confirm -> {
 
-//                    sendCommandToWear("Start")
-//                    sendcleanessToWear(200)
-
-                    if(chosenTop.id_clothing!=""&&chosenButtom.id_clothing!=""&&chosenShoes.id_clothing!=""){
-                    Log.d("yoyoyoyoy","top = "+chosenTop.id_clothing)
-                    Log.d("yoyoyoyoy","buttom = "+chosenButtom.id_clothing)
-                    Log.d("yoyoyoyoy","shoes = "+chosenShoes.id_clothing)
+                    if (chosenTop.id_clothing != "" && chosenButtom.id_clothing != "" && chosenShoes.id_clothing != "") {
                         val intent = Intent(this, OutfitOfDayActivity::class.java)
-                        intent.putExtra(Constants.CHOSENTOP,chosenTop.id_clothing)
-                        intent.putExtra(Constants.CHOSENBOTTOM,chosenButtom.id_clothing)
-                        intent.putExtra(Constants.CHOSENSHOES,chosenShoes.id_clothing)
+                        intent.putExtra(Constants.CHOSENTOP, chosenTop.id_clothing)
+                        intent.putExtra(Constants.CHOSENBOTTOM, chosenButtom.id_clothing)
+                        intent.putExtra(Constants.CHOSENSHOES, chosenShoes.id_clothing)
                         startActivity(intent)
+                    } else {
+                        Toast.makeText(this, "No enough available items...", Toast.LENGTH_SHORT)
+                            .show()
                     }
-                    else {Toast.makeText(this, "No enough available items..." , Toast.LENGTH_SHORT).show()}
-
-
-
                 }
 
-                    R.id.btn_suggestion_try_again -> {
-                        if (listTop.size!=0  && listButtom.size!=0 && listShoes.size!=0)
-
-                        {
-                            getSelectionItem(listTop, Constants.TOP)
-                            getSelectionItem(listButtom, Constants.BOTTOM)
-                            getSelectionItem(listShoes, Constants.SHOES)
-
-
-                        }
-                        else{
-                            Toast.makeText(this, "No enough available items..." , Toast.LENGTH_SHORT).show()                        }
+                R.id.btn_suggestion_try_again -> {
+                    if (listTop.size != 0 && listButtom.size != 0 && listShoes.size != 0) {
+                        getSelectionItem(listTop, Constants.TOP)
+                        getSelectionItem(listButtom, Constants.BOTTOM)
+                        getSelectionItem(listShoes, Constants.SHOES)
+                    } else {
+                        Toast.makeText(this, "No enough available items...", Toast.LENGTH_SHORT)
+                            .show()
                     }
-
                 }
             }
         }
+    }
 
-
-        private fun setupActionBar() {
-
-            setSupportActionBar(toolbar_suggestion_activity)
-
-            val actionBar = supportActionBar
-            if (actionBar != null) {
-                actionBar.setDisplayHomeAsUpEnabled(true)
-                actionBar.setHomeAsUpIndicator(R.drawable.ic_white_back_24dp)
-            }
-
-            toolbar_suggestion_activity.setNavigationOnClickListener { onBackPressed()
-//                val intent = Intent(this, DashboardActivity::class.java)
-//                intent.putExtra(Constants.SUGGESTION,"back")
-//                startActivity(intent)
-            }
+    private fun setupActionBar() {
+        setSupportActionBar(toolbar_suggestion_activity)
+        val actionBar = supportActionBar
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true)
+            actionBar.setHomeAsUpIndicator(R.drawable.ic_white_back_24dp)
         }
 
-        override fun onResume() {
-            super.onResume()
-            showProgressDialog(resources.getString(R.string.please_wait))
-
-            FirestoreClass().getItemListWithCriterias( this,Constants.TOP, season, purpose)
-            FirestoreClass().getItemListWithCriterias(this,Constants.BOTTOM, season, purpose)
-            FirestoreClass().getItemListWithCriterias( this,Constants.SHOES, season, purpose)
+        toolbar_suggestion_activity.setNavigationOnClickListener {
+            onBackPressed()
         }
+    }
 
-
-//    private fun sendCommandToWear(command: String){
-//        Thread(Runnable {
-//            val connectedNodes: List<String> = Tasks
-//                .await(
-//                    Wearable
-//                        .getNodeClient(this as MainActivity).connectedNodes)
-//                .map { it.id }
-//            connectedNodes.forEach {
-//                val messageClient: MessageClient = Wearable
-//                    .getMessageClient(this as AppCompatActivity)
-//                messageClient.sendMessage(it, "/command", command.toByteArray())
-//            }
-//        }).start()
-//    }
-//
-//    private fun sendcleanessToWear(cleaness: Int) {
-//
-//        Thread(Runnable {
-//            val connectedNodes: List<String> = Tasks
-//                .await(
-//                    Wearable
-//                        .getNodeClient(this as MainActivity).connectedNodes
-//                )
-//                .map { it.id }
-//            connectedNodes.forEach {
-//                val messageClient: MessageClient = Wearable
-//                    .getMessageClient(this as AppCompatActivity)
-//                messageClient.sendMessage(it, "/cleaness", cleaness.toString().toByteArray())
-//            }
-//        }).start()
-//    }
-//
-//    private fun sendDataToWear()
-//    {
-//
-//    }
+    override fun onResume() {
+        super.onResume()
+        showProgressDialog(resources.getString(R.string.please_wait))
+        FirestoreClass().getItemListWithCriterias(this, Constants.TOP, season, purpose)
+        FirestoreClass().getItemListWithCriterias(this, Constants.BOTTOM, season, purpose)
+        FirestoreClass().getItemListWithCriterias(this, Constants.SHOES, season, purpose)
+    }
 }

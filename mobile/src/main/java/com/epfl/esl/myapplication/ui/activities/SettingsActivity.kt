@@ -13,16 +13,8 @@ import kotlinx.android.synthetic.main.activity_settings.*
 
 class SettingsActivity : BaseActivity(), View.OnClickListener {
 
-    //  Create a global variable for user details.
-    // START
-    // A variable for user details which will be initialized later on.
     private lateinit var mUserDetails: User
-    // END
 
-
-    /**
-     * This function is auto created by Android when the Activity Class is created.
-     */
     override fun onCreate(savedInstanceState: Bundle?) {
         //This call the parent constructor
         super.onCreate(savedInstanceState)
@@ -30,17 +22,9 @@ class SettingsActivity : BaseActivity(), View.OnClickListener {
         setContentView(R.layout.activity_settings)
 
         setupActionBar()
-
-
-        //  Assign the onclick event to the edit text.
-        // START
         tv_edit.setOnClickListener(this@SettingsActivity)
-        // END
-
-        // Assign the onclick event to the logout button.
-        // START
         btn_logout.setOnClickListener(this@SettingsActivity)
-        // END
+
     }
 
 
@@ -50,23 +34,16 @@ class SettingsActivity : BaseActivity(), View.OnClickListener {
         getUserDetails()
     }
 
-    //  Override the onClick function.
-    // START
     override fun onClick(v: View?) {
         if (v != null) {
             when (v.id) {
 
-                //  Call the User Profile Activity to add the Edit Profile feature to the app. Pass the user details through intent.
-                // START
                 R.id.tv_edit -> {
                     val intent = Intent(this@SettingsActivity, UserProfileActivity::class.java)
                     intent.putExtra(Constants.EXTRA_USER_DETAILS, mUserDetails)
                     startActivity(intent)
                 }
-                // END
 
-                //  Add Logout feature when user clicks on logout button.
-                // START
                 R.id.btn_logout -> {
 
                     FirebaseAuth.getInstance().signOut()
@@ -76,15 +53,12 @@ class SettingsActivity : BaseActivity(), View.OnClickListener {
                     startActivity(intent)
                     finish()
                 }
-                // END
+
             }
         }
     }
-    // END
 
-    /**
-     * A function for actionBar Setup.
-     */
+
     private fun setupActionBar() {
 
         setSupportActionBar(toolbar_settings_activity)
@@ -98,9 +72,7 @@ class SettingsActivity : BaseActivity(), View.OnClickListener {
         toolbar_settings_activity.setNavigationOnClickListener { onBackPressed() }
     }
 
-    /**
-     * A function to get the user details from firestore.
-     */
+
     private fun getUserDetails() {
 
         // Show the progress dialog
@@ -110,20 +82,13 @@ class SettingsActivity : BaseActivity(), View.OnClickListener {
         FirestoreClass().getUserDetails(this@SettingsActivity)
     }
 
-    /**
-     * A function to receive the user details and populate it in the UI.
-     */
+
     fun userDetailsSuccess(user: User) {
 
-        // Initialize the mUserDetails variable.
-        // START
         mUserDetails = user
-        // END
 
-        // Hide the progress dialog
         hideProgressDialog()
 
-        // Load the image using the Glide Loader class.
         GlideLoader(this@SettingsActivity).loadUserPicture(user.image, iv_user_photo)
 
         tv_name.text = "${user.firstName} ${user.lastName}"

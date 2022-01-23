@@ -20,7 +20,7 @@ import com.epfl.esl.myapplication.utils.GlideLoader
 import kotlinx.android.synthetic.main.activity_add_clothing.*
 import java.io.IOException
 
-class AddClothesActivity : BaseActivity(), View.OnClickListener{
+class AddClothesActivity : BaseActivity(), View.OnClickListener {
 
     // A global variable for URI of a selected image from phone storage.
     private var mSelectedImageFileUri: Uri? = null
@@ -33,19 +33,13 @@ class AddClothesActivity : BaseActivity(), View.OnClickListener{
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_clothing)
 
-
         setupActionBar()
-
-        // Assign the click event to iv_add_update_product image and to to submit button.
 
         iv_add_update_clothing.setOnClickListener(this)
         btn_submit_add_clothing.setOnClickListener(this)
-
-
     }
 
     override fun onClick(v: View?) {
-
         if (v != null) {
             when (v.id) {
 
@@ -53,7 +47,11 @@ class AddClothesActivity : BaseActivity(), View.OnClickListener{
                 // The permission code is similar to the user profile image selection.
                 R.id.iv_add_update_clothing -> {
 
-                    if (ContextCompat.checkSelfPermission(this@AddClothesActivity, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+                    if (ContextCompat.checkSelfPermission(
+                            this@AddClothesActivity,
+                            Manifest.permission.READ_EXTERNAL_STORAGE
+                        ) == PackageManager.PERMISSION_GRANTED
+                    ) {
 
                         Constants.showImageChooser(this@AddClothesActivity)
 
@@ -62,18 +60,25 @@ class AddClothesActivity : BaseActivity(), View.OnClickListener{
                         /*Requests permissions to be granted to this application. These permissions
                          must be requested in your manifest, they should not be granted to your app,
                          and they should have protection level*/
-                        ActivityCompat.requestPermissions(this@AddClothesActivity, arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE), Constants.READ_STORAGE_PERMISSION_CODE)
+                        ActivityCompat.requestPermissions(
+                            this@AddClothesActivity,
+                            arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
+                            Constants.READ_STORAGE_PERMISSION_CODE
+                        )
 
                     }
                 }
 
-                R.id.btn_submit_add_clothing -> { if (validateClothingDetails()) { uploadClothingImage() }
+                R.id.btn_submit_add_clothing -> {
+                    if (validateClothingDetails()) {
+                        uploadClothingImage()
+                    }
                 }
             }
         }
     }
 
-    fun clothingUploadSuccess(){
+    fun clothingUploadSuccess() {
         hideProgressDialog()
         Toast.makeText(
             this,
@@ -84,51 +89,36 @@ class AddClothesActivity : BaseActivity(), View.OnClickListener{
     }
 
     fun imageUploadSuccess(imageURL: String) {
-//        hideProgressDialog()
-//        showErrorSnackBar("Item image is uploaded succesfully,Image URl:  $imageURL",false)
-
         mItemImageURL = imageURL
-
         uploadClothingDetails()
     }
 
-    private fun uploadClothingDetails(){
-        var tempSeason:String = ""
-        var tempPurpose:String = ""
-        var tempCate:String = ""
-        val username =
-            this.getSharedPreferences(Constants.MYPERFIT_PREFERENCES, Context.MODE_PRIVATE)
-                .getString(Constants.LOGGED_IN_USERNAME, "")!!
+    private fun uploadClothingDetails() {
+        var tempSeason: String = ""
+        var tempPurpose: String = ""
+        var tempCate: String = ""
 
-        // season
-        if(rb_Spring_Summer.isChecked){
+        if (rb_Spring_Summer.isChecked) {
             tempSeason = Constants.SUMMERSPRING
-        }
-        else{
+        } else {
             tempSeason = Constants.WINTERFALL
         }
 
-        // purpose
-        if(rb_sporty.isChecked){
+        if (rb_sporty.isChecked) {
             tempPurpose = Constants.SPORTY
-        }
-        else if(rb_casual.isChecked){
+        } else if (rb_casual.isChecked) {
             tempPurpose = Constants.CAUSAL
-        }
-        else if(rb_formal.isChecked){
+        } else if (rb_formal.isChecked) {
             tempPurpose = Constants.FORMAL
-        }
-        else {
+        } else {
             tempPurpose = Constants.NIGHT
         }
 
-        if(rb_top.isChecked){
+        if (rb_top.isChecked) {
             tempCate = Constants.TOP
-        }
-        else if(rb_bottom.isChecked){
+        } else if (rb_bottom.isChecked) {
             tempCate = Constants.BOTTOM
-        }
-        else{
+        } else {
             tempCate = Constants.SHOES
         }
 
@@ -142,12 +132,7 @@ class AddClothesActivity : BaseActivity(), View.OnClickListener{
             100,
             true
         )
-
-
-        println(tempSeason.toString())
-        Log.e("lolo", "heeere")
         FirestoreClass().uploadClothingDetails(this@AddClothesActivity, clothing, tempCate)
-
     }
 
     override fun onRequestPermissionsResult(
@@ -170,8 +155,6 @@ class AddClothesActivity : BaseActivity(), View.OnClickListener{
             }
         }
     }
-
-
 
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -205,9 +188,6 @@ class AddClothesActivity : BaseActivity(), View.OnClickListener{
     }
 
 
-
-
-
     //allows the user to go back with the arrow bar
     private fun setupActionBar() {
 
@@ -225,21 +205,20 @@ class AddClothesActivity : BaseActivity(), View.OnClickListener{
     private fun validateClothingDetails(): Boolean {
 
 
-        return if (mSelectedImageFileUri == null )  {
+        return if (mSelectedImageFileUri == null) {
             showErrorSnackBar(resources.getString(R.string.err_msg_select_product_image), true)
             false
-        }else {
+        } else {
             true
         }
-
     }
 
     private fun uploadClothingImage() {
-
         showProgressDialog(resources.getString(R.string.please_wait))
-
-        //you could also add to the image the userID we'll see
-        FirestoreClass().uploadImageToCloudStorage(this, mSelectedImageFileUri, Constants.ITEM_IMAGE)
+        FirestoreClass().uploadImageToCloudStorage(
+            this,
+            mSelectedImageFileUri,
+            Constants.ITEM_IMAGE
+        )
     }
-
 }

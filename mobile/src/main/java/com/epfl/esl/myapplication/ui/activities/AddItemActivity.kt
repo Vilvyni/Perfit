@@ -29,20 +29,6 @@ class AddItemActivity : BaseActivity(), View.OnClickListener {
     // A global variable for uploaded product image URL.
     private var mItemImageURL: String = ""
 
-//    private var _binding : ActivityAddItemBinding? = null
-//    private val binding get() = _binding!!
-//
-//    override fun onCreateView(
-//        inflater: LayoutInflater,container:ViewGroup?,
-//        savedInstanceState: Bundle?
-//    ): View? {
-//        _binding = ActivityAddItemBinding.inflate(inflater,container,false)
-//
-//
-//        binding.autoCompleteTextView.setAdapter(arrayAdapter)
-//        return binding.root
-//    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_item)
@@ -51,7 +37,6 @@ class AddItemActivity : BaseActivity(), View.OnClickListener {
         // Assign the click event to iv_add_update_product image and to to submit button.
         iv_add_update_item.setOnClickListener(this)
         btn_submit_add_item.setOnClickListener(this)
-
 
     }
 
@@ -103,11 +88,7 @@ class AddItemActivity : BaseActivity(), View.OnClickListener {
     }
 
     fun imageUploadSuccess(imageURL: String) {
-//        hideProgressDialog()
-//        showErrorSnackBar("Item image is uploaded succesfully,Image URl:  $imageURL",false)
-
         mItemImageURL = imageURL
-
         uploadItemDetails()
     }
 
@@ -115,10 +96,6 @@ class AddItemActivity : BaseActivity(), View.OnClickListener {
     private fun uploadItemDetails(){
         val username = this.getSharedPreferences(Constants.MYPERFIT_PREFERENCES, Context.MODE_PRIVATE)
             .getString(Constants.LOGGED_IN_USERNAME,"")!!
-
-        //Making object where I am passing all the Items objects
-        // editable text on the xml
-        //TODO change this to droppdown menu values, we get it from the xml
         val item = Item(
             FirestoreClass().getCurrentUserID(),
             username,
@@ -207,11 +184,6 @@ class AddItemActivity : BaseActivity(), View.OnClickListener {
         toolbar_add_product_activity.setNavigationOnClickListener { onBackPressed() }
     }
 
-
-    // TODO : CHANGE THIS TO OUR APP
-    /**
-     * A function to validate the product details.
-     */
     private fun validateProductDetails(): Boolean {
         return when {
 
@@ -251,9 +223,6 @@ class AddItemActivity : BaseActivity(), View.OnClickListener {
         }
     }
 
-    /**
-     * A function to upload the selected item image to firebase cloud storage.
-     */
     private fun uploadItemImage() {
 
         showProgressDialog(resources.getString(R.string.please_wait))
@@ -261,53 +230,4 @@ class AddItemActivity : BaseActivity(), View.OnClickListener {
         //you could also add to the image the userID we'll see
         FirestoreClass().uploadImageToCloudStorage(this, mSelectedImageFileUri, Constants.ITEM_IMAGE)
     }
-//
-//    /**
-//     * A function to get the successful result of product image upload.
-//     */
-//    fun imageUploadSuccess(imageURL: String) {
-//
-//        // Initialize the global image url variable.
-//        mProductImageURL = imageURL
-//
-//        uploadProductDetails()
-//    }
-//
-//    private fun uploadProductDetails() {
-//
-//        // Get the logged in username from the SharedPreferences that we have stored at a time of login.
-//        val username =
-//            this.getSharedPreferences(Constants.MYPERFIT_PREFERENCES, Context.MODE_PRIVATE)
-//                .getString(Constants.LOGGED_IN_USERNAME, "")!!
-//
-//        // Here we get the text from editText and trim the space
-//        val item = Item(
-//            FirestoreClass().getCurrentUserID(),
-//            username,
-//            et_product_title.text.toString().trim { it <= ' ' },
-//            et_product_price.text.toString().trim { it <= ' ' },
-//            et_product_description.text.toString().trim { it <= ' ' },
-//            et_product_quantity.text.toString().trim { it <= ' ' },
-//            mItemImageURL
-//        )
-//
-//        FirestoreClass().uploadItemDetails(this@ItemActivity, item)
-//    }
-//
-//    /**
-//     * A function to return the successful result of Product upload.
-//     */
-//    fun productUploadSuccess() {
-//
-//        // Hide the progress dialog
-//        hideProgressDialog()
-//
-//        Toast.makeText(
-//            this@AddItemActivity,
-//            resources.getString(R.string.item_uploaded_success_message),
-//            Toast.LENGTH_SHORT
-//        ).show()
-//
-//        finish()
-//    }
 }

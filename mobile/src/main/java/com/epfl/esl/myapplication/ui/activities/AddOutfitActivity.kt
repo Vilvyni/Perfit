@@ -54,13 +54,9 @@ class AddOutfitActivity :BaseActivity(), View.OnClickListener{
         shoes_right.setOnClickListener(this)
         btn_outfit_add.setOnClickListener(this)
 
-
-
     }
 
     private fun getItemListFromFireStore() {
-        // Show the progress dialog.
-//        showProgressDialog(resources.getString(R.string.please_wait))
         // Call the function of Firestore class.
         FirestoreClass().getItemsListClothes(this, Constants.TOP)
         FirestoreClass().getItemsListClothes(this,Constants.BOTTOM)
@@ -85,9 +81,8 @@ class AddOutfitActivity :BaseActivity(), View.OnClickListener{
                     GlideLoader(this).loadItemPicture(model.image,iv_add_outfit_top)
                     URI_top = model.image
                     id_top = model.id_clothing
-                    Log.e("loloo",index_top.toString())
                 }
-//
+
                 R.id.bottom_left -> {
                     index_bottom = index_bottom-1
                     //if it is equal to 0
@@ -97,7 +92,6 @@ class AddOutfitActivity :BaseActivity(), View.OnClickListener{
                     GlideLoader(this).loadItemPicture(model.image,iv_add_outfit_bottom)
                     URI_bottom = model.image
                     id_bottom = model.id_clothing
-                    Log.e("loloo",index_bottom.toString())
 
                 }
 
@@ -110,7 +104,6 @@ class AddOutfitActivity :BaseActivity(), View.OnClickListener{
                     GlideLoader(this).loadItemPicture(model.image,iv_add_outfit_shoes)
                     URI_shoes = model.image
                     id_shoes = model.id_clothing
-                    Log.e("loloo",index_shoes.toString())
 
                 }
                 
@@ -123,9 +116,8 @@ class AddOutfitActivity :BaseActivity(), View.OnClickListener{
                     GlideLoader(this).loadItemPicture(model.image,iv_add_outfit_top)
                     URI_top= model.image
                     id_top = model.id_clothing
-                    Log.e("loloo",index_top.toString())
                 }
-//
+
                 R.id.bottom_right -> {
                     index_bottom = index_bottom+1
                     //if it is equal to 0
@@ -135,7 +127,6 @@ class AddOutfitActivity :BaseActivity(), View.OnClickListener{
                     GlideLoader(this).loadItemPicture(model.image,iv_add_outfit_bottom)
                     URI_bottom = model.image
                     id_bottom = model.id_clothing
-                    Log.e("loloo",index_bottom.toString())
 
                 }
 
@@ -148,18 +139,13 @@ class AddOutfitActivity :BaseActivity(), View.OnClickListener{
                     GlideLoader(this).loadItemPicture(model.image,iv_add_outfit_shoes)
                     URI_shoes = model.image
                     id_shoes = model.id_clothing
-                    Log.e("loloo",index_shoes.toString())
-
                 }
 
                 R.id.btn_outfit_add -> {
 
                     if(verify_oufit())
                         showProgressDialog(resources.getString(R.string.please_wait))
-
                         uploadOutfit()
-
-
                 }
             }
         }
@@ -188,8 +174,6 @@ class AddOutfitActivity :BaseActivity(), View.OnClickListener{
             tempPurpose = Constants.NIGHT
         }
 
-
-
         val outfit = Outfit(
             id_top,
             id_bottom,
@@ -202,10 +186,7 @@ class AddOutfitActivity :BaseActivity(), View.OnClickListener{
             URI_bottom,
             URI_shoes
 
-            
         )
-
-
         FirestoreClass().uploadOutfitDetails(this@AddOutfitActivity, outfit)
     }
 
@@ -254,42 +235,6 @@ class AddOutfitActivity :BaseActivity(), View.OnClickListener{
         }
     }
 
-
-//
-//        // season
-//        if(rb_Spring_Summer.isChecked){
-//            tempSeason = Constants.SUMMERSPRING
-//        }
-//        else{
-//            tempSeason = Constants.WINTERFALL
-//        }
-//
-//        // purpose
-//        if(rb_sporty.isChecked){
-//            tempPurpose = Constants.SPORTY
-//        }
-//        else if(rb_casual.isChecked){
-//            tempPurpose = Constants.CAUSAL
-//        }
-//        else if(rb_formal.isChecked){
-//            tempPurpose = Constants.FORMAL
-//        }
-//        else {
-//            tempPurpose = Constants.NIGHT
-//        }
-//
-//        if(rb_top.isChecked){
-//            tempCate = Constants.TOP
-//        }
-//        else if(rb_bottom.isChecked){
-//            tempCate = Constants.BOTTOM
-//        }
-//        else{
-//            tempCate = Constants.SHOES
-//        }
-//
-//    }
-
     fun getItemCount(list:ArrayList<Clothing>): Int {
         return list.size
     }
@@ -303,8 +248,6 @@ class AddOutfitActivity :BaseActivity(), View.OnClickListener{
             }else{
                 empty_top = false
             }
-
-
 
         }else if(category == Constants.BOTTOM){
             bottom_list= clothing
@@ -327,9 +270,7 @@ class AddOutfitActivity :BaseActivity(), View.OnClickListener{
     }
 
     private fun setupActionBar() {
-
         setSupportActionBar(toolbar_add_outfit_activity)
-
         val actionBar = supportActionBar
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true)

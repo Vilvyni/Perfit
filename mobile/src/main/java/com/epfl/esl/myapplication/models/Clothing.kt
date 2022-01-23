@@ -13,7 +13,7 @@ data class Clothing(
     val season: String = "",
     val category: String = "",
     val purpose: String = "",
-    val cleanliness: Int = 100 , // to see with the watch
+    val cleanliness: Int = 100 ,
     val availability: Boolean = true,
 
 ): Parcelable

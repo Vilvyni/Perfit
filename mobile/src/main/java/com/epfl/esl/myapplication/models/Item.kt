@@ -14,16 +14,5 @@ data class Item(
     val image: String = "",
     var item_id: String = "",
 
-
-
-//    val user_name: String = "",
-//    val season: String = "",
-//    val category: String = "",
-//    val purpose: String = "",
-//    val image: String = "",
-//    val cleanliness: String = "",
-//    val id: String = "",
-
-
 ): Parcelable
 

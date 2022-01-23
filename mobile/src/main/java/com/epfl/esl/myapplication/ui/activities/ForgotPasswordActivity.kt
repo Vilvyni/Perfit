@@ -20,11 +20,6 @@ class ForgotPasswordActivity : BaseActivity() {
 
         setupActionBar()
 
-        // Assign the click even to the submit button.
-        // In this screen there is only a one input field so we will not create the separate function what we have done in the Register and Login Screens.
-        // I will show you how to perform all the operations in the on click function it self.
-
-        // START
         btn_submit.setOnClickListener {
 
             // Get the email id from the input field.
@@ -44,7 +39,6 @@ class ForgotPasswordActivity : BaseActivity() {
 
                         // Hide the progress dialog
                         hideProgressDialog()
-
                         if (task.isSuccessful) {
                             // Show the toast message and finish the forgot password activity to go back to the login screen.
                             Toast.makeText(
@@ -60,17 +54,13 @@ class ForgotPasswordActivity : BaseActivity() {
                     }
             }
         }
-        // END
     }
-
 
     /**
      * A function for actionBar Setup.
      */
     private fun setupActionBar() {
-
         setSupportActionBar(toolbar_forgot_password_activity)
-
         val actionBar = supportActionBar
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true)
@@ -80,7 +70,6 @@ class ForgotPasswordActivity : BaseActivity() {
         toolbar_forgot_password_activity.setNavigationOnClickListener { onBackPressed() }
         btn_submit.setOnClickListener{
             val email: String = et_forgot_pw.text.toString().trim{ it <= ' '}
-
             if(email.isEmpty()){
                 showErrorSnackBar(resources.getString(R.string.err_msg_enter_email),true)
             }else{
