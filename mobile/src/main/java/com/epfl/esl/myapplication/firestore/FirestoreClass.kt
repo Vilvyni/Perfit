@@ -57,7 +57,7 @@ class FirestoreClass {
 
     fun getUserDetails(activity: Activity) {
         var CurrentUserID: String = getCurrentUserID()
-        
+
         mFireStore.collection(Constants.USERS)
             .document(CurrentUserID)
             .get()
