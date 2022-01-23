@@ -2,7 +2,6 @@ package com.epfl.esl.watch
 
 import android.app.Activity
 import android.content.pm.PackageManager
-import android.graphics.BitmapFactory
 import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
@@ -11,15 +10,9 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
 import android.widget.Toast
-import androidx.databinding.DataBindingUtil
 import com.epfl.esl.watch.databinding.ActivityMainBinding
 import com.google.android.gms.wearable.*
-import com.google.android.gms.wearable.R
-import java.util.*
-import kotlin.concurrent.timerTask
-
 
 class MainActivity : Activity(), DataClient.OnDataChangedListener, SensorEventListener,
     MessageClient.OnMessageReceivedListener {
@@ -27,7 +20,6 @@ class MainActivity : Activity(), DataClient.OnDataChangedListener, SensorEventLi
     private lateinit var binding: ActivityMainBinding
 
     var heartRate:Int = 40
-    //private var timer = Timer()
     var cleanessOfOutfit:Int = 101
 
     var time:Int = 0
@@ -46,8 +38,6 @@ class MainActivity : Activity(), DataClient.OnDataChangedListener, SensorEventLi
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        //binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
-        // binding.textHRValue.setText(heartRate)
 
         binding.textHRValue.text = heartRate.toString()
         binding.textCleaness.text = time.toString()
@@ -76,8 +66,6 @@ class MainActivity : Activity(), DataClient.OnDataChangedListener, SensorEventLi
             .filter {it.dataItem.uri.path == "/userInfo" }
             .forEach { event ->
                 val receivedCleanessTop: String = DataMapItem.fromDataItem(event.dataItem).dataMap.getString("username")
-
-                //binding.myText.setText(receivedUsername)
             }
     }
 
@@ -134,7 +122,6 @@ class MainActivity : Activity(), DataClient.OnDataChangedListener, SensorEventLi
     }
 
     private fun updateCleaness(){
-        //time = time + 1
         cleanessOfOutfit = cleanessOfOutfit - heartRate/20
 
         if (cleanessOfOutfit < 0) cleanessOfOutfit = 0
