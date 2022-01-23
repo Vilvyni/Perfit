@@ -2,20 +2,15 @@ package com.epfl.esl.myapplication.ui.fragments
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import android.widget.*
-import androidx.core.net.toUri
 import androidx.databinding.DataBindingUtil
-import androidx.recyclerview.widget.GridLayoutManager
 import com.epfl.esl.myapplication.R
 import com.epfl.esl.myapplication.databinding.FragmentDashboardBinding
 import com.epfl.esl.myapplication.firestore.FirestoreClass
-import com.epfl.esl.myapplication.models.Clothing
 import com.epfl.esl.myapplication.models.Item
 import com.epfl.esl.myapplication.ui.activities.SettingsActivity
 import com.epfl.esl.myapplication.ui.activities.SuggestionActivity
-import com.epfl.esl.myapplication.ui.adapters.DashboardItemsListAdapter
 import com.epfl.esl.myapplication.utils.Constants
 import kotlinx.android.synthetic.main.fragment_dashboard.*
 
@@ -27,10 +22,7 @@ class DashboardFragment :BaseFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        // If we want to use the option menu in fragment we need to add it.
         setHasOptionsMenu(true)
-
-
     }
 
     override fun onCreateView(
@@ -39,11 +31,7 @@ class DashboardFragment :BaseFragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-
-
         binding = DataBindingUtil.inflate(inflater,R.layout.fragment_dashboard, container,false)
-
-
         val spinner=binding.root.findViewById<Spinner>(R.id.spinner_season) as Spinner
         spinner?.adapter = ArrayAdapter.createFromResource(requireContext(), R.array.season_Dashboard, R.layout.spinner_layout ) as SpinnerAdapter
 
@@ -59,19 +47,13 @@ class DashboardFragment :BaseFragment() {
                 id: Long
             ) {
                 val item = parent?.getItemAtPosition(position).toString()
-//                Toast.makeText(context, "Today is: " + item, Toast.LENGTH_SHORT).show()
                 weather = item
             }
         }
 
         binding.btnDashboardSporty.setOnClickListener {
             if(weather!= "")
-
                 startSelection(requireContext(),weather,Constants.SPORTY)
-//                val intent = Intent(context, SuggestionActivity::class.java)
-//                intent.putExtra(Constants.SEASON, weather)
-//                intent.putExtra(Constants.PURPOSE, Constants.SPORTY)
-//                startActivity(intent)
         }
 
         binding.btnDashboardCasual.setOnClickListener {
@@ -79,30 +61,17 @@ class DashboardFragment :BaseFragment() {
 
                 startSelection(requireContext(),weather,Constants.CAUSAL)
 
-//                val intent = Intent(context, SuggestionActivity::class.java)
-//                intent.putExtra(Constants.SEASON, weather)
-//                intent.putExtra(Constants.PURPOSE, Constants.CAUSAL)
-//                startActivity(intent)
         }
 
         binding.btnDashboardFormal.setOnClickListener {
             if(weather!= "")
 
                 startSelection(requireContext(),weather,Constants.FORMAL)
-
-//                val intent = Intent(context, SuggestionActivity::class.java)
-//                intent.putExtra(Constants.SEASON, weather)
-//                intent.putExtra(Constants.PURPOSE, Constants.FORMAL)
-//                startActivity(intent)
         }
 
         binding.btnDashboardNight.setOnClickListener {
             if(weather!= "")
                 startSelection(requireContext(),weather,Constants.NIGHT)
-//                val intent = Intent(context, SuggestionActivity::class.java)
-//                intent.putExtra(Constants.SEASON, weather)
-//                intent.putExtra(Constants.PURPOSE, Constants.NIGHT)
-//                startActivity(intent)
         }
 
 
@@ -136,27 +105,7 @@ class DashboardFragment :BaseFragment() {
         return super.onOptionsItemSelected(item)
     }
 
-
-
-    /**
-     * A function to get the dashboard items list from cloud firestore.
-     */
-    private fun getDashboardItemsList() {
-        // Show the progress dialog.
-        showProgressDialog(resources.getString(R.string.please_wait))
-
-        FirestoreClass().getDashboardItemsList(this@DashboardFragment)
-    }
-
-    /**
-     * A function to get the success result of the dashboard items from cloud firestore.
-     *
-     * @param dashboardItemsList
-     */
-    //Need to change if we wish to have show our outfit
     fun successDashboardItemsList(dashboardItemsList: ArrayList<Item>) {
-
-        // Hide the progress dialog.
         hideProgressDialog()
     }
 

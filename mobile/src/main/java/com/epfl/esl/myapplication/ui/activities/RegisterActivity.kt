@@ -111,13 +111,10 @@ class RegisterActivity : BaseActivity() {
                 .addOnCompleteListener(
                     OnCompleteListener<AuthResult> { task ->
 
-                        // If the registration is successfully done
                         if (task.isSuccessful) {
 
-                            // Firebase registered user
                             val firebaseUser: FirebaseUser = task.result!!.user!!
 
-                            // Instance of User data model class.
                             val user = User(
                                 firebaseUser.uid,
                                 et_first_name.text.toString().trim { it <= ' ' },
@@ -125,14 +122,11 @@ class RegisterActivity : BaseActivity() {
                                 et_email.text.toString().trim { it <= ' ' }
                             )
 
-                            // Pass the required values in the constructor.
                             FirestoreClass().registerUser(this@RegisterActivity, user)
                         } else {
 
-                            // Hide the progress dialog
                             hideProgressDialog()
 
-                            // If the registering is not successful then show error message.
                             showErrorSnackBar(task.exception!!.message.toString(), true)
                         }
                     })

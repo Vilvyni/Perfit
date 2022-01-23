@@ -12,7 +12,6 @@ class MSPButton (context: Context, attrs: AttributeSet) : AppCompatEditText(cont
         applyFont()
     }
 
-
     private fun applyFont() {
         val typeface: Typeface =
             Typeface.createFromAsset(context.assets, "Montserrat-Regular.ttf")

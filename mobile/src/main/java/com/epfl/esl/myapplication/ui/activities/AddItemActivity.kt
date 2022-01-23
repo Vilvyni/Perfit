@@ -23,10 +23,7 @@ import java.io.IOException
 
 class AddItemActivity : BaseActivity(), View.OnClickListener {
 
-    // A global variable for URI of a selected image from phone storage.
     private var mSelectedImageFileUri: Uri? = null
-
-    // A global variable for uploaded product image URL.
     private var mItemImageURL: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,7 +31,6 @@ class AddItemActivity : BaseActivity(), View.OnClickListener {
         setContentView(R.layout.activity_add_item)
         setupActionBar()
 
-        // Assign the click event to iv_add_update_product image and to to submit button.
         iv_add_update_item.setOnClickListener(this)
         btn_submit_add_item.setOnClickListener(this)
 
@@ -45,8 +41,7 @@ class AddItemActivity : BaseActivity(), View.OnClickListener {
         if (v != null) {
             when (v.id) {
 
-                // if the user presses on the new photo
-                // The permission code is similar to the user profile image selection.
+
                 R.id.iv_add_update_item -> {
                     if (ContextCompat.checkSelfPermission(
                             this,
@@ -56,9 +51,7 @@ class AddItemActivity : BaseActivity(), View.OnClickListener {
                     ) {
                         Constants.showImageChooser(this@AddItemActivity)
                     } else {
-                        /*Requests permissions to be granted to this application. These permissions
-                         must be requested in your manifest, they should not be granted to your app,
-                         and they should have protection level*/
+
                         ActivityCompat.requestPermissions(
                             this,
                             arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
@@ -92,7 +85,6 @@ class AddItemActivity : BaseActivity(), View.OnClickListener {
         uploadItemDetails()
     }
 
-    //we got the items details
     private fun uploadItemDetails(){
         val username = this.getSharedPreferences(Constants.MYPERFIT_PREFERENCES, Context.MODE_PRIVATE)
             .getString(Constants.LOGGED_IN_USERNAME,"")!!
@@ -110,13 +102,6 @@ class AddItemActivity : BaseActivity(), View.OnClickListener {
 
     }
 
-    /**
-     * This function will identify the result of runtime permission after the user allows or deny permission based on the unique code.
-     *
-     * @param requestCode
-     * @param permissions
-     * @param grantResults
-     */
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<out String>,
@@ -145,7 +130,6 @@ class AddItemActivity : BaseActivity(), View.OnClickListener {
             && data!!.data != null
         ) {
 
-            // Replace the add icon with edit icon once the image is selected.
             iv_add_update_item.setImageDrawable(
                 ContextCompat.getDrawable(
                     this,
@@ -153,11 +137,9 @@ class AddItemActivity : BaseActivity(), View.OnClickListener {
                 )
             )
 
-            // The uri of selection image from phone storage.
             mSelectedImageFileUri = data.data!!
 
             try {
-                // Load the product image in the ImageView.
                 GlideLoader(this).loadUserPicture(
                     mSelectedImageFileUri!!,
                     iv_product_image
@@ -168,9 +150,6 @@ class AddItemActivity : BaseActivity(), View.OnClickListener {
         }
     }
 
-    /**
-     * A function for actionBar Setup.
-     */
     private fun setupActionBar() {
 
         setSupportActionBar(toolbar_add_product_activity)
@@ -227,7 +206,6 @@ class AddItemActivity : BaseActivity(), View.OnClickListener {
 
         showProgressDialog(resources.getString(R.string.please_wait))
 
-        //you could also add to the image the userID we'll see
         FirestoreClass().uploadImageToCloudStorage(this, mSelectedImageFileUri, Constants.ITEM_IMAGE)
     }
 }

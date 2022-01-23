@@ -308,5 +308,4 @@
         app:layout_constraintTop_toBottomOf="@id/rg_outfit_purpose" />
 
 
-
 </androidx.constraintlayout.widget.ConstraintLayout>

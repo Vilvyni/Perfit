@@ -1,26 +1,16 @@
 package com.epfl.esl.myapplication.utils
 
 import android.content.Context
-import android.net.Uri
 import android.widget.ImageView
 import com.bumptech.glide.Glide
 import com.epfl.esl.myapplication.R
 import java.io.IOException
 
-// Create a custom object to create a common functions for Glide which can be used in whole application. You can also add the piece of code directly at the same place where you want to load the image with all the parameters.
-/**
- * A custom object to create a common functions for Glide which can be used in whole application.
- */
 class GlideLoader(val context: Context) {
 
-    // Create a function to load image from URI for the user profile picture.
-    // START
-    /**
-     * A function to load image from URI for the user profile picture.
-     */
+
     fun loadUserPicture(image: Any, imageView: ImageView) {
         try {
-            // Load the user image in the ImageView.
             Glide
                 .with(context)
                 .load(image) // URI of the image
@@ -34,7 +24,6 @@ class GlideLoader(val context: Context) {
 
     fun loadItemPicture(image: Any, imageView: ImageView) {
         try {
-            // Load the user image in the ImageView.
             Glide
                 .with(context)
                 .load(image) // URI of the image
@@ -44,5 +33,4 @@ class GlideLoader(val context: Context) {
             e.printStackTrace()
         }
     }
-
 }

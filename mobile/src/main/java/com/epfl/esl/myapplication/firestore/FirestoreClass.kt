@@ -58,9 +58,9 @@ class FirestoreClass {
     fun getUserDetails(activity: Activity) {
         var CurrentUserID: String = getCurrentUserID()
         //TODO TO CHANGE LOGIN
-        if (getCurrentUserID() == "") {
-            CurrentUserID = "aT1z8IdoOJT6irLx3BDcCAR1XRk1"
-        }
+//        if (getCurrentUserID() == "") {
+////            CurrentUserID = "aT1z8IdoOJT6irLx3BDcCAR1XRk1"
+//        }
 
         mFireStore.collection(Constants.USERS)
             .document(CurrentUserID)
@@ -140,7 +140,6 @@ class FirestoreClass {
             }
     }
 
-    // A function to upload the image to the cloud storage.
     fun uploadImageToCloudStorage(activity: Activity, imageFileURI: Uri?, imageType: String) {
         //getting the storage reference
         val sRef: StorageReference = FirebaseStorage.getInstance().reference.child(

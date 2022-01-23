@@ -10,7 +10,6 @@ import com.epfl.esl.myapplication.R
 import com.epfl.esl.myapplication.firestore.FirestoreClass
 import com.epfl.esl.myapplication.models.Outfit
 import kotlinx.android.synthetic.main.fragment_outfits.*
-
 import com.epfl.esl.myapplication.ui.activities.AddOutfitActivity
 import com.epfl.esl.myapplication.ui.adapters.MyOutfitAdapter
 import com.epfl.esl.myapplication.utils.Constants
@@ -22,7 +21,6 @@ class OutfitsFragment : BaseFragment(),View.OnClickListener{
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        // If we want to use the option menu in fragment we need to add it.
         setHasOptionsMenu(true)
     }
 
@@ -31,14 +29,8 @@ class OutfitsFragment : BaseFragment(),View.OnClickListener{
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
-        //binding = DataBindingUtil.inflate(inflater,R.layout.fragment_outfits,container,false)
-
         val view: View = inflater!!.inflate(R.layout.fragment_outfits, container, false)
-
-
         RadioButtonEnable(view)
-
         return view
     }
 
@@ -90,16 +82,12 @@ class OutfitsFragment : BaseFragment(),View.OnClickListener{
 
 
     private fun getOutfitListFromFireStore() {
-        // Show the progress dialog.
         showProgressDialog(resources.getString(R.string.please_wait))
-        // Call the function of Firestore class.
         FirestoreClass().getOutfitList(this)
 
     }
     private fun getOutfitListFromFireStoreWithCriteria(season:String,purpose:String) {
-        // Show the progress dialog.
         showProgressDialog("Researching the your outfit according to your criterias...")
-        // Call the function of Firestore class.
         FirestoreClass().getOutfitListWithCriterias(this, season, purpose)
 
     }
@@ -126,41 +114,31 @@ class OutfitsFragment : BaseFragment(),View.OnClickListener{
     override fun onClick(v: View?) {
         when(v?.id){
             R.id.rb_outfit_Spring_Summer_fragment->{
-                Log.d("yoyoyo","summer checked!")
                 chosenSeason = Constants.SUMMERSPRING
 
                 }
 
             R.id.rb_outfit_Winter_Fall_fragment->{
-                Log.d("yoyoyo","winter checked!")
                 chosenSeason = Constants.WINTERFALL
 
             }
             R.id.rb_outfit_sporty_fragment->{
-                Log.d("yoyoyo","sporty")
                 chosenCategory = Constants.SPORTY
 
             }
             R.id.rb_outfit_formal_fragment->{
-                Log.d("yoyoyo","formal")
                 chosenCategory = Constants.FORMAL
             }
             R.id.rb_outfit_casual_fragment->{
-                Log.d("yoyoyo","causal")
                 chosenCategory = Constants.CAUSAL
 
             }
             R.id.rb_outfit_night_fragment->{
-                Log.d("yoyoyo","night")
                 chosenCategory = Constants.NIGHT
 
             }
 
         }
-        if(chosenCategory!="" && chosenSeason!="")
-        {Log.d("yoyoyo","now let's look for outfit for" + chosenCategory +"," +chosenSeason )}
-
         getOutfitListFromFireStoreWithCriteria(chosenSeason,chosenCategory)
     }
-
 }

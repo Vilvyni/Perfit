@@ -160,4 +160,3 @@
         android:textSize="@dimen/lbl_text_view_textSize" />
   </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
-    <!--END-->

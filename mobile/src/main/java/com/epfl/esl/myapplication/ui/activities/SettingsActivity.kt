@@ -16,9 +16,7 @@ class SettingsActivity : BaseActivity(), View.OnClickListener {
     private lateinit var mUserDetails: User
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        //This call the parent constructor
         super.onCreate(savedInstanceState)
-        // This is used to align the xml view to this class
         setContentView(R.layout.activity_settings)
 
         setupActionBar()
@@ -75,10 +73,8 @@ class SettingsActivity : BaseActivity(), View.OnClickListener {
 
     private fun getUserDetails() {
 
-        // Show the progress dialog
         showProgressDialog(resources.getString(R.string.please_wait))
 
-        // Call the function of Firestore class to get the user details from firestore which is already created.
         FirestoreClass().getUserDetails(this@SettingsActivity)
     }
 

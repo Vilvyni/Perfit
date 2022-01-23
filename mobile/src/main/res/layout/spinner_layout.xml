@@ -11,5 +11,4 @@
     android:textSize="24sp"
     android:background="@drawable/app_gradient_color_background"
 
-
     />

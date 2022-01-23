@@ -22,31 +22,23 @@ import java.io.IOException
 
 class UserProfileActivity : BaseActivity(), View.OnClickListener {
 
-    // Instance of User data model class. We will initialize it later on.
     private lateinit var mUserDetails: User
 
-    // Add a global variable for URI of a selected image from phone storage.
     private var mSelectedImageFileUri: Uri? = null
 
     private var mUserProfileImageURL: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        //This call the parent constructor
         super.onCreate(savedInstanceState)
-        // This is used to align the xml view to this class
         setContentView(R.layout.activity_user_profile)
 
         if (intent.hasExtra(Constants.EXTRA_USER_DETAILS)) {
-            // Get the user details from intent as a ParcelableExtra.
             mUserDetails = intent.getParcelableExtra(Constants.EXTRA_USER_DETAILS)!!
         }
 
-        // If the profile is incomplete then user is from login screen and wants to complete the profile.
         if (mUserDetails.profileCompleted == 0) {
-            // Update the title of the screen to complete profile.
             tv_title.text = resources.getString(R.string.title_complete_profile)
 
-            // Here, the some of the edittext components are disabled because it is added at a time of Registration.
             et_first_name.isEnabled = false
             et_first_name.setText(mUserDetails.firstName)
 
@@ -57,16 +49,12 @@ class UserProfileActivity : BaseActivity(), View.OnClickListener {
             et_email.setText(mUserDetails.email)
         } else {
 
-            // Call the setup action bar function.
             setupActionBar()
 
-            // Update the title of the screen to edit profile.
             tv_title.text = resources.getString(R.string.title_edit_profile)
 
-            // Load the image using the GlideLoader class with the use of Glide Library.
             GlideLoader(this@UserProfileActivity).loadUserPicture(mUserDetails.image, iv_user_photo)
 
-            // Set the existing values to the UI and allow user to edit except the Email ID.
             et_first_name.setText(mUserDetails.firstName)
             et_last_name.setText(mUserDetails.lastName)
 

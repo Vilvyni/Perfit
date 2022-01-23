@@ -32,7 +32,6 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
             when (v.id) {
 
                 R.id.tv_forgot_password -> {
-                    // Launch the forgot password screen when the user clicks on the forgot password text.
                     val intent = Intent(this@LoginActivity, ForgotPasswordActivity::class.java)
                     startActivity(intent)
                 }
@@ -43,7 +42,6 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
                 }
 
                 R.id.tv_register -> {
-                    // Launch the register screen when the user clicks on the text.
                     val intent = Intent(this@LoginActivity, RegisterActivity::class.java)
                     startActivity(intent)
                 }
@@ -71,27 +69,18 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
 
         if (validateLoginDetails()) {
 
-            // Show the progress dialog.
             showProgressDialog(resources.getString(R.string.please_wait))
 
-            // Get the text from editText and trim the space
             val email = et_email.text.toString().trim { it <= ' ' }
             val password = et_password.text.toString().trim { it <= ' ' }
 
-            // Log-In using FirebaseAuth
             FirebaseAuth.getInstance().signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener { task ->
 
                     if (task.isSuccessful) {
 
-                        //  Move the hide progress dialog to else part and remove the success message and call the getUserDetails function from Firestore class once the user is logged in.
-                        // START
-                        /*showErrorSnackBar("You are logged in successfully.", false)*/
-
                         FirestoreClass().getUserDetails(this@LoginActivity)
-                        // END
                     } else {
-                        // Hide the progress dialog
                         hideProgressDialog()
                         showErrorSnackBar(task.exception!!.message.toString(), true)
                     }
@@ -102,15 +91,11 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
     fun userLoggedInSuccess(user: User) {
         hideProgressDialog()
         if (user.profileCompleted == 0) {
-            // If the user profile is incomplete then launch the UserProfileActivity.
             val intent = Intent(this@LoginActivity, UserProfileActivity::class.java)
-            // Pass the user details to the user profile screen.
-            // START
+
             intent.putExtra(Constants.EXTRA_USER_DETAILS, user)
-            // END
             startActivity(intent)
         } else {
-            // Redirect the user to Main Screen after log in.
             startActivity(Intent(this@LoginActivity, DashboardActivity::class.java))
         }
         finish()

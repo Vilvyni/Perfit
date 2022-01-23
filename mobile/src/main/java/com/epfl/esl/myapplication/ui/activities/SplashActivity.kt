@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.view.WindowManager
 import com.epfl.esl.myapplication.R
+import com.epfl.esl.myapplication.firestore.FirestoreClass
 
 @Suppress("DEPRECATION")
 class SplashActivity : AppCompatActivity() {
@@ -20,8 +21,13 @@ class SplashActivity : AppCompatActivity() {
 
         Handler().postDelayed(
             {
-                startActivity(Intent(this@SplashActivity, DashboardActivity::class.java))
-                finish() // Call this when your activity is done and should be closed.
+                val currentUserID = FirestoreClass().getCurrentUserID()
+                if (currentUserID.isNotEmpty()) {
+                    startActivity(Intent(this@SplashActivity, DashboardActivity::class.java))
+                } else {
+                    startActivity(Intent(this@SplashActivity, LoginActivity::class.java))
+                }
+                finish()
             },
             1500
         )
