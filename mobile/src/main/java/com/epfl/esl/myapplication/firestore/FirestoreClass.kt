@@ -57,11 +57,7 @@ class FirestoreClass {
 
     fun getUserDetails(activity: Activity) {
         var CurrentUserID: String = getCurrentUserID()
-        //TODO TO CHANGE LOGIN
-//        if (getCurrentUserID() == "") {
-////            CurrentUserID = "aT1z8IdoOJT6irLx3BDcCAR1XRk1"
-//        }
-
+        
         mFireStore.collection(Constants.USERS)
             .document(CurrentUserID)
             .get()
@@ -198,7 +194,6 @@ class FirestoreClass {
     }
 
     fun uploadItemDetails(activity: AddItemActivity, itemInfo: Item) {
-
         mFireStore.collection(Constants.ITEMS)
             .document()
             .set(itemInfo, SetOptions.merge())
