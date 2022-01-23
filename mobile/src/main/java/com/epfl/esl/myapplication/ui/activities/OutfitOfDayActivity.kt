@@ -89,7 +89,6 @@ class OutfitOfDayActivity : BaseActivity(), View.OnClickListener {
         if (v != null) {
             when (v.id) {
                 R.id.btn_dashboard_stop-> {
-
                     val intent = Intent(this, DashboardActivity::class.java)
                     startActivity(intent)
                 }

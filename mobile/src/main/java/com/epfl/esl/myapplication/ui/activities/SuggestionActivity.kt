@@ -135,16 +135,16 @@ class SuggestionActivity : BaseActivity(), View.OnClickListener {
                     if(chosenTop.id_clothing!=""&&chosenButtom.id_clothing!=""&&chosenShoes.id_clothing!=""){
                     Log.d("yoyoyoyoy","top = "+chosenTop.id_clothing)
                     Log.d("yoyoyoyoy","buttom = "+chosenButtom.id_clothing)
-                    Log.d("yoyoyoyoy","shoes = "+chosenShoes.id_clothing)}
-                    else {Log.d("yoyoyoyoy","not yet")}
+                    Log.d("yoyoyoyoy","shoes = "+chosenShoes.id_clothing)
+                        val intent = Intent(this, OutfitOfDayActivity::class.java)
+                        intent.putExtra(Constants.CHOSENTOP,chosenTop.id_clothing)
+                        intent.putExtra(Constants.CHOSENBOTTOM,chosenButtom.id_clothing)
+                        intent.putExtra(Constants.CHOSENSHOES,chosenShoes.id_clothing)
+                        startActivity(intent)
+                    }
+                    else {Toast.makeText(this, "No enough available items..." , Toast.LENGTH_SHORT).show()}
 
-                    val intent = Intent(this, OutfitOfDayActivity::class.java)
-                    intent.putExtra(Constants.CHOSENTOP,chosenTop.id_clothing)
-                    intent.putExtra(Constants.CHOSENBOTTOM,chosenButtom.id_clothing)
-                    intent.putExtra(Constants.CHOSENSHOES,chosenShoes.id_clothing)
 
-
-                    startActivity(intent)
 
                 }
 
@@ -152,9 +152,6 @@ class SuggestionActivity : BaseActivity(), View.OnClickListener {
                         if (listTop.size!=0  && listButtom.size!=0 && listShoes.size!=0)
 
                         {
-                            Log.d("yoyoyoyoy",listTop.size.toString() )
-                            Log.d("yoyoyoyoy",listButtom.size.toString() )
-                            Log.d("yoyoyoyoy",listShoes.size.toString() )
                             getSelectionItem(listTop, Constants.TOP)
                             getSelectionItem(listButtom, Constants.BOTTOM)
                             getSelectionItem(listShoes, Constants.SHOES)
@@ -162,13 +159,7 @@ class SuggestionActivity : BaseActivity(), View.OnClickListener {
 
                         }
                         else{
-//                            FirestoreClass().getItemListWithCriterias( this,Constants.TOP, season, purpose)
-//                            FirestoreClass().getItemListWithCriterias(this,Constants.BOTTOM, season, purpose)
-//                            FirestoreClass().getItemListWithCriterias( this,Constants.SHOES, season, purpose)
-//                            getSelectionItem(listTop, Constants.TOP)
-//                            getSelectionItem(listButtom, Constants.BOTTOM)
-//                            getSelectionItem(listShoes, Constants.SHOES)
-                        }
+                            Toast.makeText(this, "No enough available items..." , Toast.LENGTH_SHORT).show()                        }
                     }
 
                 }
