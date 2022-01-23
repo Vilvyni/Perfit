@@ -10,10 +10,14 @@ import kotlinx.android.synthetic.main.activity_add_outfit.*
 import kotlinx.android.synthetic.main.activity_suggestion.*
 import android.content.Intent
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.epfl.esl.myapplication.firestore.FirestoreClass
 import com.epfl.esl.myapplication.models.Clothing
 import com.epfl.esl.myapplication.ui.fragments.DashboardFragment
 import com.epfl.esl.myapplication.utils.GlideLoader
+import com.google.android.gms.tasks.Tasks
+import com.google.android.gms.wearable.MessageClient
+import com.google.android.gms.wearable.Wearable
 import kotlinx.android.synthetic.main.fragment_outfits.*
 import java.util.*
 import kotlin.collections.ArrayList
@@ -114,6 +118,10 @@ class SuggestionActivity : BaseActivity(), View.OnClickListener {
             when (v.id) {
 
                 R.id.btn_suggestion_confirm -> {
+
+                    sendCommandToWear("Start")
+                    sendcleanessToWear(200)
+
                     if(chosenTop.id_clothing!=""&&chosenButtom.id_clothing!=""&&chosenShoes.id_clothing!=""){
                     Log.d("yoyoyoyoy","top = "+chosenTop.id_clothing)
                     Log.d("yoyoyoyoy","buttom = "+chosenButtom.id_clothing)
@@ -167,4 +175,41 @@ class SuggestionActivity : BaseActivity(), View.OnClickListener {
             FirestoreClass().getItemListWithCriterias( this,Constants.SHOES, season, purpose)
         }
 
+
+    private fun sendCommandToWear(command: String){
+        Thread(Runnable {
+            val connectedNodes: List<String> = Tasks
+                .await(
+                    Wearable
+                        .getNodeClient(this as MainActivity).connectedNodes)
+                .map { it.id }
+            connectedNodes.forEach {
+                val messageClient: MessageClient = Wearable
+                    .getMessageClient(this as AppCompatActivity)
+                messageClient.sendMessage(it, "/command", command.toByteArray())
+            }
+        }).start()
+    }
+
+    private fun sendcleanessToWear(cleaness: Int) {
+
+        Thread(Runnable {
+            val connectedNodes: List<String> = Tasks
+                .await(
+                    Wearable
+                        .getNodeClient(this as MainActivity).connectedNodes
+                )
+                .map { it.id }
+            connectedNodes.forEach {
+                val messageClient: MessageClient = Wearable
+                    .getMessageClient(this as AppCompatActivity)
+                messageClient.sendMessage(it, "/cleaness", cleaness.toString().toByteArray())
+            }
+        }).start()
+    }
+
+    private fun sendDataToWear()
+    {
+
+    }
 }
