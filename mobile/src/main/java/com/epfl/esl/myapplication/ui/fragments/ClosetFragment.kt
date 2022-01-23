@@ -5,16 +5,21 @@ import android.os.Bundle
 import android.view.*
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.epfl.esl.myapplication.R
+import com.epfl.esl.myapplication.databinding.FragmentClosetBinding
+import com.epfl.esl.myapplication.databinding.FragmentDashboardBinding
 import com.epfl.esl.myapplication.firestore.FirestoreClass
 import com.epfl.esl.myapplication.models.Clothing
 import com.myshoppal.ui.adapters.MyItemsListAdapter
 import kotlinx.android.synthetic.main.fragment_closet.*
 import com.epfl.esl.myapplication.ui.activities.AddClothesActivity
+import com.epfl.esl.myapplication.utils.Constants
 
 
 class ClosetFragment : BaseFragment(){
+    private lateinit var binding : FragmentClosetBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,46 +27,31 @@ class ClosetFragment : BaseFragment(){
         setHasOptionsMenu(true)
     }
 
-    fun deleteItem(itemID: String) {
-        // Here we will call the delete function of the FirestoreClass. But, for now lets display the Toast message and call this function from adapter class.
-        showAlertDialogToDeleteItem(itemID)
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        binding = DataBindingUtil.inflate(inflater,R.layout.fragment_closet, container,false)
 
+        binding.btnLaundry.setOnClickListener {
+            FirestoreClass().cleanAll(Constants.TOP)
+            FirestoreClass().cleanAll(Constants.BOTTOM)
+            FirestoreClass().cleanAll(Constants.SHOES)
+
+            getItemListFromFireStore()
+
+
+            Toast.makeText(
+                requireActivity(),
+                "Great, all of your clothes are clean now.",
+                Toast.LENGTH_SHORT
+            ).show()
+        }
+        return binding.root
     }
 
-    private fun showAlertDialogToDeleteItem(itemID: String) {
 
-        val builder = AlertDialog.Builder(requireActivity())
-        //set title for alert dialog
-        builder.setTitle(resources.getString(R.string.delete_dialog_title))
-        //set message for alert dialog
-        builder.setMessage(resources.getString(R.string.delete_dialog_message))
-        builder.setIcon(android.R.drawable.ic_dialog_alert)
-
-        //performing positive action
-        builder.setPositiveButton(resources.getString(R.string.yes)) { dialogInterface, _ ->
-            // Call the function to delete the product from cloud firestore.
-            // START
-            // Show the progress dialog.
-            showProgressDialog(resources.getString(R.string.please_wait))
-
-            // Call the function of Firestore class.
-            FirestoreClass().deleteItem(this, itemID)
-            // END
-
-            dialogInterface.dismiss()
-        }
-
-        //performing negative action
-        builder.setNegativeButton(resources.getString(R.string.no)) { dialogInterface, _ ->
-
-            dialogInterface.dismiss()
-        }
-        // Create the AlertDialog
-        val alertDialog: AlertDialog = builder.create()
-        // Set other dialog properties
-        alertDialog.setCancelable(false)
-        alertDialog.show()
-    }
 
     fun itemDeleteSuccess(){
         hideProgressDialog()
@@ -178,23 +168,7 @@ class ClosetFragment : BaseFragment(){
     // START
     /*private lateinit var homeViewModel: HomeViewModel*/
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        /*homeViewModel =
-            ViewModelProviders.of(this).get(HomeViewModel::class.java)*/
 
-        val root = inflater.inflate(R.layout.fragment_closet, container, false)
-
-
-        /*homeViewModel.text.observe(viewLifecycleOwner, Observer {
-            textView.text = it
-        })*/
-
-        return root
-    }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.add_item_menu, menu)

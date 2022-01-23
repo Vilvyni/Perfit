@@ -64,6 +64,8 @@ object Constants {
     const val NIGHT: String = "night"
 
     const val PURPOSE: String = "purpose"
+    const val CLEANLINESS: String = "cleanliness"
+
 
     const val SUGGESTION : String = "suss"
 

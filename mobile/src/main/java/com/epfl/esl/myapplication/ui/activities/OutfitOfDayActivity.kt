@@ -1,16 +1,19 @@
 package com.epfl.esl.myapplication.ui.activities
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import com.epfl.esl.myapplication.R
 import com.epfl.esl.myapplication.firestore.FirestoreClass
 import com.epfl.esl.myapplication.models.Clothing
 import com.epfl.esl.myapplication.utils.Constants
 import com.epfl.esl.myapplication.utils.GlideLoader
 import kotlinx.android.synthetic.main.activity_outfit_of_day.*
+import kotlinx.android.synthetic.main.activity_suggestion.*
 
-class OutfitOfDayActivity : BaseActivity() {
+class OutfitOfDayActivity : BaseActivity(), View.OnClickListener {
 
     var chosenTopId:String= ""
     var chosenButtomId:String= ""
@@ -31,6 +34,9 @@ class OutfitOfDayActivity : BaseActivity() {
             Log.i("Product Id", chosenTopId)
         }
         getProductDetails()
+
+        btn_dashboard_stop.setOnClickListener(this)
+
 
 
 
@@ -78,4 +84,16 @@ class OutfitOfDayActivity : BaseActivity() {
             cleanessShoes.text = item.cleanliness.toString()
         }
     }
-}
+
+    override fun onClick(v: View?) {
+        if (v != null) {
+            when (v.id) {
+                R.id.btn_dashboard_stop-> {
+
+                    val intent = Intent(this, DashboardActivity::class.java)
+                    startActivity(intent)
+                }
+                }
+            }
+        }
+    }

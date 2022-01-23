@@ -312,6 +312,36 @@ class FirestoreClass {
             }
     }
 
+    fun cleanAll(category:String) {
+
+        mFireStore.collection(category)
+            .whereEqualTo(Constants.ID_USER, getCurrentUserID())  // only get the elements that fit our user ID
+            .get() // Will get the documents snapshots.
+            .addOnSuccessListener { document ->
+
+                // Here we get the list of boards in the form of documents.
+                Log.e("Items List", document.documents.toString())
+
+
+                // Here we have created a new instance for Products ArrayList.
+                val cleanliness = hashMapOf(Constants.CLEANLINESS to 100)
+                // A for loop as per the list of documents to convert them into Products ArrayList.
+                for (i in document.documents) {
+
+                    val item = i.toObject(Clothing::class.java)
+                    item!!.id_clothing = i.id // create a new product id
+                    mFireStore.collection(category).document(item.id_clothing).set(cleanliness,SetOptions.merge())
+
+                }
+
+            }
+            .addOnFailureListener { e ->
+                // Hide the progress dialog if there is any error based on the base class instance.
+                Log.e("Get Item List", "Error while getting product list.", e)
+            }
+
+    }
+
 
 
     fun getItemsListClothes(activity: Activity,category: String) {
@@ -468,14 +498,9 @@ class FirestoreClass {
                 val outfitList:ArrayList<Clothing> = ArrayList()
                 // A for loop as per the list of documents to convert them into Products ArrayList.
                 for (i in document.documents) {
-
-
-
                     val item = i.toObject(Clothing::class.java)
                     item!!.id_clothing = i.id // create a new product id
-
-                    outfitList.add(item)
-                    Log.d("yoyolololo","top item: "+ outfitList.size.toString())
+                    if(item.cleanliness>0) outfitList.add(item)
                 }
 
 
@@ -508,7 +533,7 @@ class FirestoreClass {
     fun getItemsListTop(fragment: Fragment) {
         // The collection name for PRODUCTS
         mFireStore.collection(Constants.TOP)
-            .whereEqualTo(Constants.ID_USER, getCurrentUserID())  // only get the elements that fit our user ID
+            .whereEqualTo(Constants.ID_USER, getCurrentUserID())// only get the elements that fit our user ID
             .get() // Will get the documents snapshots.
             .addOnSuccessListener { document ->
 
@@ -524,9 +549,10 @@ class FirestoreClass {
 
                     val item = i.toObject(Clothing::class.java)
                     item!!.id_clothing = i.id // create a new product id
-
-                    topList.add(item)
+                    if(item.cleanliness>0) topList.add(item)
                 }
+                Log.e("hizzzzz",topList.size.toString() )
+
 
                 when (fragment) {
                     is ClosetFragment -> {
@@ -565,8 +591,7 @@ class FirestoreClass {
                     val item = i.toObject(Clothing::class.java)
                     item!!.id_clothing = i.id // create a new product id
 
-                    topList.add(item)
-                }
+                    if(item.cleanliness>0) topList.add(item)                }
 
                 when (fragment) {
                     is ClosetFragment -> {
@@ -605,7 +630,7 @@ class FirestoreClass {
                     val item = i.toObject(Clothing::class.java)
                     item!!.id_clothing = i.id // create a new product id
 
-                    topList.add(item)
+                    if(item.cleanliness>0) topList.add(item)
                 }
 
                 when (fragment) {
@@ -625,29 +650,7 @@ class FirestoreClass {
             }
 
     }
-    fun deleteItem(fragment: ClosetFragment, itemId: String) {
 
-        mFireStore.collection(Constants.ITEMS)
-            .document(itemId)
-            .delete()
-            .addOnSuccessListener {
-
-
-                fragment.itemDeleteSuccess()
-
-            }
-            .addOnFailureListener { e ->
-
-                // Hide the progress dialog if there is an error.
-                fragment.hideProgressDialog()
-
-                Log.e(
-                    fragment.requireActivity().javaClass.simpleName,
-                    "Error while deleting the product.",
-                    e
-                )
-            }
-    }
 
 
 
