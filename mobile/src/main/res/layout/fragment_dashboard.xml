@@ -60,96 +60,6 @@
 
         </FrameLayout>
 
-
-        <ImageView
-            android:id="@+id/chosenTop"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            app:layout_constraintBottom_toTopOf="@+id/btn_dashboard_stop"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.096"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.487"
-            app:srcCompat="@drawable/ic_user_placeholder" />
-
-        <ImageView
-            android:id="@+id/chosenBottum"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_marginBottom="16dp"
-            app:layout_constraintBottom_toTopOf="@+id/chosenShoes"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.096"
-            app:layout_constraintStart_toStartOf="parent"
-            app:srcCompat="@drawable/ic_user_placeholder" />
-
-        <ImageView
-            android:id="@+id/chosenShoes"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_marginBottom="30dp"
-            app:layout_constraintBottom_toTopOf="@+id/btn_dashboard_stop"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.096"
-            app:layout_constraintStart_toStartOf="parent"
-            app:srcCompat="@drawable/ic_user_placeholder" />
-
-        <Button
-            android:id="@+id/btn_dashboard_stop"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="66dp"
-            android:background="@drawable/button_background"
-            android:fontFamily="@font/montserrat"
-            android:foreground="?attr/selectableItemBackground"
-            android:gravity="center"
-            android:minHeight="60dp"
-            android:paddingTop="@dimen/btn_padding"
-            android:paddingBottom="@dimen/btn_padding"
-            android:text="STOP"
-            android:textColor="@android:color/white"
-            android:textSize="@dimen/btn_textSize"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <TextView
-            android:id="@+id/cleanessTop"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Cleaness Top"
-            app:layout_constraintBottom_toBottomOf="@+id/chosenTop"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/chosenTop"
-            app:layout_constraintTop_toTopOf="@+id/chosenTop" />
-
-
-        <TextView
-            android:id="@+id/cleanessButtom"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Cleaness Bottom"
-            app:layout_constraintBottom_toBottomOf="@+id/chosenBottum"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/chosenBottum"
-            app:layout_constraintTop_toTopOf="@+id/chosenBottum" />
-
-        <TextView
-            android:id="@+id/cleanessShoes"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Cleaness shoes"
-            app:layout_constraintBottom_toBottomOf="@+id/chosenShoes"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/chosenShoes"
-            app:layout_constraintTop_toTopOf="@+id/chosenShoes" />
-
-
         <com.epfl.esl.myapplication.utils.MSPTextViewBold
             android:id="@+id/tv_style"
             android:visibility="gone"
@@ -165,7 +75,6 @@
 
         <com.epfl.esl.myapplication.utils.MSPTextView
             android:id="@+id/tv_style_description"
-            android:visibility="gone"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="50dp"
@@ -221,8 +130,6 @@
             android:paddingTop="@dimen/btn_padding"
             android:paddingBottom="@dimen/btn_padding"
             android:text="CASUAL"
-            android:visibility="gone"
-
             android:textColor="@android:color/white"
             android:textSize="@dimen/btn_textSize"
             app:layout_constraintEnd_toEndOf="parent"
@@ -237,7 +144,6 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="30dp"
             android:layout_marginEnd="16dp"
-            android:visibility="gone"
             android:background="@drawable/button_background"
             android:foreground="?attr/selectableItemBackground"
             android:minHeight="60dp"
@@ -264,7 +170,6 @@
             android:background="@drawable/button_background"
             android:foreground="?attr/selectableItemBackground"
             android:minHeight="60dp"
-            android:visibility="gone"
 
             android:gravity="center"
             android:paddingTop="@dimen/btn_padding"
@@ -276,35 +181,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/btn_dashboard_formal" />
 
-        <TextView
-            android:id="@+id/tv_no_dashboard_items_found"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:text="@string/no_dashboard_item_found"
-            android:textAlignment="center"
-            android:textSize="@dimen/no_data_found_textSize"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            android:visibility="gone"
 
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <com.epfl.esl.myapplication.utils.MSPTextViewBold
-            android:id="@+id/title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Monitor Cleanliness"
-            android:textColor="@color/dark"
-            android:textSize="25dp"
-            app:layout_constraintBottom_toTopOf="@+id/chosenTop"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.578"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/fl_header_Weather" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

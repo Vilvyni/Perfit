@@ -16,8 +16,8 @@ import com.epfl.esl.myapplication.models.Clothing
 import com.epfl.esl.myapplication.ui.fragments.DashboardFragment
 import com.epfl.esl.myapplication.utils.GlideLoader
 import com.google.android.gms.tasks.Tasks
-import com.google.android.gms.wearable.MessageClient
-import com.google.android.gms.wearable.Wearable
+//import com.google.android.gms.wearable.MessageClient
+//import com.google.android.gms.wearable.Wearable
 import kotlinx.android.synthetic.main.fragment_outfits.*
 import java.util.*
 import kotlin.collections.ArrayList
@@ -82,31 +82,41 @@ class SuggestionActivity : BaseActivity(), View.OnClickListener {
             val random_index:Int = (0 until tot_item).random()
             Log.d("hihi", category + " item "+ random_index.toString() +" is choosen")
 
+            Log.d("zozozo", category)
+
             if(category == Constants.TOP)
             {
-                for (item in itemList )
-                {listTop.add(item)}
+
+                if (listTop.size==0){
+                    for (item in itemList )
+                    {listTop.add(item)}}
+                Log.d("hiiiii", category + " has "  +listTop.toString()+"item ")
+
                 chosenTop = listTop[random_index]
                 GlideLoader(this).loadItemPicture(chosenTop.image,iv_user_top)
 
             }
             if(category == Constants.BOTTOM)
             {
-                for (item in itemList )
-                {listButtom.add(item)}
+                if (listButtom.size==0){
+                    for (item in itemList )
+                    {listButtom.add(item)}}
                 chosenButtom = listButtom[random_index]
                 GlideLoader(this).loadItemPicture(chosenButtom.image,iv_user_bottom)
             }
-            if(category == Constants.SHOES)
+            if(category == Constants.SHOES )
             {
-                for (item in itemList )
-                {listShoes.add(item)}
+                if (listShoes.size==0){
+                    for (item in itemList )
+                    {listShoes.add(item)}}
+                Log.d("hiiiii", category + " has "  +listShoes.toString()+"item ")
+
                 chosenShoes = listShoes[random_index]
                 GlideLoader(this).loadItemPicture(chosenShoes.image,iv_user_shoes)
             }
         }
         else{
-//            Toast.makeText(this, "no item for in " + category  , Toast.LENGTH_SHORT).show()
+           Toast.makeText(this, "no item for in " + category  , Toast.LENGTH_SHORT).show()
         }
 
 
@@ -119,8 +129,8 @@ class SuggestionActivity : BaseActivity(), View.OnClickListener {
 
                 R.id.btn_suggestion_confirm -> {
 
-                    sendCommandToWear("Start")
-                    sendcleanessToWear(200)
+//                    sendCommandToWear("Start")
+//                    sendcleanessToWear(200)
 
                     if(chosenTop.id_clothing!=""&&chosenButtom.id_clothing!=""&&chosenShoes.id_clothing!=""){
                     Log.d("yoyoyoyoy","top = "+chosenTop.id_clothing)
@@ -139,9 +149,26 @@ class SuggestionActivity : BaseActivity(), View.OnClickListener {
                 }
 
                     R.id.btn_suggestion_try_again -> {
-                        getSelectionItem(listTop, Constants.TOP)
-                        getSelectionItem(listButtom, Constants.BOTTOM)
-                        getSelectionItem(listShoes, Constants.SHOES)
+                        if (listTop.size!=0  && listButtom.size!=0 && listShoes.size!=0)
+
+                        {
+                            Log.d("yoyoyoyoy",listTop.size.toString() )
+                            Log.d("yoyoyoyoy",listButtom.size.toString() )
+                            Log.d("yoyoyoyoy",listShoes.size.toString() )
+                            getSelectionItem(listTop, Constants.TOP)
+                            getSelectionItem(listButtom, Constants.BOTTOM)
+                            getSelectionItem(listShoes, Constants.SHOES)
+
+
+                        }
+                        else{
+//                            FirestoreClass().getItemListWithCriterias( this,Constants.TOP, season, purpose)
+//                            FirestoreClass().getItemListWithCriterias(this,Constants.BOTTOM, season, purpose)
+//                            FirestoreClass().getItemListWithCriterias( this,Constants.SHOES, season, purpose)
+//                            getSelectionItem(listTop, Constants.TOP)
+//                            getSelectionItem(listButtom, Constants.BOTTOM)
+//                            getSelectionItem(listShoes, Constants.SHOES)
+                        }
                     }
 
                 }
@@ -176,40 +203,40 @@ class SuggestionActivity : BaseActivity(), View.OnClickListener {
         }
 
 
-    private fun sendCommandToWear(command: String){
-        Thread(Runnable {
-            val connectedNodes: List<String> = Tasks
-                .await(
-                    Wearable
-                        .getNodeClient(this as MainActivity).connectedNodes)
-                .map { it.id }
-            connectedNodes.forEach {
-                val messageClient: MessageClient = Wearable
-                    .getMessageClient(this as AppCompatActivity)
-                messageClient.sendMessage(it, "/command", command.toByteArray())
-            }
-        }).start()
-    }
-
-    private fun sendcleanessToWear(cleaness: Int) {
-
-        Thread(Runnable {
-            val connectedNodes: List<String> = Tasks
-                .await(
-                    Wearable
-                        .getNodeClient(this as MainActivity).connectedNodes
-                )
-                .map { it.id }
-            connectedNodes.forEach {
-                val messageClient: MessageClient = Wearable
-                    .getMessageClient(this as AppCompatActivity)
-                messageClient.sendMessage(it, "/cleaness", cleaness.toString().toByteArray())
-            }
-        }).start()
-    }
-
-    private fun sendDataToWear()
-    {
-
-    }
+//    private fun sendCommandToWear(command: String){
+//        Thread(Runnable {
+//            val connectedNodes: List<String> = Tasks
+//                .await(
+//                    Wearable
+//                        .getNodeClient(this as MainActivity).connectedNodes)
+//                .map { it.id }
+//            connectedNodes.forEach {
+//                val messageClient: MessageClient = Wearable
+//                    .getMessageClient(this as AppCompatActivity)
+//                messageClient.sendMessage(it, "/command", command.toByteArray())
+//            }
+//        }).start()
+//    }
+//
+//    private fun sendcleanessToWear(cleaness: Int) {
+//
+//        Thread(Runnable {
+//            val connectedNodes: List<String> = Tasks
+//                .await(
+//                    Wearable
+//                        .getNodeClient(this as MainActivity).connectedNodes
+//                )
+//                .map { it.id }
+//            connectedNodes.forEach {
+//                val messageClient: MessageClient = Wearable
+//                    .getMessageClient(this as AppCompatActivity)
+//                messageClient.sendMessage(it, "/cleaness", cleaness.toString().toByteArray())
+//            }
+//        }).start()
+//    }
+//
+//    private fun sendDataToWear()
+//    {
+//
+//    }
 }

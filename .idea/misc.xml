@@ -114,6 +114,7 @@
         <entry key="mobile/src/main/res/layout/activity_forgot_password.xml" value="0.1" />
         <entry key="mobile/src/main/res/layout/activity_login.xml" value="0.33" />
         <entry key="mobile/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="mobile/src/main/res/layout/activity_outfit_of_day.xml" value="0.28532608695652173" />
         <entry key="mobile/src/main/res/layout/activity_outfit_selection.xml" value="0.38697916666666665" />
         <entry key="mobile/src/main/res/layout/activity_register.xml" value="0.29595015576323985" />
         <entry key="mobile/src/main/res/layout/activity_settings.xml" value="0.17980072463768115" />
@@ -126,7 +127,7 @@
         <entry key="mobile/src/main/res/layout/fragment_add_outfit.xml" value="0.20925925925925926" />
         <entry key="mobile/src/main/res/layout/fragment_base.xml" value="0.40208333333333335" />
         <entry key="mobile/src/main/res/layout/fragment_closet.xml" value="0.33" />
-        <entry key="mobile/src/main/res/layout/fragment_dashboard.xml" value="0.1" />
+        <entry key="mobile/src/main/res/layout/fragment_dashboard.xml" value="0.25" />
         <entry key="mobile/src/main/res/layout/fragment_home.xml" value="0.20878623188405798" />
         <entry key="mobile/src/main/res/layout/fragment_login.xml" value="0.1" />
         <entry key="mobile/src/main/res/layout/fragment_outfit.xml" value="0.2740628166160081" />
