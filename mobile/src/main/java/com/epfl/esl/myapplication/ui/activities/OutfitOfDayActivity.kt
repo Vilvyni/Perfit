@@ -25,9 +25,9 @@ class OutfitOfDayActivity : BaseActivity() {
             chosenTopId =
                 intent.getStringExtra(Constants.CHOSENTOP)!!
             chosenButtomId =
-                intent.getStringExtra(Constants.CHOSENTOP)!!
+                intent.getStringExtra(Constants.CHOSENBOTTOM)!!
             chosenShoesId =
-                intent.getStringExtra(Constants.CHOSENTOP)!!
+                intent.getStringExtra(Constants.CHOSENSHOES)!!
             Log.i("Product Id", chosenTopId)
         }
         getProductDetails()
