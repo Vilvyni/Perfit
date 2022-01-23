@@ -686,4 +686,29 @@ class FirestoreClass {
                 Log.e(fragment.javaClass.simpleName, "Error while getting dashboard items list.", e)
             }
     }
+
+    fun getProductDetails(activity: OutfitOfDayActivity, productId: String, category: String) {
+        Log.d("hihihih",productId + category )
+        // The collection name for PRODUCTS
+        mFireStore.collection(category)
+            .document(productId)
+            .get() // Will get the document snapshots.
+            .addOnSuccessListener { document ->
+
+                // Here we get the product details in the form of document.
+                Log.e(activity.javaClass.simpleName, document.toString())
+
+                // Convert the snapshot to the object of Product data model class.
+                val product = document.toObject(Clothing::class.java)!!
+
+                activity.productDetailsSuccess(product,category)
+            }
+            .addOnFailureListener { e ->
+
+                // Hide the progress dialog if there is an error.
+                activity.hideProgressDialog()
+
+                Log.e(activity.javaClass.simpleName, "Product Id " + category + "details.", e)
+            }
+    }
 }

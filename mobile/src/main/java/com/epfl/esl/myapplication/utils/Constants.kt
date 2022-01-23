@@ -22,6 +22,10 @@ object Constants {
 
     const val GOCLOSET: String = "goToCloset"
 
+    const val CHOSENTOP: String = "chosentop"
+    const val CHOSENBOTTOM: String = "chosenbottom"
+    const val CHOSENSHOES: String = "chosenshoes"
+
     const val IdClothing : String = "id_clothing"
 
 

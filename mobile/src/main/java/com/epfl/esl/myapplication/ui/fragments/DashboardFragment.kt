@@ -5,11 +5,13 @@ import android.os.Bundle
 import android.util.Log
 import android.view.*
 import android.widget.*
+import androidx.core.net.toUri
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.GridLayoutManager
 import com.epfl.esl.myapplication.R
 import com.epfl.esl.myapplication.databinding.FragmentDashboardBinding
 import com.epfl.esl.myapplication.firestore.FirestoreClass
+import com.epfl.esl.myapplication.models.Clothing
 import com.epfl.esl.myapplication.models.Item
 import com.epfl.esl.myapplication.ui.activities.SettingsActivity
 import com.epfl.esl.myapplication.ui.activities.SuggestionActivity
@@ -134,15 +136,7 @@ class DashboardFragment :BaseFragment() {
         return super.onOptionsItemSelected(item)
     }
 
-    override fun onResume() {
-        super.onResume()
-        if (getActivity()?.getIntent()?.getStringExtra(Constants.SUGGESTION) == "confirm") {
-            btn_dashboard_sporty.visibility = View.GONE
 
-
-        }
-
-    }
 
     /**
      * A function to get the dashboard items list from cloud firestore.

@@ -1,9 +1,12 @@
 package com.epfl.esl.myapplication.ui.activities
 
+import android.app.PendingIntent.getActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.core.content.ContextCompat
+import androidx.core.net.toUri
 import androidx.core.view.isGone
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.navigation.findNavController
@@ -13,6 +16,7 @@ import androidx.navigation.ui.setupWithNavController
 import com.epfl.esl.myapplication.R
 //import com.epfl.esl.myapplication.activities.databinding.ActivityDashboardBinding
 import com.epfl.esl.myapplication.databinding.ActivityDashboardBinding
+import com.epfl.esl.myapplication.models.Clothing
 import com.epfl.esl.myapplication.utils.Constants
 import kotlinx.android.synthetic.main.fragment_dashboard.*
 import kotlinx.android.synthetic.main.fragment_outfits.*
@@ -55,5 +59,7 @@ class DashboardActivity : BaseActivity() {
         doubleBackToExit()
 
     }
+
+
 
 }

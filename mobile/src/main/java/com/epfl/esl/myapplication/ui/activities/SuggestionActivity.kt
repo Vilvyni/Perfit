@@ -12,6 +12,7 @@ import android.content.Intent
 import android.widget.Toast
 import com.epfl.esl.myapplication.firestore.FirestoreClass
 import com.epfl.esl.myapplication.models.Clothing
+import com.epfl.esl.myapplication.ui.fragments.DashboardFragment
 import com.epfl.esl.myapplication.utils.GlideLoader
 import kotlinx.android.synthetic.main.fragment_outfits.*
 import java.util.*
@@ -31,12 +32,13 @@ class SuggestionActivity : BaseActivity(), View.OnClickListener {
     // A global variable for product id.
     private var season: String = ""
     private var purpose: String = ""
-    lateinit var listTop: ArrayList<Clothing>
-    lateinit var listButtom: ArrayList<Clothing>
-    lateinit var listShoes: ArrayList<Clothing>
-    lateinit var chosenTop:Clothing
-    lateinit var chosenButtom:Clothing
-    lateinit var chosenShoes:Clothing
+    val listTop: ArrayList<Clothing> = ArrayList()
+    val listButtom: ArrayList<Clothing> = ArrayList()
+    val listShoes: ArrayList<Clothing> = ArrayList()
+     var chosenTop:Clothing= Clothing()
+     var chosenButtom:Clothing= Clothing()
+     var chosenShoes:Clothing= Clothing()
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -78,20 +80,23 @@ class SuggestionActivity : BaseActivity(), View.OnClickListener {
 
             if(category == Constants.TOP)
             {
-                listTop = itemList
+                for (item in itemList )
+                {listTop.add(item)}
                 chosenTop = listTop[random_index]
                 GlideLoader(this).loadItemPicture(chosenTop.image,iv_user_top)
 
             }
             if(category == Constants.BOTTOM)
             {
-                listButtom = itemList
+                for (item in itemList )
+                {listButtom.add(item)}
                 chosenButtom = listButtom[random_index]
                 GlideLoader(this).loadItemPicture(chosenButtom.image,iv_user_bottom)
             }
             if(category == Constants.SHOES)
             {
-                listShoes= itemList
+                for (item in itemList )
+                {listShoes.add(item)}
                 chosenShoes = listShoes[random_index]
                 GlideLoader(this).loadItemPicture(chosenShoes.image,iv_user_shoes)
             }
@@ -109,8 +114,18 @@ class SuggestionActivity : BaseActivity(), View.OnClickListener {
             when (v.id) {
 
                 R.id.btn_suggestion_confirm -> {
-                    val intent = Intent(this, DashboardActivity::class.java)
-                    intent.putExtra(Constants.SUGGESTION,"confirm")
+                    if(chosenTop.id_clothing!=""&&chosenButtom.id_clothing!=""&&chosenShoes.id_clothing!=""){
+                    Log.d("yoyoyoyoy","top = "+chosenTop.id_clothing)
+                    Log.d("yoyoyoyoy","buttom = "+chosenButtom.id_clothing)
+                    Log.d("yoyoyoyoy","shoes = "+chosenShoes.id_clothing)}
+                    else {Log.d("yoyoyoyoy","not yet")}
+
+                    val intent = Intent(this, OutfitOfDayActivity::class.java)
+                    intent.putExtra(Constants.CHOSENTOP,chosenTop.id_clothing)
+                    intent.putExtra(Constants.CHOSENBOTTOM,chosenButtom.id_clothing)
+                    intent.putExtra(Constants.CHOSENSHOES,chosenShoes.id_clothing)
+
+
                     startActivity(intent)
 
                 }
@@ -136,7 +151,11 @@ class SuggestionActivity : BaseActivity(), View.OnClickListener {
                 actionBar.setHomeAsUpIndicator(R.drawable.ic_white_back_24dp)
             }
 
-            toolbar_suggestion_activity.setNavigationOnClickListener { onBackPressed() }
+            toolbar_suggestion_activity.setNavigationOnClickListener { onBackPressed()
+//                val intent = Intent(this, DashboardActivity::class.java)
+//                intent.putExtra(Constants.SUGGESTION,"back")
+//                startActivity(intent)
+            }
         }
 
         override fun onResume() {
